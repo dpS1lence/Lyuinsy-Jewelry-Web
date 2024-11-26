@@ -10,21 +10,15 @@ const router = createBrowserRouter([
       children: [
           {
             index: true,  
-            element: (
-              <Home />
-            )
+            element: <Home />
           },
           {
-            path: "home",  
-            element: (
-              <Home />
-            )
+            path: "/home",  
+            element: <Home />
           },
           {
-            path: "item-purchase-direct/:id",
-            element: (
-              <ItemPurchaseDirect />
-            )
+            path: "/item-purchase-direct/:id",
+            element: <ItemPurchaseDirect />
           },
       ]
   }
