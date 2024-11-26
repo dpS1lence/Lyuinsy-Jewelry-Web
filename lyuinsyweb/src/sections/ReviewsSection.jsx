@@ -3,39 +3,39 @@ import { useState, useEffect } from 'react';
 export default function ReviewsSection() {
     const reviews = [
         {
-          name: "Sarah Mitchell",
+          name: "Сара Мичъл",
           image: "https://randomuser.me/api/portraits/women/1.jpg", 
           rating: 5,
-          text: "The Diamond Eternity Ring exceeded all my expectations. The craftsmanship is impeccable, and it sparkles like nothing I've ever seen before!",
-          title: "Absolutely Stunning"
+          text: "Диамантеният Вечен Пръстен надмина всичките ми очаквания. Изработката е безупречна, а блясъкът му е като нищо, което съм виждала преди!",
+          title: "Абсолютно Зашеметяващ"
         },
         {
-          name: "James Wilson",
+          name: "Джеймс Уилсън",
           image: "https://randomuser.me/api/portraits/men/2.jpg",
           rating: 5, 
-          text: "My wife was speechless when I gave her the Sapphire Pendant. The quality and attention to detail is remarkable.",
-          title: "Perfect Anniversary Gift"
+          text: "Съпругата ми остана без думи, когато й подарих Сапфирения Пендант. Качеството и вниманието към детайла са забележителни.",
+          title: "Перфектният Подарък за Годишнина"
         },
         {
-          name: "Emily Chen",
+          name: "Емили Чен",
           image: "https://randomuser.me/api/portraits/women/3.jpg",
           rating: 5,
-          text: "The Pearl Bracelet is pure elegance. Each pearl is perfectly matched and the gold settings are beautifully crafted.",
-          title: "Pure Elegance"
+          text: "Бисерната Гривна е чиста елегантност. Всеки бисер е перфектно подбран, а златните настройки са изящно изработени.",
+          title: "Чиста Елегантност"
         },
         {
-          name: "Michael Brown",
+          name: "Майкъл Браун",
           image: "https://randomuser.me/api/portraits/men/4.jpg",
           rating: 5,
-          text: "Outstanding service and even better jewelry. The pieces are exactly as described and the quality is exceptional.",
-          title: "Exceptional Quality"
+          text: "Изключително обслужване и още по-добри бижута. Парчетата са точно както са описани, а качеството е изключително.",
+          title: "Изключително Качество"
         },
         {
-          name: "Sofia Rodriguez",
+          name: "София Родригес",
           image: "https://randomuser.me/api/portraits/women/5.jpg",
           rating: 5,
-          text: "I've never received so many compliments on a piece of jewelry before. Truly a conversation starter!",
-          title: "Show Stopper"
+          text: "Никога не съм получавала толкова много комплименти за бижу преди. Истински разговорен стартер!",
+          title: "Спирач на Вниманието"
         }
       ];
     
@@ -60,7 +60,7 @@ export default function ReviewsSection() {
         <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10 relative">
-            <h2 className="text-4xl font-serif">What Our Clients Say</h2>
+            <h2 className="text-4xl font-serif">Какво казват нашите клиенти</h2>
           </div>
 
           <div className="relative max-w-5xl mx-auto">

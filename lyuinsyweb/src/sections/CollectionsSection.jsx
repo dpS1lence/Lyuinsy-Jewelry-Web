@@ -1,38 +1,38 @@
 export default function CollectionsSection() {
     const collections = [
         {
-            title: "The Royal Collection",
-            description: "Timeless pieces featuring precious stones and intricate designs fit for royalty",
+            title: "Кралската Колекция",
+            description: "Вечни произведения с безценни камъни и сложни дизайни, достойни за кралски особи",
             image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?q=80&w=1000",
             theme: "bg-purple-50"
         },
         {
-            title: "Modern Minimalist",
-            description: "Clean lines and contemporary designs for the modern sophisticate",
+            title: "Модерен Минимализъм",
+            description: "Чисти линии и съвременни дизайни за модерния изискан вкус",
             image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?q=80&w=1000",
             theme: "bg-gray-50"
         },
         {
-            title: "Vintage Glamour",
-            description: "Art deco inspired pieces that capture the essence of classic Hollywood",
+            title: "Винтидж Блясък",
+            description: "Парчета, вдъхновени от арт деко, които улавят същността на класическия Холивуд",
             image: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?q=80&w=1000",
             theme: "bg-amber-50"
         },
         {
-            title: "Nature's Embrace",
-            description: "Organic forms and natural elements transformed into wearable art",
+            title: "Прегръдката на Природата",
+            description: "Органични форми и естествени елементи, превърнати в носимо изкуство",
             image: "https://images.unsplash.com/photo-1599643477877-530eb83abc8e?q=80&w=1000",
             theme: "bg-emerald-50"
         },
         {
-            title: "Bridal Dreams",
-            description: "Exquisite pieces to make your special day even more memorable",
+            title: "Сватбени Мечти",
+            description: "Изискани произведения, които ще направят вашия специален ден още по-незабравим",
             image: "https://images.unsplash.com/photo-1590548784585-643d2b9f2925?q=80&w=1000",
             theme: "bg-rose-50"
         },
         {
-            title: "Ocean's Treasures",
-            description: "Inspired by the sea's mystique, featuring pearls and aquamarine stones",
+            title: "Съкровищата на Океана",
+            description: "Вдъхновени от мистиката на морето, с перли и аквамаринови камъни",
             image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=1000",
             theme: "bg-blue-50"
         }
@@ -42,9 +42,9 @@ export default function CollectionsSection() {
         <section className="py-20 bg-white">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl font-serif mb-4">Our Collections</h2>
+                    <h2 className="text-4xl font-serif mb-4">Нашите Колекции</h2>
                     <p className="text-gray-600">
-                        Discover our carefully curated collections, each telling its own unique story
+                        Открийте нашите внимателно подбрани колекции, всяка от които разказва своята уникална история
                     </p>
                 </div>
 
@@ -70,7 +70,7 @@ export default function CollectionsSection() {
                                     {collection.description}
                                 </p>
                                 <div className="flex items-center text-emerald-700 font-medium">
-                                    <span>Explore Collection</span>
+                                    <span>Изследвай Колекцията</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                     </svg>

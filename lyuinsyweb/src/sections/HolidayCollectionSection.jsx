@@ -43,10 +43,10 @@ export default function HolidayCollectionSection() {
     <section className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 relative">
-          <h2 className="text-3xl font-serif mb-4">Holiday Collection</h2>
+          <h2 className="text-3xl font-serif mb-4">Колекция за Празници</h2>
           <p className="text-gray-600">
             <span className="mr-2">✨</span>
-            Exquisite pieces for unforgettable moments
+            Изключителни парчета за незабравими моменти
             <span className="ml-2">✨</span>
           </p>
         </div>
@@ -68,20 +68,20 @@ export default function HolidayCollectionSection() {
                   {hasDiscount && (
                     <div className="absolute top-4 right-4">
                       <span className="bg-red-600 text-white px-4 py-1 rounded-full text-sm font-bold">
-                        {discountPercent}% OFF
+                        {discountPercent}% ОТСТЪПКА
                       </span>
                     </div>
                   )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-serif mb-2">{item.title}</h3>
-                  <p className="text-gray-600 mb-4">{hasDiscount ? "Limited Time Offer" : "Exclusive Piece"}</p>
+                  <p className="text-gray-600 mb-4">{hasDiscount ? "Ограничено Време за Оферта" : "Ексклузивно Парче"}</p>
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                       {hasDiscount ? (
                         <>
-                          <span className="text-2xl font-light line-through text-gray-400">${item.price}</span>
-                          <span className="text-2xl font-bold text-red-600">${discountPrice}</span>
+                          <span className="text-2xl font-light line-through text-gray-400">{item.price}лв</span>
+                          <span className="text-2xl font-bold text-red-600">{discountPrice}лв</span>
                         </>
                       ) : (
                         <span className="text-2xl font-semibold text-gray-800">${item.price}</span>
@@ -91,7 +91,7 @@ export default function HolidayCollectionSection() {
                       onClick={() => handleReserveClick(item)}
                       className={`${hasDiscount ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-700'} text-white px-6 py-2 rounded-full transition`}
                     >
-                      Reserve for Christmas
+                      Резервирай за Коледа
                     </button>
                   </div>
                 </div>

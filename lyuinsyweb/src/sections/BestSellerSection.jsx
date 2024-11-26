@@ -17,10 +17,10 @@ export default function BestSellerSection() {
         <div className="container mx-auto px-8">
           <div className="text-center relative">
             <span className="absolute -top-12 left-1/2 transform -translate-x-1/2 text-5xl animate-bounce">🎄</span>
-            <h2 className="text-5xl font-serif mb-6 text-gray-900">Holiday Bestsellers</h2>
+            <h2 className="text-5xl font-serif mb-6 text-gray-900">Коледни Бестселъри</h2>
             <p className="text-gray-600 text-xl">
               <span className="mr-2">✨</span>
-              Create magical moments with our exquisite collection
+              Създайте магически моменти с нашата изключителна колекция
               <span className="ml-2">✨</span>
             </p>
           </div>
@@ -39,40 +39,40 @@ export default function BestSellerSection() {
                 <div className="lg:w-3/5">
                   <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div className="relative">
-                      <img src={Jewelry1} alt="Diamond Eternity Ring" className="w-full h-[600px] object-cover"/>
+                      <img src={Jewelry1} alt="Диамантено Вечно Кольцо" className="w-full h-[600px] object-cover"/>
                       <div className="absolute top-6 right-6">
                         <span className="bg-emerald-700 text-white px-8 py-3 rounded-full text-sm font-semibold shadow-lg">
-                          ✧ HOLIDAY SPECIAL ✧
+                          ✧ СПЕЦИАЛНА ОФЕРТА ✧
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="lg:w-2/5">
-                  <h2 className="text-4xl font-serif mb-8">The Perfect Holiday Gift</h2>
+                  <h2 className="text-4xl font-serif mb-8">Съвършеното Коледно Подарък</h2>
                   <div className="space-y-6 mb-12">
                     <p className="text-gray-600 text-lg leading-relaxed">
-                      Our <span className="font-semibold text-gray-800">signature Diamond Eternity Ring</span> embodies the spirit of endless love. Each diamond is meticulously selected to create a <span className="font-semibold text-gray-800">perfect circle of brilliance</span>.
+                      Нашето <span className="font-semibold text-gray-800">сигнатурно Диамантено Вечно Кольцо</span> въплъщава духа на безкрая любов. Всяко диамант е внимателно избрано, за да създаде <span className="font-semibold text-gray-800">съвършен кръг на блеска</span>.
                     </p>
                     <ul className="text-gray-600 text-lg leading-relaxed list-disc pl-8">
-                      <li>Premium 18k white gold setting</li>
-                      <li>15 round brilliant diamonds (2.5 carats total)</li>
-                      <li>Lifetime warranty included</li>
+                      <li>Премиум 18к бяло злато</li>
+                      <li>15 кръгли блестящи диаманта (общо 2.5 карата)</li>
+                      <li>Гаранция за цял живот включена</li>
                     </ul>
                   </div>
                   <div className="space-y-6">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-3">
-                        <span className="text-4xl font-light line-through text-gray-400">$2,499</span>
-                        <span className="text-4xl font-bold text-emerald-700">$1,624</span>
+                        <span className="text-4xl font-light line-through text-gray-400">53.40лв</span>
+                        <span className="text-4xl font-bold text-emerald-700">32.20лв</span>
                       </div>
                       <span className="text-emerald-700">★★★★★ (128)</span>
                     </div>
                     <div className="text-sm text-emerald-700 font-semibold">
-                      🎁 Complimentary gift wrapping & next-day delivery
+                      🎁 Безплатно опаковка за подарък и доставка за следващия ден
                     </div>
                     <button onClick={handleReserveClick} className="w-3/4 mx-auto block bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
-                      Reserve Now for Christmas
+                      Резервирай сега за Коледа
                     </button>
                   </div>
                 </div>
@@ -85,40 +85,40 @@ export default function BestSellerSection() {
                 <div className="lg:w-3/5">
                   <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div className="relative">
-                      <img src={Jewelry2} alt="Sapphire Pendant" className="w-full h-[600px] object-cover"/>
+                      <img src={Jewelry2} alt="Сапфирен Пендант" className="w-full h-[600px] object-cover"/>
                       <div className="absolute top-6 right-6">
                         <span className="bg-emerald-700 text-white px-8 py-3 rounded-full text-sm font-semibold shadow-lg">
-                          ✧ HOLIDAY SPECIAL ✧
+                          ✧ СПЕЦИАЛНА ОФЕРТА ✧
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="lg:w-2/5">
-                  <h2 className="text-4xl font-serif mb-8">A Touch of Winter Magic</h2>
+                  <h2 className="text-4xl font-serif mb-8">Докосване на Зимната Магия</h2>
                   <div className="space-y-6 mb-12">
                     <p className="text-gray-600 text-lg leading-relaxed">
-                      Our <span className="font-semibold text-gray-800">Royal Sapphire Pendant</span> captures the essence of winter's beauty. The <span className="font-semibold text-gray-800">deep blue Ceylon sapphire</span> is perfectly complemented by brilliant-cut diamonds.
+                      Нашето <span className="font-semibold text-gray-800">Кралско Сапфирено Кольцо</span> улавя сущността на зимната красота. <span className="font-semibold text-gray-800">Дълбокият син Цейлон сапфир</span> е перфектно допълнен от блестящи диаманти.
                     </p>
                     <ul className="text-gray-600 text-lg leading-relaxed list-disc pl-8">
-                      <li>Rare Ceylon sapphire centerpiece</li>
-                      <li>Diamond halo setting</li>
-                      <li>Platinum chain included</li>
+                      <li>Редък Цейлон сапфир в центъра</li>
+                      <li>Сетинг от диаманти</li>
+                      <li>Платинена верига включена</li>
                     </ul>
                   </div>
                   <div className="space-y-6">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-3">
-                        <span className="text-4xl font-light line-through text-gray-400">$1,899</span>
-                        <span className="text-4xl font-bold text-emerald-700">$1,139</span>
+                        <span className="text-4xl font-light line-through text-gray-400">102.90лв</span>
+                        <span className="text-4xl font-bold text-emerald-700">77.80лв</span>
                       </div>
                       <span className="text-emerald-700">★★★★★ (96)</span>
                     </div>
                     <div className="text-sm text-emerald-700 font-semibold">
-                      ❄️ Order now for guaranteed Christmas delivery
+                      ❄️ Поръчайте сега за гарантирана доставка за Коледа
                     </div>
                     <button onClick={handleReserveClick} className="w-3/4 mx-auto block bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
-                      Reserve Now for Christmas
+                      Резервирай сега за Коледа
                     </button>
                   </div>
                 </div>
@@ -131,40 +131,40 @@ export default function BestSellerSection() {
                 <div className="lg:w-3/5">
                   <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div className="relative">
-                      <img src={Jewelry3} alt="Pearl Bracelet" className="w-full h-[600px] object-cover"/>
+                      <img src={Jewelry3} alt="Бисерен Браслет" className="w-full h-[600px] object-cover"/>
                       <div className="absolute top-6 right-6">
                         <span className="bg-emerald-700 text-white px-8 py-3 rounded-full text-sm font-semibold shadow-lg">
-                          ✧ HOLIDAY SPECIAL ✧
+                          ✧ СПЕЦИАЛНА ОФЕРТА ✧
                         </span>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="lg:w-2/5">
-                  <h2 className="text-4xl font-serif mb-8">Winter's Finest Pearls</h2>
+                  <h2 className="text-4xl font-serif mb-8">Зимните Най-Фини Бисери</h2>
                   <div className="space-y-6 mb-12">
                     <p className="text-gray-600 text-lg leading-relaxed">
-                      Our <span className="font-semibold text-gray-800">South Sea Pearl Bracelet</span> brings elegance to any holiday celebration. Each pearl is <span className="font-semibold text-gray-800">carefully selected</span> for its exceptional luster.
+                      Нашето <span className="font-semibold text-gray-800">Бисерен Браслет от Южните Мори</span> носи елегантност на всяко коледно тържество. Всяко бисер е <span className="font-semibold text-gray-800">внимателно избрано</span> заради изключителната му сия.
                     </p>
                     <ul className="text-gray-600 text-lg leading-relaxed list-disc pl-8">
-                      <li>Premium South Sea pearls</li>
-                      <li>18k yellow gold settings</li>
-                      <li>Signature gift packaging</li>
+                      <li>Премиум бисери от Южните Мори</li>
+                      <li>Сетинг от 18к жълто злато</li>
+                      <li>Сигнатурна опаковка за подарък</li>
                     </ul>
                   </div>
                   <div className="space-y-6">
                     <div className="flex justify-between items-center">
                       <div className="flex items-center gap-3">
-                        <span className="text-4xl font-light line-through text-gray-400">$1,599</span>
-                        <span className="text-4xl font-bold text-emerald-700">$1,119</span>
+                        <span className="text-4xl font-light line-through text-gray-400">54.80лв</span>
+                        <span className="text-4xl font-bold text-emerald-700">48.50лв</span>
                       </div>
                       <span className="text-emerald-700">★★★★½ (84)</span>
                     </div>
                     <div className="text-sm text-emerald-700 font-semibold">
-                      🎄 Includes luxury holiday gift box
+                      🎄 Включва луксозна коледна опаковка за подарък
                     </div>
                     <button onClick={handleReserveClick} className="w-3/4 mx-auto block bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
-                      Reserve Now for Christmas
+                      Резервирай сега за Коледа
                     </button>
                   </div>
                 </div>
