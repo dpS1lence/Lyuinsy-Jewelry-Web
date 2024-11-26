@@ -6,15 +6,19 @@ import ItemPurchaseDirect from "./pages/ItemPurchaseDirect";
 const router = createBrowserRouter([
   {
       path: "/",
-      element: (
-        <Layout />
-      ),
+      element: <Layout />,
       children: [
           {
-              path: "home",
-              element: (
-                <Home />
-              )
+            index: true,  
+            element: (
+              <Home />
+            )
+          },
+          {
+            path: "home",  
+            element: (
+              <Home />
+            )
           },
           {
             path: "item-purchase-direct/:id",
