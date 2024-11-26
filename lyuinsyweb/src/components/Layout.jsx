@@ -39,7 +39,7 @@ export default function Layout() {
       <header className="bg-white border-b border-gray-100">
         <div className="container mx-auto px-4 py-4">
           <nav className="flex flex-wrap items-center justify-center space-x-4 md:space-x-12">
-            <a href="/" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Home</a>
+            <a href="/home" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Home</a>
             <a href="/collections" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Collections</a>
             <a href="/about" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">About</a>
             <a href="/contact" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Contact</a>
