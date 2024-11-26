@@ -1,0 +1,10 @@
+{
+  "routes": [
+    {
+      "route": "/home",
+      "methods": [
+        "get"
+      ]
+    }
+  ]
+}
