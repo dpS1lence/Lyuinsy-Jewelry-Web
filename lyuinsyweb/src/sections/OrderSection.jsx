@@ -9,7 +9,8 @@ export default function OrderSection() {
     const handleRecaptchaChange = (value) => {
         setRecaptchaValue(value);
       };
-    
+
+        console.error(sitekeyRE);
       const handleSubmit = (e) => {
         e.preventDefault();
         if (!recaptchaValue) {
