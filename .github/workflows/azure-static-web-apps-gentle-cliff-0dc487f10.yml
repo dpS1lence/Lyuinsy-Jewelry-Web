@@ -39,6 +39,7 @@ jobs:
         run: |
           npm install
           npm run build
+        working-directory: ./lyuinsyweb
 
       # Deploy to Azure Static Web Apps
       - name: Build And Deploy
