@@ -12,11 +12,6 @@ export default function OrderSection() {
 
       const handleSubmit = (e) => {
         e.preventDefault();
-        if (!recaptchaValue) {
-          alert("Please verify that you are not a robot.");
-          return;
-        }
-        // Proceed with form submission logic
       };
 
     return (
