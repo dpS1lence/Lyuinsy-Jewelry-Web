@@ -10,7 +10,6 @@ export default function OrderSection() {
         setRecaptchaValue(value);
       };
 
-        console.error(sitekeyRE);
       const handleSubmit = (e) => {
         e.preventDefault();
         if (!recaptchaValue) {
