@@ -15,9 +15,7 @@ const Home = () => {
       </ScrollAnimation>
 
       {/* Best Sellers Section */}
-      <ScrollAnimation>
         <BestSellerSection />
-      </ScrollAnimation>
 
       {/* Customer Reviews Section */}
       <ScrollAnimation>
@@ -27,12 +25,12 @@ const Home = () => {
       {/* Holiday Collection Grid */}
       <ScrollAnimation>
         <HolidayCollectionSection />
-      </ScrollAnimation>
+        </ScrollAnimation>
 
       {/* Collection Grid */}
       <ScrollAnimation>
         <CollectionsSection />
-      </ScrollAnimation>
+        </ScrollAnimation>
     </div>
   );
 };

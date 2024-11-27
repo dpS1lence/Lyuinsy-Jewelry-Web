@@ -76,7 +76,7 @@ export default function HolidayCollectionSection() {
                 <div className="p-6">
                   <h3 className="text-xl font-serif mb-2">{item.title}</h3>
                   <p className="text-gray-600 mb-4">{hasDiscount ? "Ограничено Време за Оферта" : "Ексклузивно Парче"}</p>
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-col md:flex-row justify-between items-center">
                     <div className="flex items-center gap-2">
                       {hasDiscount ? (
                         <>
@@ -89,7 +89,7 @@ export default function HolidayCollectionSection() {
                     </div>
                     <button 
                       onClick={() => handleReserveClick(item)}
-                      className={`${hasDiscount ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-700'} text-white px-6 py-2 rounded-full transition`}
+                      className={`${hasDiscount ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-700'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition`}
                     >
                       Резервирай за Коледа
                     </button>

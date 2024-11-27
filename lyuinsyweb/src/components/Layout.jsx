@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Logo from "../assets/images/Lyuinsy.png";
 import HolidayPopup from "./HolidayPopup";
+import { useNavigate } from "react-router-dom";
 
 export default function Layout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -9,11 +10,17 @@ export default function Layout() {
   useEffect(() => {
     // Show popup after 2 seconds
     const timer = setTimeout(() => {
-        setIsPopupOpen(true);
+        setIsPopupOpen(false);
     }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
+  let navigate = useNavigate();
+  const buynow = () => {
+    navigate({
+        pathname: '/collections'
+    }); 
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -42,8 +49,8 @@ export default function Layout() {
             <a href="/home" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Начало</a>
             <a href="/collections" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Колекции</a>
             <a href="/about" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">За нас</a>
-            <a href="/contact" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Контакт</a>
-            <button className="bg-emerald-700 text-white px-6 py-2 rounded-full hover:bg-emerald-800 transition-colors">
+            <a href="/contacts" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Контакт</a>
+            <button onClick={buynow} className="bg-emerald-700 text-white px-6 py-2 mt-2 lg:mt-0 rounded-full hover:bg-emerald-800 transition-colors">
               Купи сега
             </button>
           </nav>
@@ -69,7 +76,7 @@ export default function Layout() {
                 placeholder="Въведете вашата имейл адреса"
                 className="flex-1 bg-transparent px-6 py-3 text-white placeholder-gray-300 focus:outline-none"
               />
-              <button className="bg-white text-emerald-900 px-8 py-3 rounded-full font-medium hover:bg-gray-100 transition transform hover:scale-105">
+              <button className="bg-white text-emerald-900 px-2 py-2 md:px-8 md:py-3 rounded-full font-medium hover:bg-gray-100">
                 Присъедини се към VIP клуба
               </button>
             </div>

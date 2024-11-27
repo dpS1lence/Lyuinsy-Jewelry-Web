@@ -5,6 +5,7 @@ import Jewelry3 from "../assets/images/5.png";
 import { useEffect } from 'react';
 import ScrollAnimation from "../components/ScrollAnimation";
 import { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const items = [
   {
@@ -66,6 +67,7 @@ export default function ItemPurchaseDirect() {
 
   const [currentUpsell, setCurrentUpsell] = useState(0);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [recaptchaValue, setRecaptchaValue] = useState(null);
 
   useEffect(() => {
       const handleResize = () => {
@@ -96,11 +98,24 @@ export default function ItemPurchaseDirect() {
       setCurrentUpsell((prev) => (prev === upsellItems.length - 1 ? 0 : prev + 1));
   };
 
+  const handleRecaptchaChange = (value) => {
+    setRecaptchaValue(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!recaptchaValue) {
+      alert("Please verify that you are not a robot.");
+      return;
+    }
+    // Proceed with form submission logic
+  };
+
   return (
     <ScrollAnimation>
     <div className="px-4 py-20 flex flex-col md:flex-row">
       {/* Основен Секция на Продукта */}
-      <div className="w-2/3">
+      <div className="lg:w-2/3">
         <div className="flex flex-col md:flex-row items-center mb-12">
           <img
             src={item.image}
@@ -117,7 +132,7 @@ export default function ItemPurchaseDirect() {
           </div>
         </div>
   
-        <div className="px-12">
+        <div className="md:px-12">
             <h3 className="text-3xl font-serif mb-8 text-gray-900">Ограничени Времеви Оферти</h3>
             <div className="relative max-w-5xl mx-auto">
                 {isSmallScreen ? (
@@ -144,9 +159,6 @@ export default function ItemPurchaseDirect() {
                                                     {upsell.price - upsell.price * 0.2}лв
                                                 </p>
                                             </div>
-                                            <p className="text-sm text-gray-500">
-                                                Намалената цена е валидна за следващите 5 минути.
-                                            </p>
                                             <div className="mt-4">
                                                 <button className="bg-emerald-700 text-white px-6 py-2 rounded-full hover:bg-emerald-800 transition duration-300">
                                                     Добави към Поръчката
@@ -178,9 +190,6 @@ export default function ItemPurchaseDirect() {
                                             {upsell.price - upsell.price * 0.2}лв
                                         </p>
                                     </div>
-                                    <p className="text-sm text-gray-500">
-                                        Намалената цена е валидна за следващите 5 минути.
-                                    </p>
                                     <div className="mt-4">
                                         <button className="bg-emerald-700 text-white px-6 py-2 rounded-full hover:bg-emerald-800 transition duration-300">
                                             Добави към Поръчката
@@ -192,7 +201,7 @@ export default function ItemPurchaseDirect() {
                     </div>
                 )}
                 {isSmallScreen && (
-                    <div className="flex justify-center gap-4 mt-6">
+                    <div className="flex justify-center gap-4 md:mt-6 mb-10 md:mb-0">
                         <button
                             onClick={handlePrevUpsell}
                             className="bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition"
@@ -239,22 +248,28 @@ export default function ItemPurchaseDirect() {
       </div>
   
       {/* Секция за Поръчка */}
-      <div className="w-1/3 bg-gray-50 p-8 border-l border-gray-100">
+      <div className="lg:w-1/3 bg-gray-50 lg:p-8 border-l border-gray-100">
         <h3 className="text-3xl font-serif mb-6 text-gray-900">Завършете Вашата Поръчка</h3>
-        <form className="space-y-6">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Промо Код */}
           <div className="flex">
             <input
               type="text"
               placeholder="Въведете вашия промо код"
-              className="flex-1 px-6 py-3 border border-gray-300 rounded-l-full text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="flex-1 px-6 py-3 border border-gray-300 rounded-l-full text-gray-800 placeholder-gray-400"
             />
-            <button className="bg-emerald-700 text-white px-8 py-3 rounded-r-full font-medium hover:bg-emerald-800 transition transform hover:scale-105">
+            <button className="bg-emerald-700 text-white px-2 lg:px-6 py-3 rounded-r-full font-medium hover:bg-emerald-800">
               Приложи
             </button>
           </div>
           
           {/* Контактна Информация */}
+          <input
+            type="text"
+            placeholder="Имена на кирилица"
+            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
+            required
+          />
           <input
             type="email"
             placeholder="Имейл"
@@ -291,8 +306,14 @@ export default function ItemPurchaseDirect() {
             </div>
           </div>
   
+          {/* ReCAPTCHA Component */}
+          <ReCAPTCHA
+            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
+            onChange={handleRecaptchaChange}
+          />
+
           {/* Потвърдете Поръчката */}
-          <button className="bg-emerald-600 text-white px-6 py-3 rounded-full w-full font-medium text-lg transition duration-300">
+          <button className="bg-emerald-600 text-white px-6 py-3 rounded-full w-full font-medium text-lg transition duration-300" type="submit">
             Потвърдете Поръчката
           </button>
         </form>

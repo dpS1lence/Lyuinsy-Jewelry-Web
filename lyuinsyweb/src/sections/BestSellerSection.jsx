@@ -2,6 +2,7 @@ import Jewelry1 from "../assets/images/8.png";
 import Jewelry2 from "../assets/images/6.png";
 import Jewelry3 from "../assets/images/5.png";
 import { useNavigate } from "react-router-dom";
+import ScrollAnimation from "../components/ScrollAnimation";
 
 export default function BestSellerSection() {
     const navigate = useNavigate();
@@ -15,8 +16,9 @@ export default function BestSellerSection() {
     return (
         <section className="py-32 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-8">
+        <ScrollAnimation>
           <div className="text-center relative">
-            <span className="absolute -top-12 left-1/2 transform -translate-x-1/2 text-5xl animate-bounce">🎄</span>
+            <span className="text-5xl animate-bounce">🎄</span>
             <h2 className="text-5xl font-serif mb-6 text-gray-900">Коледни Бестселъри</h2>
             <p className="text-gray-600 text-xl">
               <span className="mr-2">✨</span>
@@ -30,16 +32,16 @@ export default function BestSellerSection() {
                 <span className="mx-4 text-2xl">✧</span>
                 <div className="h-px bg-gradient-to-r from-transparent via-emerald-300 to-transparent w-32"></div>
             </div>
-          
+            </ScrollAnimation>
           <div className="space-y-40">
             {/* Best Seller 1 */}
+            <ScrollAnimation>
             <div className="relative">
-              <span className="absolute -top-8 right-4 text-2xl">🎁</span>
-              <div className="flex flex-col lg:flex-row items-center gap-20">
+              <div className="flex flex-col lg:flex-row items-center lg:gap-20">
                 <div className="lg:w-3/5">
                   <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div className="relative">
-                      <img src={Jewelry1} alt="Диамантено Вечно Кольцо" className="w-full h-[600px] object-cover"/>
+                      <img src={Jewelry1} alt="Диамантено Вечно Кольцо" className="w-full lg:h-[600px] object-cover"/>
                       <div className="absolute top-6 right-6">
                         <span className="bg-emerald-700 text-white px-8 py-3 rounded-full text-sm font-semibold shadow-lg">
                           ✧ СПЕЦИАЛНА ОФЕРТА ✧
@@ -61,31 +63,34 @@ export default function BestSellerSection() {
                     </ul>
                   </div>
                   <div className="space-y-6">
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col lg:flex-row justify-between items-center">
                       <div className="flex items-center gap-3">
                         <span className="text-4xl font-light line-through text-gray-400">53.40лв</span>
                         <span className="text-4xl font-bold text-emerald-700">32.20лв</span>
                       </div>
-                      <span className="text-emerald-700">★★★★★ (128)</span>
+                      <span className="text-emerald-700 lg:">★★★★★ (128)</span>
                     </div>
                     <div className="text-sm text-emerald-700 font-semibold">
                       🎁 Безплатно опаковка за подарък и доставка за следващия ден
                     </div>
-                    <button onClick={handleReserveClick} className="w-3/4 mx-auto block bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
+                    <div className="flex justify-center items-center text-center">
+                    <button onClick={handleReserveClick} className="w-full md:w-3/4 bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
                       Резервирай сега за Коледа
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
+            </ScrollAnimation>
+            <ScrollAnimation>
             {/* Best Seller 2 */}
             <div className="relative">
               <div className="flex flex-col lg:flex-row-reverse items-center gap-20">
                 <div className="lg:w-3/5">
                   <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div className="relative">
-                      <img src={Jewelry2} alt="Сапфирен Пендант" className="w-full h-[600px] object-cover"/>
+                      <img src={Jewelry2} alt="Сапфирен Пендант" className="w-full lg:h-[600px] object-cover"/>
                       <div className="absolute top-6 right-6">
                         <span className="bg-emerald-700 text-white px-8 py-3 rounded-full text-sm font-semibold shadow-lg">
                           ✧ СПЕЦИАЛНА ОФЕРТА ✧
@@ -107,7 +112,7 @@ export default function BestSellerSection() {
                     </ul>
                   </div>
                   <div className="space-y-6">
-                    <div className="flex justify-between items-center">
+                    <div className="flex flex-col lg:flex-row justify-between items-center">
                       <div className="flex items-center gap-3">
                         <span className="text-4xl font-light line-through text-gray-400">102.90лв</span>
                         <span className="text-4xl font-bold text-emerald-700">77.80лв</span>
@@ -117,21 +122,24 @@ export default function BestSellerSection() {
                     <div className="text-sm text-emerald-700 font-semibold">
                       ❄️ Поръчайте сега за гарантирана доставка за Коледа
                     </div>
-                    <button onClick={handleReserveClick} className="w-3/4 mx-auto block bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
+                    <div className="flex justify-center items-center text-center">
+                    <button onClick={handleReserveClick} className="w-full md:w-3/4 bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
                       Резервирай сега за Коледа
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-
+            </ScrollAnimation>
             {/* Best Seller 3 */}
+            <ScrollAnimation>
             <div className="relative">
               <div className="flex flex-col lg:flex-row items-center gap-20">
                 <div className="lg:w-3/5">
                   <div className="bg-white rounded-xl shadow-sm overflow-hidden">
                     <div className="relative">
-                      <img src={Jewelry3} alt="Бисерен Браслет" className="w-full h-[600px] object-cover"/>
+                      <img src={Jewelry3} alt="Бисерен Браслет" className="w-full lg:h-[600px] object-cover"/>
                       <div className="absolute top-6 right-6">
                         <span className="bg-emerald-700 text-white px-8 py-3 rounded-full text-sm font-semibold shadow-lg">
                           ✧ СПЕЦИАЛНА ОФЕРТА ✧
@@ -163,13 +171,16 @@ export default function BestSellerSection() {
                     <div className="text-sm text-emerald-700 font-semibold">
                       🎄 Включва луксозна коледна опаковка за подарък
                     </div>
-                    <button onClick={handleReserveClick} className="w-3/4 mx-auto block bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
+                    <div className="flex justify-center items-center text-center">
+                    <button onClick={handleReserveClick} className="w-full md:w-3/4 bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition">
                       Резервирай сега за Коледа
                     </button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+            </ScrollAnimation>
           </div>
         </div>
       </section>
