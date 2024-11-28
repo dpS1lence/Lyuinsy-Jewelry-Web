@@ -34,7 +34,7 @@ jobs:
           echo "VITE_RECAPTCHA_SITE_KEY=${{ secrets.VITE_RECAPTCHA_SITE_KEY }}" > .env
           echo "VITE_RECAPTCHA_SECRET_KEY=${{ secrets.VITE_RECAPTCHA_SECRET_KEY }}" > .env
           npm run build
-        working-directory: ./lyuinsyweb
+        working-directory: "./lyuinsyweb"
         env:
           VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
           VITE_RECAPTCHA_SECRET_KEY: ${{ secrets.VITE_RECAPTCHA_SECRET_KEY }}
