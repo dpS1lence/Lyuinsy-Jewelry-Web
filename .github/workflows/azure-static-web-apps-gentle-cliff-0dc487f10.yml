@@ -27,14 +27,16 @@ jobs:
         with:
           node-version: '16' # Match your project's Node.js version
 
-      # Install dependencies and build
-      - name: Install dependencies and build
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./lyuinsyweb
+
+      - name: Build the app with environment variables
         run: |
-          npm install
-          echo "VITE_RECAPTCHA_SITE_KEY=${{ secrets.VITE_RECAPTCHA_SITE_KEY }}" > .env
-          echo "VITE_RECAPTCHA_SECRET_KEY=${{ secrets.VITE_RECAPTCHA_SECRET_KEY }}" > .env
+          echo "VITE_RECAPTCHA_SITE_KEY=$VITE_RECAPTCHA_SITE_KEY" > .env.production
+          echo "VITE_RECAPTCHA_SECRET_KEY=$VITE_RECAPTCHA_SECRET_KEY" >> .env.production
           npm run build
-        working-directory: "./lyuinsyweb"
+        working-directory: ./lyuinsyweb
         env:
           VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
           VITE_RECAPTCHA_SECRET_KEY: ${{ secrets.VITE_RECAPTCHA_SECRET_KEY }}
