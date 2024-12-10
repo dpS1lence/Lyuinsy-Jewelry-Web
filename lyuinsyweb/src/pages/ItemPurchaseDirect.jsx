@@ -6,121 +6,92 @@ import { useEffect } from 'react';
 import ScrollAnimation from "../components/ScrollAnimation";
 import { useState } from "react";
 import OrderSection from "../sections/OrderSection";
-
-const items = [
-  {
-    id: 1,
-    title: "Небесен Диамантен Пръстен",
-    description: "Зашеметяващ диамантен пръстен, който улавя същността на нощното небе.",
-    price: 24.90,
-    image: Jewelry1,
-  },
-  {
-    id: 2,
-    title: "Огърлица Зимен Скреж",
-    description: "Прекрасна огърлица, която блести като прясно паднал сняг.",
-    price: 35.80,
-    image: Jewelry2,
-  },
-  {
-    id: 3,
-    title: "Рубинен Снежен Медальон",
-    description: "Уникален медальон, който съчетава елегантност с зимна тематика.",
-    price: 48.90,
-    image: Jewelry3,
-  },
-];
-
-const upsellItems = [
-  {
-    id: 1,
-    title: "Чокър Златна Звезда",
-    price: 21.90,
-    image: Jewelry1,
-  },
-  {
-    id: 2,
-    title: "Гривна Кристална Мечта",
-    price: 18.90,
-    image: Jewelry2,
-  },
-  {
-    id: 3,
-    title: "Комплект Розово Злато Снежна Падина",
-    price: 17.80,
-    image: Jewelry3,
-  },
-];
+import { getAllItems, getOneItem } from "../lib/appwrite";
 
 export default function ItemPurchaseDirect() {
   const { id } = useParams(); // Get the ID from the URL
-  const item = items.find(item => item.id === parseInt(id)); // Find the item by ID
-
-  if (!item) {
-    return <div>Item not found</div>; // Handle case where item is not found
-  }
-
-  useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to the top
-  }, []);
-
-
-  const [currentUpsell, setCurrentUpsell] = useState(0);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  
+  const [item, setitem] = useState(null); // Initialize state for collection
+  const [items, setitems] = useState(null); // Loading state
+  const [isSmallScreen, setIsSmallScreen] = useState(false); // State for screen size
+  const [currentUpsell, setCurrentUpsell] = useState(0); // State for current upsell index
+  const [upsellItems, setUpsellItems] = useState([]); // State for upsell items
 
   useEffect(() => {
-      const handleResize = () => {
-          setIsSmallScreen(window.innerWidth < 1500);
-      };
+    const fetchitems = async () => {
+      try {
+        const data = await getOneItem(id); // Await the promise
+        const dataAll = await getAllItems();
 
-      // Set initial value and add resize listener
-      handleResize();
-      window.addEventListener("resize", handleResize);
-
-      return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-      if (isSmallScreen) {
-          const interval = setInterval(() => {
-              setCurrentUpsell((prev) => (prev === upsellItems.length - 1 ? 0 : prev + 1));
-          }, 5000);
-          return () => clearInterval(interval);
+        setitem(data);
+        setitems(dataAll);
+      } catch (error) {
+        console.error("Failed to fetch collection:", error);
       }
+    };
+
+    fetchitems();
+  }, [id]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 1500);
+    };
+
+    // Set initial value and add resize listener
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (isSmallScreen) {
+      const interval = setInterval(() => {
+        setCurrentUpsell((prev) => (prev === upsellItems.length - 1 ? 0 : prev + 1));
+      }, 5000);
+      return () => clearInterval(interval);
+    }
   }, [isSmallScreen, upsellItems.length]);
 
+  if (!items) {
+    return <div>Collection not found</div>; // Show if collection is null
+  }
+
+  const handleReserveClick = (item) => {
+    console.log(`Reserved: ${item.name}`);
+  };
+
   const handlePrevUpsell = () => {
-      setCurrentUpsell((prev) => (prev === 0 ? upsellItems.length - 1 : prev - 1));
+    setCurrentUpsell((prev) => (prev === 0 ? upsellItems.length - 1 : prev - 1));
   };
 
   const handleNextUpsell = () => {
-      setCurrentUpsell((prev) => (prev === upsellItems.length - 1 ? 0 : prev + 1));
+    setCurrentUpsell((prev) => (prev === upsellItems.length - 1 ? 0 : prev + 1));
   };
-  
+
   return (
     <ScrollAnimation>
     <div className="px-4 py-20 flex flex-col md:flex-row">
-      {/* Основен Секция на Продукта */}
-      <div className="lg:w-2/3">
+      {/* Main Item Section */}
+      <div className="w-2/3">
         <div className="flex flex-col md:flex-row items-center mb-12">
           <img
             src={item.image}
-            alt={item.title}
+            alt={item.name}
             className="w-full md:w-1/2 h-80 object-cover rounded-lg shadow-lg"
           />
           <div className="md:ml-12 mt-6 md:mt-0">
-            <h2 className="text-5xl font-serif mb-6 text-gray-900">{item.title}</h2>
+            <h2 className="text-5xl font-serif mb-6 text-gray-900">{item.name}</h2>
             <p className="text-lg text-gray-600 mb-4">{item.description}</p>
-            <p className="text-4xl font-bold text-gray-900 mb-6">{item.price}лв</p>
+            <p className="text-4xl font-bold text-gray-900 mb-6">{item.actualPrice}лв</p>
             <p className="text-gray-500 text-sm">
-              Ще получите имейл за потвърждение.
+              An email will be sent to you for confirmation.
             </p>
           </div>
         </div>
   
-        <div className="md:px-12">
-            <h3 className="text-3xl font-serif mb-8 text-gray-900">Ограничени Времеви Оферти</h3>
+        <div className="px-12">
+            <h3 className="text-3xl font-serif mb-8 text-gray-900">Limited Time Offers</h3>
             <div className="relative max-w-5xl mx-auto">
                 {isSmallScreen ? (
                     <div className="overflow-hidden">
@@ -128,27 +99,30 @@ export default function ItemPurchaseDirect() {
                             className="flex transition-transform duration-500 ease-in-out"
                             style={{ transform: `translateX(-${currentUpsell * 100}%)` }}
                         >
-                            {upsellItems.map((upsell) => (
-                                <div key={upsell.id} className="min-w-full">
+                            {items.map((upsell) => (
+                                <div key={upsell.$id} className="min-w-full">
                                     <div className="bg-white rounded-lg shadow-sm border overflow-hidden p-6">
                                         <img
                                             src={upsell.image}
-                                            alt={upsell.title}
+                                            alt={upsell.name}
                                             className="w-full h-48 object-cover rounded-lg"
                                         />
                                         <div className="mt-4">
-                                            <h4 className="text-xl font-serif text-gray-900 mb-2">{upsell.title}</h4>
+                                            <h4 className="text-xl font-serif text-gray-900 mb-2">{upsell.name}</h4>
                                             <div className="flex justify-between items-center">
                                                 <p className="text-xl font-bold text-gray-800 line-through">
-                                                    {upsell.price}лв
+                                                    {upsell.oldPrice}лв
                                                 </p>
                                                 <p className="text-xl font-bold text-emerald-700">
-                                                    {upsell.price - upsell.price * 0.2}лв
+                                                    {upsell.actualPrice}лв
                                                 </p>
                                             </div>
+                                            <p className="text-sm text-gray-500">
+                                                Discounted price available for the next 5 minutes.
+                                            </p>
                                             <div className="mt-4">
                                                 <button className="bg-emerald-700 text-white px-6 py-2 rounded-full hover:bg-emerald-800 transition duration-300">
-                                                    Добави към Поръчката
+                                                    Add to Order
                                                 </button>
                                             </div>
                                         </div>
@@ -159,27 +133,30 @@ export default function ItemPurchaseDirect() {
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {upsellItems.map((upsell) => (
+                        {items.map((upsell) => (
                             <div
-                                key={upsell.id}
+                                key={upsell.$id}
                                 className="bg-white rounded-lg shadow-sm border overflow-hidden p-6 transition transform hover:scale-105"
                             >
                                 <img
                                     src={upsell.image}
-                                    alt={upsell.title}
+                                    alt={upsell.name}
                                     className="w-full h-48 object-cover rounded-lg"
                                 />
                                 <div className="mt-4">
-                                    <h4 className="text-xl font-serif text-gray-900 mb-2">{upsell.title}</h4>
+                                    <h4 className="text-xl font-serif text-gray-900 mb-2">{upsell.name}</h4>
                                     <div className="flex justify-between items-center">
-                                        <p className="text-xl font-bold text-gray-800 line-through">{upsell.price}лв</p>
+                                        <p className="text-xl font-bold text-gray-800 line-through">{upsell.oldPrice}лв</p>
                                         <p className="text-xl font-bold text-emerald-700">
-                                            {upsell.price - upsell.price * 0.2}лв
+                                            {upsell.actualPrice}лв
                                         </p>
                                     </div>
+                                    <p className="text-sm text-gray-500">
+                                        Discounted price available for the next 5 minutes.
+                                    </p>
                                     <div className="mt-4">
                                         <button className="bg-emerald-700 text-white px-6 py-2 rounded-full hover:bg-emerald-800 transition duration-300">
-                                            Добави към Поръчката
+                                            Add to Order
                                         </button>
                                     </div>
                                 </div>
@@ -188,7 +165,7 @@ export default function ItemPurchaseDirect() {
                     </div>
                 )}
                 {isSmallScreen && (
-                    <div className="flex justify-center gap-4 md:mt-6 mb-10 md:mb-0">
+                    <div className="flex justify-center gap-4 mt-6">
                         <button
                             onClick={handlePrevUpsell}
                             className="bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition"
@@ -234,9 +211,69 @@ export default function ItemPurchaseDirect() {
         </div>
       </div>
   
-      {/* Секция за Поръчка */}
-      <OrderSection/>
+      {/* Order Section */}
+      <div className="w-1/3bg-gray-50 p-8 border-l border-gray-100">
+        <h3 className="text-3xl font-serif mb-6 text-gray-900">Complete Your Order</h3>
+        <form className="space-y-6">
+          {/* Promo Code */}
+          <div className="flex">
+            <input
+              type="text"
+              placeholder="Enter your promo code"
+              className="flex-1 px-6 py-3 border border-gray-300 rounded-l-full text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+            <button className="bg-emerald-700 text-white px-8 py-3 rounded-r-full font-medium hover:bg-emerald-800 transition transform hover:scale-105">
+              Apply
+            </button>
+          </div>
+          
+          {/* Contact Info */}
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
+            required
+          />
+          <input
+            type="tel"
+            placeholder="Phone Number"
+            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Address"
+            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
+            required
+          />
+  
+          {/* Price Summary */}
+          <div className="mt-6 bg-white p-6 rounded-lg">
+            <div className="flex justify-between text-lg text-gray-700">
+              <p>Delivery Cost:</p>
+              <p>$10</p>
+            </div>
+            <div className="flex justify-between text-lg text-gray-700">
+              <p>Discount:</p>
+              <p>-$5</p>
+            </div>
+            <div className="border-t border-gray-300 my-4"></div>
+            <div className="flex justify-between text-2xl font-bold text-gray-900">
+              <p>Total:</p>
+              <p>${item.price + 10 - 5}</p>
+            </div>
+          </div>
+  
+          {/* Confirm Order */}
+          <button className="bg-emerald-600 text-white px-6 py-3 rounded-full w-full font-medium text-lg transition duration-300">
+            Confirm Order
+          </button>
+        </form>
+      </div>
     </div>
     </ScrollAnimation>
   )};
+
+
+
   
