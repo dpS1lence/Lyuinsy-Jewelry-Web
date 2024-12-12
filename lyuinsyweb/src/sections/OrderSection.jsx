@@ -1,10 +1,11 @@
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
 import emailjs from 'emailjs-com';
+import PropTypes from 'prop-types';
 
 const sitekeyRE = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
-export default function OrderSection() {
+export default function OrderSection({ orderData }) {
     const [recaptchaValue, setRecaptchaValue] = useState(null);
     const [formData, setFormData] = useState({
         promoCode: '',
@@ -30,6 +31,11 @@ export default function OrderSection() {
             return;
         }
 
+        // Calculate total price
+        const mainItemPrice = orderData.mainItem?.actualPrice || 0;
+        const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
+        const totalPrice = mainItemPrice + orderedItemsPrice + 10 - 5; // Adding delivery and discount
+
         // Send email logic here
         const emailData = {
           user_name: "John Doe",
@@ -39,7 +45,11 @@ export default function OrderSection() {
           email: formData.email,
           phone: formData.phone,
           address: formData.address,
-          items: "Име: Съвършеното Коледно Подарък, Номер: 6757477c00164c14cfc9, Цена: 32лв",
+          items: [
+            `Main Item: ${orderData.mainItem?.name}, ID: ${orderData.mainItem?.$id}, Price: ${mainItemPrice.toFixed(2)} лв`,
+            ...orderData.orderedItems.map(item => `Upsell Item: ${item.name}, ID: ${item.$id}, Price: ${item.actualPrice.toFixed(2)} лв`)
+          ].join('\n'), // Join items for email
+          totalPrice: totalPrice.toFixed(2) // Include total price
         };
 
         try {
@@ -48,7 +58,7 @@ export default function OrderSection() {
                 'service_jvj3h5g',       // Replace with your service ID
                 'template_esalbsu',      // Replace with your template ID
                 emailData,               // Replace with your email data object
-                'WvI-vMKQArYdGRtOQ'           // Replace with your user ID
+                'WvI-vMKQArYdGRtOQ'      // Replace with your user ID
             );
             console.log("Email sent successfully:", response);
             alert("Email sent successfully!");
@@ -57,6 +67,11 @@ export default function OrderSection() {
             alert("Failed to send email.");
         }
     };
+
+    // Calculate total price for display
+    const mainItemPrice = orderData.mainItem?.actualPrice || 0;
+    const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
+    const totalPrice = mainItemPrice + orderedItemsPrice + 10 - 5; // Adding delivery and discount
 
     return (
         <div className="lg:w-1/3 bg-gray-50 lg:p-8 border-l border-gray-100">
@@ -123,7 +138,7 @@ export default function OrderSection() {
             <div className="border-t border-gray-300 my-4"></div>
             <div className="flex justify-between text-2xl font-bold text-gray-900">
               <p>Общо:</p>
-              <p>20лв</p>
+              <p>{totalPrice} лв</p> {/* Display dynamic total price */}
             </div>
           </div>
   
@@ -140,4 +155,12 @@ export default function OrderSection() {
         </form>
       </div>
     );
+};
+
+// PropTypes for validation
+OrderSection.propTypes = {
+    orderData: PropTypes.shape({
+        mainItem: PropTypes.object.isRequired,
+        orderedItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+    }).isRequired,
 };
