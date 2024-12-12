@@ -1,17 +1,61 @@
 import ReCAPTCHA from "react-google-recaptcha";
 import { useState } from "react";
+import emailjs from 'emailjs-com';
 
 const sitekeyRE = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 export default function OrderSection() {
     const [recaptchaValue, setRecaptchaValue] = useState(null);
+    const [formData, setFormData] = useState({
+        promoCode: '',
+        name: '',
+        email: '',
+        phone: '',
+        address: ''
+    });
 
     const handleRecaptchaChange = (value) => {
         setRecaptchaValue(value);
-      };
+    };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!recaptchaValue) {
+            alert("Please complete the ReCAPTCHA.");
+            return;
+        }
+
+        // Send email logic here
+        const emailData = {
+          user_name: "John Doe",
+          user_email: "buterflycspro@gmail.com",
+          promoCode: formData.promoCode,
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address,
+          items: "Име: Съвършеното Коледно Подарък, Номер: 6757477c00164c14cfc9, Цена: 32лв",
+        };
+
+        try {
+            // Send email using EmailJS
+            const response = await emailjs.send(
+                'service_jvj3h5g',       // Replace with your service ID
+                'template_esalbsu',      // Replace with your template ID
+                emailData,               // Replace with your email data object
+                'WvI-vMKQArYdGRtOQ'           // Replace with your user ID
+            );
+            console.log("Email sent successfully:", response);
+            alert("Email sent successfully!");
+        } catch (error) {
+            console.error("Error sending email:", error);
+            alert("Failed to send email.");
+        }
     };
 
     return (
@@ -22,8 +66,10 @@ export default function OrderSection() {
           <div className=" flex flex-row">
             <input
               type="text"
+              name="promoCode"
               placeholder="Промо код"
               className="w-3/5 px-6 py-3 border border-gray-300 rounded-l-full text-gray-800 placeholder-gray-400"
+              onChange={handleInputChange}
             />
             <button className="w-2/5 bg-emerald-700 text-white px-2 lg:px-6 py-3 rounded-r-full font-medium hover:bg-emerald-800">
               Приложи
@@ -33,27 +79,35 @@ export default function OrderSection() {
           {/* Контактна Информация */}
           <input
             type="text"
+            name="name"
             placeholder="Имена на кирилица"
             className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
             required
+            onChange={handleInputChange}
           />
           <input
             type="email"
+            name="email"
             placeholder="Имейл"
             className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
             required
+            onChange={handleInputChange}
           />
           <input
             type="tel"
+            name="phone"
             placeholder="Телефонен Номер"
             className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
             required
+            onChange={handleInputChange}
           />
           <input
             type="text"
+            name="address"
             placeholder="Адрес"
             className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
             required
+            onChange={handleInputChange}
           />
   
           {/* Обобщение на Цената */}

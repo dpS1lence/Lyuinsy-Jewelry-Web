@@ -211,65 +211,7 @@ export default function ItemPurchaseDirect() {
         </div>
       </div>
   
-      {/* Order Section */}
-      <div className="w-1/3bg-gray-50 p-8 border-l border-gray-100">
-        <h3 className="text-3xl font-serif mb-6 text-gray-900">Complete Your Order</h3>
-        <form className="space-y-6">
-          {/* Promo Code */}
-          <div className="flex">
-            <input
-              type="text"
-              placeholder="Enter your promo code"
-              className="flex-1 px-6 py-3 border border-gray-300 rounded-l-full text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            />
-            <button className="bg-emerald-700 text-white px-8 py-3 rounded-r-full font-medium hover:bg-emerald-800 transition transform hover:scale-105">
-              Apply
-            </button>
-          </div>
-          
-          {/* Contact Info */}
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
-            required
-          />
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Address"
-            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
-            required
-          />
-  
-          {/* Price Summary */}
-          <div className="mt-6 bg-white p-6 rounded-lg">
-            <div className="flex justify-between text-lg text-gray-700">
-              <p>Delivery Cost:</p>
-              <p>$10</p>
-            </div>
-            <div className="flex justify-between text-lg text-gray-700">
-              <p>Discount:</p>
-              <p>-$5</p>
-            </div>
-            <div className="border-t border-gray-300 my-4"></div>
-            <div className="flex justify-between text-2xl font-bold text-gray-900">
-              <p>Total:</p>
-              <p>${item.price + 10 - 5}</p>
-            </div>
-          </div>
-  
-          {/* Confirm Order */}
-          <button className="bg-emerald-600 text-white px-6 py-3 rounded-full w-full font-medium text-lg transition duration-300">
-            Confirm Order
-          </button>
-        </form>
-      </div>
+      <OrderSection/>
     </div>
     </ScrollAnimation>
   )};
