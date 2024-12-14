@@ -36,7 +36,7 @@ export default function CollectionsSection() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {collections.map((collection, index) => (
-                        <Link to={`/collection/${collection.$id}`} key={collection.id}>
+                        <Link to={`/collection/${collection.$id}`} key={collection.$id}>
                         <div 
                             key={index}
                             className={`group cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300`}

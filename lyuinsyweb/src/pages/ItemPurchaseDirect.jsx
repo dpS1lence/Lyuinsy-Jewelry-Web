@@ -68,6 +68,16 @@ export default function ItemPurchaseDirect() {
     orderedItems: orderedItems // Selected upsell items
   };
 
+  const handleRemoveFromOrder = (itemToRemove) => {
+    // Remove from ordered items
+    setOrderedItems((prevOrdered) => 
+      prevOrdered.filter((item) => item.$id !== itemToRemove.$id)
+    );
+    
+    // Add back to upsell items
+    setItems((prevItems) => [...prevItems, itemToRemove]);
+  };
+
   return (
     <ScrollAnimation>
       <div className="px-5 lg:px-32 py-20 flex flex-col md:flex-row">
@@ -98,9 +108,28 @@ export default function ItemPurchaseDirect() {
           {/* Order Container */}
           {orderedItems.length > 0 && (
             <div className="mb-10">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Вашите поръчки:</h3>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Добавени към поръчката:</h3>
               {orderedItems.map((orderedItem) => (
-                <div key={orderedItem.$id} className="flex flex-row justify-between items-center py-4 mb-5 bg-gray-50 p-4 rounded-lg shadow">
+                <div key={orderedItem.$id} className="flex flex-row justify-between items-center py-4 mb-5 bg-gray-50 p-4 rounded-lg shadow relative">
+                  <button 
+                    onClick={() => handleRemoveFromOrder(orderedItem)}
+                    className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors"
+                    aria-label="Remove item"
+                  >
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      className="h-5 w-5" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path 
+                        fillRule="evenodd" 
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
+                        clipRule="evenodd" 
+                      />
+                    </svg>
+                  </button>
+
                   <div className="flex flex-row w-3/4">
                     <img
                       src={orderedItem.image}

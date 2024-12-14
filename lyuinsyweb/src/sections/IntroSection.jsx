@@ -1,6 +1,13 @@
 import JewelryWoman from "../assets/images/woman.png";
-
+import { useNavigate } from "react-router-dom";
 export default function IntroSection() {
+
+  const navigate = useNavigate();
+
+  const navigateCollections = () => {
+    navigate(`/collections`);
+};
+
     return (
         <section className="relative h-screen flex flex-col lg:flex-row">
           {/* Left side - Image */}
@@ -23,7 +30,7 @@ export default function IntroSection() {
                 където всяко парче разказва история за елегантност и любов
               </p>
               <div className="space-y-4">
-                <button className="bg-red-700 text-white px-8 py-4 rounded-full font-medium hover:bg-red-800 transition-all transform hover:scale-105 shadow-lg w-full lg:w-auto">
+                <button onClick={navigateCollections} className="bg-red-700 text-white px-8 py-4 rounded-full font-medium hover:bg-red-800 transition-all transform hover:scale-105 shadow-lg w-full lg:w-auto">
                   🎄 Покажи Колекцията за Празници
                 </button>
                 <div className="text-white/80 text-sm animate-pulse">
