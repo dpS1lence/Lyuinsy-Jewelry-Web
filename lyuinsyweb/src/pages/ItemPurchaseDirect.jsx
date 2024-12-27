@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import ScrollAnimation from "../components/ScrollAnimation";
 import OrderSection from "../sections/OrderSection";
 import { getAllItems, getOneItem } from "../lib/appwrite";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
 
 export default function ItemPurchaseDirect() {
   const { id } = useParams(); // Get the ID from the URL
@@ -11,6 +13,14 @@ export default function ItemPurchaseDirect() {
   const [orderedItems, setOrderedItems] = useState([]); // State for ordered items
   const [currentUpsell, setCurrentUpsell] = useState(0); // Current upsell index
   const [arrowsVisible, setArrowsVisible] = useState(false);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  // Create array of all images (main item + upsell items)
+  const allImages = item ? [
+    { src: item.image },
+    ...(item.additionalImages?.map(item => ({ src: item })) || [])
+  ] : [];
 
   useEffect(() => {
     if (window.innerWidth > 768) {
@@ -83,42 +93,54 @@ export default function ItemPurchaseDirect() {
       <div className="px-5 lg:px-32 py-20 flex flex-col md:flex-row">
         {/* Main Item Section */}
         <div className="lg:w-2/3">
-          <div className="flex flex-row justify-between items-center py-4 mb-5">
+          <div className="flex flex-row justify-between items-center py-6 mb-8 hover:bg-gray-50 transition-colors rounded-xl">
             <div className="flex flex-row w-3/4">
               <img
                 src={item.image}
                 alt={item.name}
-                className="w-80 h-60 object-cover rounded-lg mr-4"
+                className="w-96 h-72 object-cover rounded-lg mr-6 cursor-pointer transform transition-transform duration-200 hover:scale-105 shadow-md"
+                onClick={() => {
+                  setPhotoIndex(0);
+                  setIsLightboxOpen(true);
+                }}
               />
-              <div className="flex flex-col">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-5">{item.name}</h2>
-                <p className="text-md text-gray-600 mb-1">{item.description}</p>
-                <p className="text-sm text-gray-500">{item.deliveryDate}</p>
+              <div className="flex flex-col justify-center">
+                <h2 className="text-3xl font-semibold text-gray-900 mb-5">{item.name}</h2>
+                <p className="text-lg text-gray-600 mb-3">{item.description}</p>
+                <p className="text-md text-gray-500">{item.deliveryDate}</p>
               </div>
             </div>
-            <div className="flex flex-col items-center text-right w-1/4">
+            <div className="flex flex-col items-end text-right w-1/4 pr-6">
               {item.oldPrice && (
-                <p className="text-sm line-through text-gray-400 mb-1">{item.oldPrice.toFixed(2)} лв</p>
+                <p className="text-lg line-through text-gray-400 mb-2">{item.oldPrice.toFixed(2)} лв</p>
               )}
-              <p className="text-3xl font-extrabold text-emerald-700">{item.actualPrice.toFixed(2)} лв</p>
-              <p className="text-sm text-gray-600">Специално намаление!</p>
+              <p className="text-4xl font-extrabold text-emerald-700">{item.actualPrice.toFixed(2)} лв</p>
+              <p className="text-md text-gray-600 mt-2">Специално намаление!</p>
             </div>
           </div>
 
+          {/* Add Lightbox component */}
+          <Lightbox
+            open={isLightboxOpen}
+            close={() => setIsLightboxOpen(false)}
+            index={photoIndex}
+            slides={allImages}
+          />
+
           {/* Order Container */}
           {orderedItems.length > 0 && (
-            <div className="mb-10">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-4">Добавени към поръчката:</h3>
+            <div className="mb-12">
+              <h3 className="text-2xl font-semibold text-gray-800 mb-6">Добавени към поръчката:</h3>
               {orderedItems.map((orderedItem) => (
-                <div key={orderedItem.$id} className="flex flex-row justify-between items-center py-4 mb-5 bg-gray-50 p-4 rounded-lg shadow relative">
+                <div key={orderedItem.$id} className="flex flex-row justify-between items-center py-5 mb-6 bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
                   <button 
                     onClick={() => handleRemoveFromOrder(orderedItem)}
-                    className="absolute top-2 right-2 text-gray-400 hover:text-red-500 transition-colors"
+                    className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-gray-100"
                     aria-label="Remove item"
                   >
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
-                      className="h-5 w-5" 
+                      className="h-6 w-6" 
                       viewBox="0 0 20 20" 
                       fill="currentColor"
                     >
@@ -134,20 +156,20 @@ export default function ItemPurchaseDirect() {
                     <img
                       src={orderedItem.image}
                       alt={orderedItem.name}
-                      className="w-20 h-20 object-cover rounded-lg mr-4"
+                      className="w-28 h-28 object-cover rounded-lg mr-6 cursor-pointer transform transition-transform duration-200 hover:scale-105"
                     />
-                    <div className="flex flex-col">
-                      <h2 className="text-xl font-semibold text-gray-900 mb-2">{orderedItem.name}</h2>
-                      <p className="text-md text-gray-600 mb-1">{orderedItem.description}</p>
+                    <div className="flex flex-col justify-center">
+                      <h2 className="text-xl font-semibold text-gray-900 mb-3">{orderedItem.name}</h2>
+                      <p className="text-md text-gray-600 mb-2">{orderedItem.description}</p>
                       <p className="text-sm text-gray-500">{orderedItem.deliveryDate}</p>
                     </div>
                   </div>
-                  <div className="flex flex-col items-end text-right w-1/4">
+                  <div className="flex flex-col items-end text-right w-1/4 pr-4">
                     {orderedItem.oldPrice && (
-                      <p className="text-sm line-through text-gray-400 mb-1">{orderedItem.oldPrice.toFixed(2)} лв</p>
+                      <p className="text-lg line-through text-gray-400 mb-2">{orderedItem.oldPrice.toFixed(2)} лв</p>
                     )}
-                    <p className="text-2xl font-extrabold text-emerald-700">{orderedItem.actualPrice.toFixed(2)} лв</p>
-                    <p className="text-sm text-gray-600">Специално намаление!</p>
+                    <p className="text-3xl font-extrabold text-emerald-700">{orderedItem.actualPrice.toFixed(2)} лв</p>
+                    <p className="text-md text-gray-600 mt-2">Специално намаление!</p>
                   </div>
                 </div>
               ))}
@@ -156,7 +178,7 @@ export default function ItemPurchaseDirect() {
 
           {/* Upsell Section */}
           <div className="px-12">
-            <h3 className="text-3xl font-serif mb-8 text-gray-900">ВИП оферти! Добави само сега!</h3>
+            <h3 className="text-3xl font-serif mb-10 text-gray-900 text-center">ВИП оферти! Добави само сега!</h3>
             <div className="relative max-w-5xl mx-auto">
               <div className="overflow-hidden">
                 <div
@@ -164,32 +186,32 @@ export default function ItemPurchaseDirect() {
                   style={{ transform: `translateX(-${currentUpsell * 100}%)` }}
                 >
                   {items.map((upsell) => (
-                    <div key={upsell.$id} className="min-w-full lg:min-w-80 lg:w-[60rem] p-3">
-                      <div className="bg-white rounded-lg shadow-sm border overflow-hidden p-6">
+                    <div key={upsell.$id} className="min-w-full lg:min-w-80 lg:w-[60rem] p-4">
+                      <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden p-8">
                         <img
                           src={upsell.image}
                           alt={upsell.name}
-                          className="w-full h-48 object-cover rounded-lg"
+                          className="w-full h-64 object-cover rounded-lg cursor-pointer transform transition-transform duration-200 hover:scale-105"
                         />
-                        <div className="mt-4">
-                          <h4 className="text-xl font-serif text-gray-900 mb-2">{upsell.name}</h4>
-                          <div className="flex justify-between items-center">
+                        <div className="mt-6">
+                          <h4 className="text-2xl font-serif text-gray-900 mb-4">{upsell.name}</h4>
+                          <div className="flex justify-between items-center mb-3">
                             {upsell.oldPrice && (
                               <p className="text-xl font-bold text-gray-800 line-through">
                                 {upsell.oldPrice.toFixed(2)} лв
                               </p>
                             )}
-                            <p className="text-xl font-bold text-emerald-700">
+                            <p className="text-2xl font-bold text-emerald-700">
                               {upsell.actualPrice.toFixed(2)} лв
                             </p>
                           </div>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-md text-gray-500 mb-6">
                             Discounted price available for the next 5 minutes.
                           </p>
-                          <div className="mt-4">
+                          <div className="text-center">
                             <button
                               onClick={() => handleAddToOrder(upsell)}
-                              className="bg-emerald-700 text-white px-6 py-2 rounded-full hover:bg-emerald-800 transition duration-300"
+                              className="bg-emerald-700 text-white px-8 py-3 rounded-full hover:bg-emerald-800 transition duration-300 transform hover:scale-105"
                             >
                               Add to Order
                             </button>
@@ -201,14 +223,14 @@ export default function ItemPurchaseDirect() {
                 </div>
               </div>
               {arrowsVisible && (
-                <div className="flex justify-center gap-4 mt-6">
+                <div className="flex justify-center gap-6 mt-8">
                   <button
                     onClick={handlePrevUpsell}
-                    className="bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition"
+                    className="bg-gray-100 p-3 rounded-full hover:bg-gray-200 transition-colors shadow-sm hover:shadow-md"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
+                      className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -224,11 +246,11 @@ export default function ItemPurchaseDirect() {
 
                   <button
                     onClick={handleNextUpsell}
-                    className="bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition"
+                    className="bg-gray-100 p-3 rounded-full hover:bg-gray-200 transition-colors shadow-sm hover:shadow-md"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      className="h-5 w-5"
+                      className="h-6 w-6"
                       fill="none"
                       viewBox="0 0 24 24"
                       stroke="currentColor"
@@ -251,5 +273,4 @@ export default function ItemPurchaseDirect() {
         <OrderSection orderData={orderData} />
       </div>
     </ScrollAnimation>
-  );
-}
+  )};
