@@ -9,6 +9,10 @@ export default function OrderConfirmation() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Reset the upsell timer and active state when order is confirmed
+    localStorage.setItem('upsellTimeRemaining', (5 * 60).toString());
+    localStorage.setItem('upsellActive', 'true');
   }, []);
 
   if (!orderData) {

@@ -15,6 +15,13 @@ export default function ItemPurchaseDirect() {
   const [arrowsVisible, setArrowsVisible] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
+  const [timeRemaining, setTimeRemaining] = useState(() => {
+    const savedTime = localStorage.getItem('upsellTimeRemaining');
+    return savedTime ? parseInt(savedTime) : 5 * 60; // 5 minutes in seconds
+  });
+  const [isUpsellActive, setIsUpsellActive] = useState(() => {
+    return localStorage.getItem('upsellActive') !== 'false';
+  });
 
   // Create array of all images (main item + upsell items)
   const allImages = item ? [
@@ -53,6 +60,30 @@ export default function ItemPurchaseDirect() {
       return () => clearInterval(interval);
     }
   }, [items]);
+
+  useEffect(() => {
+    if (timeRemaining > 0 && isUpsellActive) {
+      const timer = setInterval(() => {
+        setTimeRemaining(prev => {
+          const newTime = prev - 1;
+          localStorage.setItem('upsellTimeRemaining', newTime.toString());
+          if (newTime <= 0) {
+            setIsUpsellActive(false);
+            localStorage.setItem('upsellActive', 'false');
+          }
+          return newTime;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [timeRemaining, isUpsellActive]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   if (!items) {
     return <div>Collection not found</div>; // Show if collection is null
@@ -93,29 +124,53 @@ export default function ItemPurchaseDirect() {
       <div className="px-5 lg:px-32 py-20 flex flex-col md:flex-row">
         {/* Main Item Section */}
         <div className="lg:w-2/3">
-          <div className="flex flex-row justify-between items-center py-6 mb-8 hover:bg-gray-50 transition-colors rounded-xl">
-            <div className="flex flex-row w-3/4">
-              <img
-                src={item.image}
-                alt={item.name}
-                className="w-96 h-72 object-cover rounded-lg mr-6 cursor-pointer transform transition-transform duration-200 hover:scale-105 shadow-md"
-                onClick={() => {
-                  setPhotoIndex(0);
-                  setIsLightboxOpen(true);
-                }}
-              />
-              <div className="flex flex-col justify-center">
-                <h2 className="text-3xl font-semibold text-gray-900 mb-5">{item.name}</h2>
-                <p className="text-lg text-gray-600 mb-3">{item.description}</p>
-                <p className="text-md text-gray-500">{item.deliveryDate}</p>
+          <div className="flex flex-col md:flex-row justify-between items-start py-6 mb-8 rounded-xl">
+            <div className="flex flex-col justify-center items-center md:flex-row w-full gap-8">
+              <div className="relative w-full md:w-auto">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full md:w-96 h-72 object-cover cursor-pointer shadow-sm hover:opacity-95 transition-opacity"
+                  onClick={() => {
+                    setPhotoIndex(0);
+                    setIsLightboxOpen(true);
+                  }}
+                />
+                <div 
+                  className="absolute top-2 right-2 bg-black bg-opacity-50 p-2 rounded-full cursor-pointer hover:bg-opacity-70 transition-all"
+                  onClick={() => {
+                    setPhotoIndex(0);
+                    setIsLightboxOpen(true);
+                  }}
+                >
+                  <svg 
+                    xmlns="http://www.w3.org/2000/svg" 
+                    className="h-5 w-5 text-white" 
+                    fill="none" 
+                    viewBox="0 0 24 24" 
+                    stroke="currentColor"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" 
+                    />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col items-end text-right w-1/4 pr-6">
+              <div className="flex flex-col justify-center mt-6 md:mt-0">
+                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">{item.name}</h2>
+                <p className="text-base md:text-lg text-gray-600 mb-3">{item.description}</p>
+                <p className="text-sm md:text-md text-gray-500">{item.deliveryDate}</p>
+              </div>
+              <div className="flex flex-col items-end text-right w-full md:w-1/4 mt-6 md:mt-0 pr-0 md:pr-6">
               {item.oldPrice && (
                 <p className="text-lg line-through text-gray-400 mb-2">{item.oldPrice.toFixed(2)} лв</p>
               )}
-              <p className="text-4xl font-extrabold text-emerald-700">{item.actualPrice.toFixed(2)} лв</p>
-              <p className="text-md text-gray-600 mt-2">Специално намаление!</p>
+              <p className="text-3xl md:text-4xl font-extrabold text-emerald-700">{item.actualPrice.toFixed(2)} лв</p>
+              <p className="text-sm md:text-md text-gray-600 mt-2">Специално намаление!</p>
+            </div>
             </div>
           </div>
 
@@ -177,95 +232,69 @@ export default function ItemPurchaseDirect() {
           )}
 
           {/* Upsell Section */}
-          <div className="px-12">
-            <h3 className="text-3xl font-serif mb-10 text-gray-900 text-center">ВИП оферти! Добави само сега!</h3>
-            <div className="relative max-w-5xl mx-auto">
-              <div className="overflow-hidden">
-                <div
-                  className="flex transition-transform duration-500 ease-in-out"
-                  style={{ transform: `translateX(-${currentUpsell * 100}%)` }}
-                >
-                  {items.map((upsell) => (
-                    <div key={upsell.$id} className="min-w-full lg:min-w-80 lg:w-[60rem] p-4">
-                      <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden p-8">
-                        <img
-                          src={upsell.image}
-                          alt={upsell.name}
-                          className="w-full h-64 object-cover rounded-lg cursor-pointer transform transition-transform duration-200 hover:scale-105"
-                        />
-                        <div className="mt-6">
-                          <h4 className="text-2xl font-serif text-gray-900 mb-4">{upsell.name}</h4>
-                          <div className="flex justify-between items-center mb-3">
+          <div className="px-4 md:px-8 lg:px-12">
+            <h3 className="text-3xl font-serif mb-4 text-gray-900 text-center">ВИП оферти! Добави само сега!</h3>
+            {isUpsellActive ? (
+              <>
+                <div className="flex justify-center items-center mb-8">
+                  <div className="bg-red-100 text-red-800 px-6 py-3 rounded-lg font-bold text-xl animate-pulse">
+                    Оставащо време: {formatTime(timeRemaining)}
+                  </div>
+                </div>
+                <div className="mx-auto">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {items.slice(0, 3).map((upsell) => (
+                      <div key={upsell.$id} className="flex flex-col h-full">
+                        <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden p-6 flex flex-col h-full">
+                          <div className="relative aspect-[4/3] mb-6">
+                            <img
+                              src={upsell.image}
+                              alt={upsell.name}
+                              className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+                            />
                             {upsell.oldPrice && (
-                              <p className="text-xl font-bold text-gray-800 line-through">
-                                {upsell.oldPrice.toFixed(2)} лв
-                              </p>
+                              <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                -{Math.round(((upsell.oldPrice - upsell.actualPrice) / upsell.oldPrice) * 100)}%
+                              </div>
                             )}
-                            <p className="text-2xl font-bold text-emerald-700">
-                              {upsell.actualPrice.toFixed(2)} лв
-                            </p>
                           </div>
-                          <p className="text-md text-gray-500 mb-6">
-                            Discounted price available for the next 5 minutes.
-                          </p>
-                          <div className="text-center">
-                            <button
-                              onClick={() => handleAddToOrder(upsell)}
-                              className="bg-emerald-700 text-white px-8 py-3 rounded-full hover:bg-emerald-800 transition duration-300 transform hover:scale-105"
-                            >
-                              Add to Order
-                            </button>
+                          
+                          <div className="flex-grow">
+                            <h4 className="text-2xl font-serif text-gray-900 mb-4">{upsell.name}</h4>
+                            <div className="flex items-end gap-3 mb-4">
+                              {upsell.oldPrice && (
+                                <p className="text-lg font-medium text-gray-400 line-through">
+                                  {upsell.oldPrice.toFixed(2)} лв
+                                </p>
+                              )}
+                              <p className="text-3xl font-bold text-emerald-700">
+                                {upsell.actualPrice.toFixed(2)} лв
+                              </p>
+                            </div>
+                            <div className="bg-emerald-50 rounded-lg p-4 mb-6">
+                              <p className="text-sm text-emerald-800 font-medium">
+                                Специална цена, валидна само следващите 5 минути!
+                              </p>
+                            </div>
                           </div>
+
+                          <button
+                            onClick={() => handleAddToOrder(upsell)}
+                            className="w-full bg-emerald-700 text-white px-8 py-4 rounded-xl hover:bg-emerald-800 transition-all duration-300 transform hover:scale-[1.02] font-semibold text-lg shadow-lg hover:shadow-xl"
+                          >
+                            Добави към поръчката
+                          </button>
                         </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
+              </>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-xl text-gray-600">Специалните оферти са изтекли!</p>
               </div>
-              {arrowsVisible && (
-                <div className="flex justify-center gap-6 mt-8">
-                  <button
-                    onClick={handlePrevUpsell}
-                    className="bg-gray-100 p-3 rounded-full hover:bg-gray-200 transition-colors shadow-sm hover:shadow-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                  </button>
-
-                  <button
-                    onClick={handleNextUpsell}
-                    className="bg-gray-100 p-3 rounded-full hover:bg-gray-200 transition-colors shadow-sm hover:shadow-md"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </div>
 
