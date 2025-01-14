@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ScrollAnimation from "../components/ScrollAnimation";
+import { useNavigate } from "react-router-dom";
 import { getOneCollection } from '../lib/appwrite';
 
 const Collection = () => {
     const { id } = useParams(); // Extract collection ID from URL
     const [collection, setCollection] = useState(null); // Initialize state for collection
     const [loading, setLoading] = useState(true); // Loading state
+    const navigate = useNavigate();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         const fetchCollection = async () => {
             try {
                 const data = await getOneCollection(id); // Await the promise
@@ -33,8 +37,8 @@ const Collection = () => {
 
     const { name, description, items } = collection;
 
-    const handleReserveClick = (item) => {
-        console.log(`Reserved: ${item.name}`);
+    const handleReserveClick = (itemId) => {
+        navigate(`/item-purchase-direct/${itemId}`);
     };
 
     return (
@@ -81,7 +85,7 @@ const Collection = () => {
                                                 )}
                                             </div>
                                             <button 
-                                                onClick={() => handleReserveClick(item)}
+                                                onClick={() => handleReserveClick(item.$id)}
                                                 className={`${specialOffer ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-700'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition`}
                                             >
                                                 Резервирай за Коледа

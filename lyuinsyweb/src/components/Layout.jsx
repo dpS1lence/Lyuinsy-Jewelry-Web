@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import Logo from "../assets/images/Lyuinsy.png";
+import Logo from "../assets/images/Lyuinsy2.svg";
 import HolidayPopup from "./HolidayPopup";
 import { useNavigate } from "react-router-dom";
 
 export default function Layout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { 
     // Show popup after 2 seconds
     const timer = setTimeout(() => {
         setIsPopupOpen(false);
@@ -37,14 +37,14 @@ export default function Layout() {
       </div>
 
       {/* Банер с логото */}
-      <div className="bg-white py-4 flex justify-center">
+      <div className="bg-white flex justify-center">
         <div className="flex flex-col items-center">
-          <img src={Logo} alt="Бижута Люинси" className="w-32 hover:opacity-90 transition-opacity" />
+          <img src={Logo} alt="Бижута Люинси" className="w-40 hover:opacity-90 transition-opacity" />
         </div>
       </div>
 
       <header className="bg-white border-b border-gray-100">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 pb-4">
           <nav className="flex flex-wrap items-center justify-center space-x-4 md:space-x-12">
             <a href="/home" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Начало</a>
             <a href="/collections" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Колекции</a>
