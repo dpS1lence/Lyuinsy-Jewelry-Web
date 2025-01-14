@@ -180,7 +180,7 @@ export default function OrderConfirmation() {
         <div className="text-center">
           <Link
             to="/"
-            className="inline-block bg-emerald-600 text-white px-8 py-3 rounded-full hover:bg-emerald-700 transition duration-300 text-lg font-medium"
+            className="inline-block bg-emerald-700 text-white px-8 py-3 rounded-full hover:bg-emerald-700 transition duration-300 text-lg font-medium"
           >
             Обратно към началната страница
           </Link>

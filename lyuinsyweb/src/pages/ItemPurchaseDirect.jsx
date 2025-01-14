@@ -121,16 +121,18 @@ export default function ItemPurchaseDirect() {
 
   return (
     <ScrollAnimation>
-      <div className="px-5 lg:px-32 py-20 flex flex-col md:flex-row">
+      <div className="px-5 lg:px-32 md:py-20 flex flex-col md:flex-row">
         {/* Main Item Section */}
         <div className="lg:w-2/3">
-          <div className="flex flex-col md:flex-row justify-between items-start py-6 mb-8 rounded-xl">
+          <div className="flex flex-col justify-between items-start py-6 mb-8 rounded-xl">
+            
+          <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">{item.name}</h2>
             <div className="flex flex-col justify-center items-center md:flex-row w-full gap-8">
               <div className="relative w-full md:w-auto">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full md:w-96 h-72 object-cover cursor-pointer shadow-sm hover:opacity-95 transition-opacity"
+                  className="w-full md:max-w-md object-cover cursor-pointer shadow-sm hover:opacity-95 transition-opacity"
                   onClick={() => {
                     setPhotoIndex(0);
                     setIsLightboxOpen(true);
@@ -159,18 +161,19 @@ export default function ItemPurchaseDirect() {
                   </svg>
                 </div>
               </div>
-              <div className="flex flex-col justify-center mt-6 md:mt-0">
-                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">{item.name}</h2>
-                <p className="text-base md:text-lg text-gray-600 mb-3">{item.description}</p>
-                <p className="text-sm md:text-md text-gray-500">{item.deliveryDate}</p>
+              <div className="flex flex-col justify-between h-max">
+                <div className="flex flex-col items-start justify-center mt-6 md:mt-0">
+                  <p className="text-base md:text-lg text-gray-600 mb-3 pr-5">{item.description}</p>
+                  <p className="text-sm md:text-md text-gray-500">{item.deliveryDate}</p>
+                </div>
+                <div className="flex flex-col items-end text-right mt-6 md:mt-0 pr-0 md:pr-6">
+                  {item.oldPrice && (
+                    <p className="text-lg line-through text-gray-400 mb-2">{item.oldPrice.toFixed(2)} лв</p>
+                  )}
+                  <p className="text-3xl md:text-4xl font-extrabold text-emerald-700">{item.actualPrice.toFixed(2)} лв</p>
+                  <p className="text-sm md:text-md text-gray-600 mt-2">Специално намаление!</p>
+                </div>
               </div>
-              <div className="flex flex-col items-end text-right w-full md:w-1/4 mt-6 md:mt-0 pr-0 md:pr-6">
-              {item.oldPrice && (
-                <p className="text-lg line-through text-gray-400 mb-2">{item.oldPrice.toFixed(2)} лв</p>
-              )}
-              <p className="text-3xl md:text-4xl font-extrabold text-emerald-700">{item.actualPrice.toFixed(2)} лв</p>
-              <p className="text-sm md:text-md text-gray-600 mt-2">Специално намаление!</p>
-            </div>
             </div>
           </div>
 
@@ -187,7 +190,7 @@ export default function ItemPurchaseDirect() {
             <div className="mb-12">
               <h3 className="text-2xl font-semibold text-gray-800 mb-6">Добавени към поръчката:</h3>
               {orderedItems.map((orderedItem) => (
-                <div key={orderedItem.$id} className="flex flex-row justify-between items-center py-5 mb-6 bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
+                <div key={orderedItem.$id} className="py-5 mb-6 bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
                   <button 
                     onClick={() => handleRemoveFromOrder(orderedItem)}
                     className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-gray-100"
@@ -207,24 +210,28 @@ export default function ItemPurchaseDirect() {
                     </svg>
                   </button>
 
-                  <div className="flex flex-row w-3/4">
-                    <img
-                      src={orderedItem.image}
-                      alt={orderedItem.name}
-                      className="w-28 h-28 object-cover rounded-lg mr-6 cursor-pointer transform transition-transform duration-200 hover:scale-105"
-                    />
-                    <div className="flex flex-col justify-center">
-                      <h2 className="text-xl font-semibold text-gray-900 mb-3">{orderedItem.name}</h2>
-                      <p className="text-md text-gray-600 mb-2">{orderedItem.description}</p>
-                      <p className="text-sm text-gray-500">{orderedItem.deliveryDate}</p>
+                  <div className="flex flex-col">
+                    <div className="flex flex-col md:flex-row">
+                      <img
+                        src={orderedItem.image}
+                        alt={orderedItem.name}
+                        className="md:w-48 object-cover rounded-lg mr-6 cursor-pointer transform transition-transform duration-200 hover:scale-105"
+                      />
+                      <div className="flex flex-col justify-center">
+                        <h2 className="text-xl font-semibold text-gray-900 mb-3">{orderedItem.name}</h2>
+                        <p className="text-md text-gray-600 mb-2">{orderedItem.description}</p>
+                        <p className="text-sm text-gray-500">{orderedItem.deliveryDate}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex flex-col items-end text-right w-1/4 pr-4">
-                    {orderedItem.oldPrice && (
-                      <p className="text-lg line-through text-gray-400 mb-2">{orderedItem.oldPrice.toFixed(2)} лв</p>
-                    )}
-                    <p className="text-3xl font-extrabold text-emerald-700">{orderedItem.actualPrice.toFixed(2)} лв</p>
-                    <p className="text-md text-gray-600 mt-2">Специално намаление!</p>
+                    <div className="flex flex-col">
+                      <div className="flex flex-col items-end text-right pr-4">
+                        {orderedItem.oldPrice && (
+                          <p className="text-lg line-through text-gray-400 mb-2">{orderedItem.oldPrice.toFixed(2)} лв</p>
+                        )}
+                        <p className="text-3xl font-extrabold text-emerald-700">{orderedItem.actualPrice.toFixed(2)} лв</p>
+                        <p className="text-md text-gray-600 mt-2">Специално намаление!</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ))}
