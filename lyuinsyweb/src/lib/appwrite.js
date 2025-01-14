@@ -9,6 +9,9 @@ export const appwriteConfig = {
   collectionsCollectionId: import.meta.env.VITE_APPWRITE_COLLECTIONS_COLLECTION_ID,
 };
 
+// Log the appwriteConfig to the console
+console.log("Appwrite Configuration:", appwriteConfig);
+
 const client = new Client();
 
 client
