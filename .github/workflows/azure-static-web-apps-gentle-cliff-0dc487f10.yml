@@ -35,11 +35,23 @@ jobs:
         run: |
           echo "VITE_RECAPTCHA_SITE_KEY=$VITE_RECAPTCHA_SITE_KEY" > .env.production
           echo "VITE_RECAPTCHA_SECRET_KEY=$VITE_RECAPTCHA_SECRET_KEY" >> .env.production
+          echo "VITE_APPWRITE_ENDPOINT=$VITE_APPWRITE_ENDPOINT" >> .env.production
+          echo "VITE_APPWRITE_PROJECT_ID=$VITE_APPWRITE_PROJECT_ID" >> .env.production
+          echo "VITE_APPWRITE_DATABASE_ID=$VITE_APPWRITE_DATABASE_ID" >> .env.production
+          echo "VITE_APPWRITE_STORAGE_ID=$VITE_APPWRITE_STORAGE_ID" >> .env.production
+          echo "VITE_APPWRITE_ITEMS_COLLECTION_ID=$VITE_APPWRITE_ITEMS_COLLECTION_ID" >> .env.production
+          echo "VITE_APPWRITE_COLLECTIONS_COLLECTION_ID=$VITE_APPWRITE_COLLECTIONS_COLLECTION_ID" >> .env.production
           npm run build
         working-directory: ./lyuinsyweb
         env:
           VITE_RECAPTCHA_SITE_KEY: ${{ secrets.VITE_RECAPTCHA_SITE_KEY }}
           VITE_RECAPTCHA_SECRET_KEY: ${{ secrets.VITE_RECAPTCHA_SECRET_KEY }}
+          VITE_APPWRITE_ENDPOINT: ${{ secrets.VITE_APPWRITE_ENDPOINT }}
+          VITE_APPWRITE_PROJECT_ID: ${{ secrets.VITE_APPWRITE_PROJECT_ID }}
+          VITE_APPWRITE_DATABASE_ID: ${{ secrets.VITE_APPWRITE_DATABASE_ID }}
+          VITE_APPWRITE_STORAGE_ID: ${{ secrets.VITE_APPWRITE_STORAGE_ID }}
+          VITE_APPWRITE_ITEMS_COLLECTION_ID: ${{ secrets.VITE_APPWRITE_ITEMS_COLLECTION_ID }}
+          VITE_APPWRITE_COLLECTIONS_COLLECTION_ID: ${{ secrets.VITE_APPWRITE_COLLECTIONS_COLLECTION_ID }}
 
       # Deploy to Azure Static Web Apps
       - name: Deploy to Azure Static Web Apps
