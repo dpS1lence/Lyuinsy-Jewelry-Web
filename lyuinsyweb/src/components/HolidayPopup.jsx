@@ -24,9 +24,9 @@ export default function HolidayPopup({ isOpen, onClose }) {
         
         <div className="p-8">
           <div className="text-center mb-6">
-            <span className="text-red-600 text-4xl mb-2">🎄</span>
-            <h2 className="text-2xl font-serif text-gray-800 mb-2">Ексклузивен достъп за празници</h2>
-            <p className="text-gray-600 mb-4">Присъединете се към нашия VIP списък за специални оферти за празници</p>
+            <span className="text-red-600 text-4xl mb-2">❤️</span>
+            <h2 className="text-2xl font-serif text-gray-800 mb-2">Специални предложения за Свети Валентин и 8-ми март!</h2>
+            <p className="text-gray-600 mb-4">Присъединете се към нашия списък за ексклузивни оферти и новини!</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -34,7 +34,7 @@ export default function HolidayPopup({ isOpen, onClose }) {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Въведете вашата имейл адреса"
+              placeholder="Въведете вашия имейл адрес"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
               required
             />
@@ -42,12 +42,12 @@ export default function HolidayPopup({ isOpen, onClose }) {
               type="submit"
               className="w-full bg-red-600 text-white py-3 rounded-lg hover:bg-red-700 transition-colors font-medium"
             >
-              Получете VIP достъп
+              Запишете се за специални оферти
             </button>
           </form>
           
           <p className="text-gray-500 text-sm text-center mt-4">
-            🎁 Първите подписки получават 15% отстъпка 🎁
+            🎉 Първите 50 подписки получават 20% отстъпка! 🎉
           </p>
         </div>
       </div>

@@ -32,11 +32,11 @@ export default function HolidayCollectionSection() {
     <section className="py-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 relative">
-          <h2 className="text-3xl font-serif mb-4">Колекция за Празници</h2>
+          <h2 className="text-3xl font-serif mb-4">Колекция за Свети Валентин и 8-ми март</h2>
           <p className="text-gray-600">
-            <span className="mr-2">✨</span>
+            <span className="mr-2">💖</span>
             Изключителни парчета за незабравими моменти
-            <span className="ml-2">✨</span>
+            <span className="ml-2">💖</span>
           </p>
         </div>
         
@@ -57,14 +57,14 @@ export default function HolidayCollectionSection() {
                     <div className="flex items-center gap-2">
                       <>
                         <span className="text-2xl font-light line-through text-gray-400">{item.oldPrice}лв</span>
-                        <span className="text-2xl font-bold text-red-600">{item.actualPrice}лв</span>
+                        <span className="text-2xl font-bold text-emerald-700">{item.actualPrice}лв</span>
                       </>
                     </div>
                     <button 
                       onClick={() => handleReserveClick(item.$id)}
-                      className={`text-black px-6 py-2 mt-2 md:mt-0 rounded-full transition`}
+                      className={`bg-emerald-700 text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition hover:bg-emerald-800`}
                     >
-                      Резервирай за Коледа
+                      Разгледай
                     </button>
                   </div>
                 </div>

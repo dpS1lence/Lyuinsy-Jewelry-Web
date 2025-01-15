@@ -28,9 +28,9 @@ export default function CollectionsSection() {
         <section className="py-20 bg-white">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl font-serif mb-4">Our Collections</h2>
+                    <h2 className="text-4xl font-serif mb-4">Нашите Колекции</h2>
                     <p className="text-gray-600">
-                        Discover our carefully curated collections, each telling its own unique story
+                        Открийте нашите внимателно подбрани колекции, всяка от които разказва своя уникална история
                     </p>
                 </div>
 

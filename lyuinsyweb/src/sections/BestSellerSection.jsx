@@ -29,15 +29,15 @@ export default function BestSellerSection() {
     };
 
     return (
-        <section className="py-32 bg-gradient-to-b from-gray-50 to-white">
+        <section className="py-32 bg-gradient-to-b from-pink-50 to-white">
             <div className="container mx-auto px-8">
                 <ScrollAnimation>
                     <div className="text-center relative">
-                        <span className="text-5xl animate-bounce">🎄</span>
-                        <h2 className="text-5xl font-serif mb-6 text-gray-900">Коледни Бестселъри</h2>
+                        <span className="text-5xl animate-bounce">💖</span>
+                        <h2 className="text-5xl font-serif mb-6 text-gray-900">Специални предложения за Свети Валентин и 8-ми март</h2>
                         <p className="text-gray-600 text-xl">
                             <span className="mr-2">✨</span>
-                            Създайте магически моменти с нашата изключителна колекция
+                            Създайте незабравими моменти с нашата изключителна колекция
                             <span className="ml-2">✨</span>
                         </p>
                     </div>
@@ -102,7 +102,7 @@ export default function BestSellerSection() {
                                                     onClick={() => handleReserveClick(item.$id)}
                                                     className="w-full md:w-3/4 bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition"
                                                 >
-                                                    Резервирай сега за Коледа
+                                                    Резервирай сега за Свети Валентин
                                                 </button>
                                             </div>
                                         </div>

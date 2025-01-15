@@ -32,7 +32,7 @@ const Collection = () => {
     }
 
     if (!collection) {
-        return <div>Collection not found</div>; // Show if collection is null
+        return <div>Loading...</div>; // Show if collection is null
     }
 
     const { name, description, items } = collection;
@@ -43,11 +43,11 @@ const Collection = () => {
 
     return (
         <ScrollAnimation>
-            <section className="py-20">
+            <section className="py-20 ">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-12 relative">
-                        <h2 className="text-3xl font-serif mb-4">{name}</h2>
-                        <p className="text-gray-600">{description}</p>
+                        <h2 className="text-3xl font-serif mb-4 text-red-600">{name}</h2>
+                        <p className="text-gray-700">{description}</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -71,7 +71,7 @@ const Collection = () => {
                                         )}
                                     </div>
                                     <div className="p-6">
-                                        <h3 className="text-xl font-serif mb-2">{name}</h3>
+                                        <h3 className="text-xl font-serif mb-2 text-red-600">{name}</h3>
                                         <p className="text-gray-600 mb-4">{description}</p>
                                         <div className="flex flex-col md:flex-row justify-between items-center">
                                             <div className="flex items-center gap-2">
@@ -86,9 +86,9 @@ const Collection = () => {
                                             </div>
                                             <button 
                                                 onClick={() => handleReserveClick(item.$id)}
-                                                className={`${specialOffer ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-700'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition`}
+                                                className={`${specialOffer ? 'bg-red-600 hover:bg-red-700' : 'bg-pink-600 hover:bg-pink-700'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition`}
                                             >
-                                                Резервирай за Коледа
+                                                Разгледай
                                             </button>
                                         </div>
                                     </div>

@@ -22,6 +22,7 @@ export default function ItemPurchaseDirect() {
   const [isUpsellActive, setIsUpsellActive] = useState(() => {
     return localStorage.getItem('upsellActive') !== 'false';
   });
+  const [loading, setLoading] = useState(true); // State for loading animation
 
   // Create array of all images (main item + upsell items)
   const allImages = item ? [
@@ -45,6 +46,8 @@ export default function ItemPurchaseDirect() {
         setItems(dataAll);
       } catch (error) {
         console.error("Failed to fetch collection:", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching
       }
     };
 
@@ -84,6 +87,10 @@ export default function ItemPurchaseDirect() {
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen"><p className="text-xl">Loading...</p></div>; // Loading animation
+  }
 
   if (!items) {
     return <div>Collection not found</div>; // Show if collection is null

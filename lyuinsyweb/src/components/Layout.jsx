@@ -10,7 +10,7 @@ export default function Layout() {
   useEffect(() => { 
     // Show popup after 2 seconds
     const timer = setTimeout(() => {
-        setIsPopupOpen(false);
+        setIsPopupOpen(true);
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -32,7 +32,7 @@ export default function Layout() {
       {/* Обявителен банер */}
       <div className="bg-emerald-700 text-white text-center py-2 px-4">
         <p className="text-sm font-medium animate-pulse">
-          🎄 Коледно Специално: Безплатна доставка на поръчки над $100 | Използвайте код: КОЛЕДА2023 ✨
+          ❤️ Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 100лв ✨
         </p>
       </div>
 
@@ -66,7 +66,7 @@ export default function Layout() {
         <div className="container mx-auto px-4 text-center relative">
           <h2 className="text-5xl font-serif mb-6">Присъедини се към нашия VIP списък</h2>
           <p className="text-gray-300 max-w-2xl mx-auto mb-12 text-lg">
-            Бъдете първите, които ще получат достъп до нашите ексклузивни колекции за празници и специалните сезонни оферти. 
+            Бъдете първите, които ще получат достъп до нашите ексклузивни колекции за Свети Валентин и 8-ми март. 
             Получавайте персонализирани препоръки и VIP-ексклузивни отстъпки.
           </p>
           <div className="max-w-md mx-auto bg-white/10 p-1 rounded-full backdrop-blur-sm mb-8">
