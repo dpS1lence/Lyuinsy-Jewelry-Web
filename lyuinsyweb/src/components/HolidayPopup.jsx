@@ -5,8 +5,7 @@ export default function HolidayPopup({ isOpen, onClose }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Add your email submission logic here
-    console.log('Email submitted:', email);
+    
     onClose();
   };
 

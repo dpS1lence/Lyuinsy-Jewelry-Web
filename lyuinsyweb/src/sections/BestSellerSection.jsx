@@ -29,7 +29,7 @@ export default function BestSellerSection() {
     };
 
     return (
-        <section className="py-32 bg-gradient-to-b from-pink-50 to-white">
+        <section className="py-32">
             <div className="container mx-auto px-8">
                 <ScrollAnimation>
                     <div className="text-center relative">
@@ -93,9 +93,6 @@ export default function BestSellerSection() {
                                                     </span>
                                                 </div>
                                                 <span className="text-emerald-700">{`★★★★★`}</span>
-                                            </div>
-                                            <div className="text-sm text-emerald-700 font-semibold">
-                                                item.offerDetails
                                             </div>
                                             <div className="flex justify-center items-center text-center">
                                                 <button
