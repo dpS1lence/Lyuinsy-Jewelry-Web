@@ -60,8 +60,13 @@ export default function BestSellerSection() {
                                                 <img
                                                     src={item.image} // Assuming `image` holds the image URL
                                                     alt={item.title}
-                                                    className="w-full lg:h-[600px] object-cover"
+                                                    className={`w-full lg:h-[600px] object-cover ${item.quantity === 0 ? 'filter grayscale' : ''}`}
                                                 />
+                                                {item.quantity === 0 && (
+                                                    <div className="absolute inset-0 bg-gray-300 opacity-50 flex items-center justify-center">
+                                                        <span className="text-white text-xl font-bold">Изчерпана</span>
+                                                    </div>
+                                                )}
                                                 <div className="absolute top-6 right-6">
                                                     <span className="bg-emerald-700 text-white px-8 py-3 rounded-full text-sm font-semibold shadow-lg">
                                                         ✧ СПЕЦИАЛНА ОФЕРТА ✧
@@ -97,7 +102,8 @@ export default function BestSellerSection() {
                                             <div className="flex justify-center items-center text-center">
                                                 <button
                                                     onClick={() => handleReserveClick(item.$id)}
-                                                    className="w-full md:w-3/4 bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition"
+                                                    className={`w-full md:w-3/4 bg-emerald-700 text-white py-4 rounded-full hover:bg-emerald-800 transition ${item.quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
+                                                    disabled={item.quantity === 0}
                                                 >
                                                     Резервирай сега за Свети Валентин
                                                 </button>
@@ -113,4 +119,3 @@ export default function BestSellerSection() {
         </section>
     );
 }
-

@@ -3,6 +3,7 @@ import { useState } from "react";
 import emailjs from 'emailjs-com';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { purchaseItem } from "../lib/appwrite";
 
 const sitekeyRE = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
@@ -62,6 +63,13 @@ export default function OrderSection({ orderData }) {
         const deliveryFee = 10;
         const discountAmount = 5 + discount; // Existing fixed discount plus promo discount
         const totalPrice = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
+
+        console.log("inthere + " + orderData.mainItem.$id);
+
+        await purchaseItem(orderData.mainItem.$id);
+        for (const item of orderData.orderedItems) {
+            await purchaseItem(item.$id);
+        }
 
         // Send email logic here
         const emailData = {

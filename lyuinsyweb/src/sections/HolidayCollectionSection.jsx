@@ -48,8 +48,13 @@ export default function HolidayCollectionSection() {
                   <img 
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-64 object-cover"
+                    className={`w-full h-64 object-cover ${item.quantity === 0 ? 'filter grayscale' : ''}`}
                   />
+                  {item.quantity === 0 && (
+                    <div className="absolute inset-0 bg-gray-300 opacity-50 flex items-center justify-center">
+                      <span className="text-white text-xl font-bold">Изчерпана</span>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-serif mb-2">{item.name}</h3>
@@ -62,7 +67,8 @@ export default function HolidayCollectionSection() {
                     </div>
                     <button 
                       onClick={() => handleReserveClick(item.$id)}
-                      className={`bg-emerald-700 text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition hover:bg-emerald-800`}
+                      className={`bg-emerald-700 text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition hover:bg-emerald-800 ${item.quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
+                      disabled={item.quantity === 0}
                     >
                       Разгледай
                     </button>

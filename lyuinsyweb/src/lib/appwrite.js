@@ -52,7 +52,7 @@ export async function uploadFile(file) {
 }
 
 // Create a new item
-export async function createItem({ name, description, oldPrice, actualPrice, discount, bulletsDescription, specialOffer, imageFile }) {
+export async function createItem({ name, description, oldPrice, actualPrice, discount, bulletsDescription, specialOffer, imageFile, quantity }) {
   try {
     // First upload the image
     const { fileUrl } = await uploadFile(imageFile);
@@ -71,6 +71,7 @@ export async function createItem({ name, description, oldPrice, actualPrice, dis
         bullets_description: bulletsDescription || [],
         special_offer: specialOffer,
         image: fileUrl,
+        quantity
       }
     );
 
@@ -188,8 +189,9 @@ export const updateItem = async (itemId, updatedData) => {
         old_price: updatedData.oldPrice,
         actual_price: updatedData.actualPrice,
         discount: updatedData.discount,
-        bullets_description: updatedData.bulletsDescription || [],
+        bulletsDescription: updatedData.bulletsDescription || [],
         special_offer: updatedData.specialOffer,
+        quantity: updatedData.quantity,
         ...(image && { image }), // Only include image if a new image was uploaded
       }
     );
@@ -198,5 +200,23 @@ export const updateItem = async (itemId, updatedData) => {
   } catch (error) {
     console.error("Error updating item:", error);
     throw error;
+  }
+};
+
+// New function to decrement item quantity
+export const purchaseItem = async (itemId) => {
+  try {
+    const item = await getOneItem(itemId);
+    console.log(item);
+    console.log(itemId);
+    console.log(item.quantity);
+    if (item && item.quantity > 0) {
+      await updateItem(itemId, { quantity: item.quantity - 1 }); // Decrement quantity by 1
+      console.log("Item quantity updated successfully");
+    } else {
+      console.error("Item not found or quantity is zero");
+    }
+  } catch (error) {
+    console.error("Error purchasing item:", error);
   }
 };

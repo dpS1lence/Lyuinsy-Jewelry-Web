@@ -52,7 +52,7 @@ const Collection = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {items.map((item) => {
-                            const { $id, name, description, image, oldPrice, actualPrice, specialOffer } = item;
+                            const { $id, name, description, image, oldPrice, actualPrice, specialOffer, quantity } = item;
 
                             return (
                                 <div key={$id} className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
@@ -60,8 +60,13 @@ const Collection = () => {
                                         <img 
                                             src={image}
                                             alt={name}
-                                            className="w-full h-64 object-cover"
+                                            className={`w-full h-64 object-cover ${quantity === 0 ? 'filter grayscale' : ''}`}
                                         />
+                                        {quantity === 0 && (
+                                            <div className="absolute inset-0 bg-gray-300 opacity-50 flex items-center justify-center">
+                                                <span className="text-white text-xl font-bold">Изчерпана</span>
+                                            </div>
+                                        )}
                                         {specialOffer && (
                                             <div className="absolute top-4 right-4">
                                                 <span className="bg-red-600 text-white px-4 py-1 rounded-full text-sm font-bold">
@@ -86,7 +91,8 @@ const Collection = () => {
                                             </div>
                                             <button 
                                                 onClick={() => handleReserveClick(item.$id)}
-                                                className={`${specialOffer ? 'bg-red-600 hover:bg-red-700' : 'bg-pink-600 hover:bg-pink-700'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition`}
+                                                className={`${specialOffer ? 'bg-red-600 hover:bg-red-700' : 'bg-pink-600 hover:bg-pink-700'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition ${quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
+                                                disabled={quantity === 0}
                                             >
                                                 Разгледай
                                             </button>
