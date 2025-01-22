@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import Logo from "../assets/images/Lyuinsy2.svg";
+import Logo from "../assets/images/Lyuinsyia.png";
 import HolidayPopup from "./HolidayPopup";
 import { useNavigate } from "react-router-dom";
+import { saveEmail } from '../lib/appwrite'; // Import saveEmail function
 
 export default function Layout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [email, setEmail] = useState(''); // State for email input
 
   useEffect(() => { 
     // Show popup after 2 seconds
     const timer = setTimeout(() => {
-        setIsPopupOpen(true);
+        setIsPopupOpen(false);
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -22,6 +24,19 @@ export default function Layout() {
     }); 
   };
 
+  const handleEmailSubmit = async () => {
+    const date = new Date().toISOString(); // Get the current datetime in ISO format
+
+    try {
+      await saveEmail({ email, date }); // Call saveEmail with email and date
+      console.log("Email saved successfully");
+      // Optionally, you can reset the email input or show a success message
+      setEmail(''); // Clear the input after submission
+    } catch (error) {
+      console.error("Error saving email:", error.message); // Log only the error message
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <HolidayPopup 
@@ -30,27 +45,27 @@ export default function Layout() {
       />
       
       {/* Обявителен банер */}
-      <div className="bg-emerald-700 text-white text-center py-2 px-4">
+      <div className="bg-discount text-white text-center py-2 px-4">
         <p className="text-sm font-medium animate-pulse">
           ❤️ Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 100лв ✨
         </p>
       </div>
 
       {/* Банер с логото */}
-      <div className="bg-white flex justify-center">
+      <div className="bg-background flex justify-center">
         <div className="flex flex-col items-center">
           <img src={Logo} alt="Бижута Люинси" className="w-40 hover:opacity-90 transition-opacity" />
         </div>
       </div>
 
-      <header className="bg-white border-b border-gray-100">
-        <div className="container mx-auto px-4 pb-4">
+      <header className="bg-background border-b border-accentbackground relative">
+        <div className="container mx-auto px-4 pb-4 relative z-10">
           <nav className="flex flex-wrap items-center justify-center space-x-4 md:space-x-12">
-            <a href="/home" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Начало</a>
-            <a href="/collections" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Колекции</a>
-            <a href="/about" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">За нас</a>
-            <a href="/contacts" className="text-gray-700 hover:text-emerald-700 transition-colors font-medium">Контакт</a>
-            <button onClick={buynow} className="bg-emerald-700 text-white px-6 py-2 mt-2 lg:mt-0 rounded-full hover:bg-emerald-800 transition-colors">
+            <a href="/home" className="text-text hover:text-hover transition-colors font-medium">Начало</a>
+            <a href="/collections" className="text-text hover:text-hover transition-colors font-medium">Колекции</a>
+            <a href="/about" className="text-text hover:text-hover transition-colors font-medium">За нас</a>
+            <a href="/contacts" className="text-text hover:text-hover transition-colors font-medium">Контакт</a>
+            <button onClick={buynow} className="bg-black text-white border border-black px-8 py-2 font-medium lg:w-auto hover:bg-white hover:text-black">
               Купи сега
             </button>
           </nav>
@@ -61,54 +76,61 @@ export default function Layout() {
         <Outlet />
       </main>
 {/* Апел за действие */}
-<section className="bg-emerald-900 text-white py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diamond-upholstery.png')] opacity-10"></div>
+<section className="bg-[#8DBAEC] py-20 relative overflow-hidden italic text-black">
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/white-diamond-dark.png')] opacity-20"></div>
         <div className="container mx-auto px-4 text-center relative">
           <h2 className="text-5xl font-serif mb-6">Присъедини се към нашия VIP списък</h2>
-          <p className="text-gray-300 max-w-2xl mx-auto mb-12 text-lg">
+          <p className="text-text max-w-2xl mx-auto mb-12 text-lg">
             Бъдете първите, които ще получат достъп до нашите ексклузивни колекции за Свети Валентин и 8-ми март. 
             Получавайте персонализирани препоръки и VIP-ексклузивни отстъпки.
           </p>
-          <div className="max-w-md mx-auto bg-white/10 p-1 rounded-full backdrop-blur-sm mb-8">
+          <div className="max-w-md mx-auto bg-background p-1 rounded-full backdrop-blur-sm mb-8">
             <div className="flex">
               <input 
                 type="email"
                 placeholder="Въведете вашата имейл адреса"
-                className="flex-1 bg-transparent px-6 py-3 text-white placeholder-gray-300 focus:outline-none"
+                className="flex-1 bg-transparent px-6 py-3 text-text focus:outline-none"
+                value={email} // Bind the input value to the email state
+                onChange={(e) => setEmail(e.target.value)} // Update email state on input change
               />
-              <button className="bg-white text-emerald-900 px-2 py-2 md:px-8 md:py-3 rounded-full font-medium hover:bg-gray-100">
+              <button 
+                onClick={handleEmailSubmit} // Call handleEmailSubmit on button click
+                className="bg-black text-white px-2 py-2 md:px-8 md:py-3 rounded-full font-medium"
+              >
                 Присъедини се към VIP клуба
               </button>
             </div>
           </div>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-text">
             ✨ Ексклузивен достъп | 🎁 Специални оферти | 💝 VIP събития
           </p>
         </div>
       </section>
-      <footer className="bg-emerald-700 text-white">
+      <footer className="bg-black text-white">
         <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-row justify-between items-start gap-8">
+          <div></div>
             <div>
-              <h3 className="text-xl font-serif mb-4">Елегантни Бижута</h3>
-              <p className="text-emerald-100">Създаваме безвременни бижута от 1990 г.</p>
+              <h3 className="text-xl font-serif mb-4 text-white font-bold">Елегантни Бижута</h3>
+              <p className="text-white">Създаваме безвременни бижута от 1990 г.</p>
             </div>
             <div>
-              <h4 className="text-lg mb-4">Бързи линкове</h4>
-              <ul className="space-y-2 text-emerald-100">
-                <li><a href="/shipping" className="hover:text-white">Информация за доставка</a></li>
-                <li><a href="/returns" className="hover:text-white">Възстановяване</a></li>
-                <li><a href="/care" className="hover:text-white">Позабота за бижутата</a></li>
+              <h4 className="text-lg mb-4 text-white font-bold">Бързи линкове</h4>
+              <ul className="space-y-2 text-white">
+                <li><a href="/shipping" className="hover:text-hover">Информация за доставка</a></li>
+                <li><a href="/returns" className="hover:text-hover">Възстановяване</a></li>
+                <li><a href="/care" className="hover:text-hover">Позабота за бижутата</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-lg mb-4">Свържи се с нас</h4>
-              <address className="text-emerald-100 not-italic">
+              <h4 className="text-lg mb-4 text-white font-bold">Свържи се с нас</h4>
+              <address className="text-white not-italic">
                 <p>123 улица на бижутата</p>
                 <p>Ню Йорк, НЙ 10001</p>
                 <p>Email: info@elegantgems.com</p>
               </address>
             </div>
+            <div></div>
           </div>
         </div>
       </footer>

@@ -115,8 +115,8 @@ export default function OrderSection({ orderData }) {
     const totalPrice = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
 
     return (
-        <div className="lg:w-1/3 bg-gray-50 lg:p-8 border-l border-gray-100 mb-2">
-            <h3 className="text-3xl font-serif mb-6 text-gray-900">Завършете Вашата Поръчка</h3>
+        <div className="lg:w-2/5 lg:p-8 border-l border-gray-200 mb-2">
+            <h3 className="text-3xl font-serif mb-6 text-text">Завършете Вашата Поръчка</h3>
             <form className="space-y-6" onSubmit={handleSubmit}>
                 {/* Промо Код */}
                 <div className="flex flex-col">
@@ -125,15 +125,15 @@ export default function OrderSection({ orderData }) {
                             type="text"
                             name="promoCode"
                             placeholder="Промо код"
-                            className="w-3/5 px-6 py-3 border border-gray-300 rounded-l-full text-gray-800 placeholder-gray-400"
+                            className="w-3/5 px-6 py-3 border border-gray-300 rounded-l-full text-text placeholder-gray-400"
                             onChange={handleInputChange}
                             disabled={promoApplied} // Disable input if promo applied
                         />
                         <button
                             className={`w-2/5 px-2 lg:px-6 py-3 rounded-r-full font-medium transition duration-300 ${
                                 promoApplied
-                                    ? "bg-gray-400 cursor-not-allowed"
-                                    : "bg-emerald-700 text-white hover:bg-emerald-800"
+                                    ? "bg-black text-white cursor-not-allowed"
+                                    : "bg-black text-white hover:bg-white hover:text-black border border-black"
                             }`}
                             onClick={handleApplyPromo}
                             disabled={promoApplied} // Disable button if promo applied
@@ -145,8 +145,8 @@ export default function OrderSection({ orderData }) {
                     {promoMessage && (
                         <p className={`mt-2 text-center text-sm ${
                             promoApplied
-                                ? "text-emerald-700"
-                                : "text-red-600"
+                                ? "text-text"
+                                : "text-discount"
                         }`}>
                             {promoMessage}
                         </p>
@@ -158,7 +158,7 @@ export default function OrderSection({ orderData }) {
                     type="text"
                     name="name"
                     placeholder="Имена на кирилица"
-                    className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
+                    className="w-full px-6 py-3 border border-gray-300 rounded text-text"
                     required
                     onChange={handleInputChange}
                 />
@@ -166,7 +166,7 @@ export default function OrderSection({ orderData }) {
                     type="email"
                     name="email"
                     placeholder="Имейл"
-                    className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
+                    className="w-full px-6 py-3 border border-gray-300 rounded text-text"
                     required
                     onChange={handleInputChange}
                 />
@@ -174,7 +174,7 @@ export default function OrderSection({ orderData }) {
                     type="tel"
                     name="phone"
                     placeholder="Телефонен Номер"
-                    className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
+                    className="w-full px-6 py-3 border border-gray-300 rounded text-text"
                     required
                     onChange={handleInputChange}
                 />
@@ -182,29 +182,29 @@ export default function OrderSection({ orderData }) {
                     type="text"
                     name="address"
                     placeholder="Адрес"
-                    className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
+                    className="w-full px-6 py-3 border border-gray-300 rounded text-text"
                     required
                     onChange={handleInputChange}
                 />
 
                 {/* Обобщение на Цената */}
                 <div className="mt-6 bg-white p-6 rounded-lg">
-                    <div className="flex justify-between text-lg text-gray-700">
+                    <div className="flex justify-between text-lg text-text">
                         <p>Цена за Доставка:</p>
                         <p>10лв</p>
                     </div>
-                    <div className="flex justify-between text-lg text-gray-700">
+                    <div className="flex justify-between text-lg text-text">
                         <p>Отстъпка:</p>
                         <p>-5лв</p>
                     </div>
                     {promoApplied && (
-                        <div className="flex justify-between text-lg text-gray-700">
+                        <div className="flex justify-between text-lg text-text">
                             <p>Промо Отстъпка (10%):</p>
                             <p>-{discount.toFixed(2)}лв</p>
                         </div>
                     )}
                     <div className="border-t border-gray-300 my-4"></div>
-                    <div className="flex justify-between text-2xl font-bold text-gray-900">
+                    <div className="flex justify-between text-2xl font-bold text-text">
                         <p>Общо:</p>
                         <p>{totalPrice.toFixed(2)} лв</p> {/* Display dynamic total price */}
                     </div>
@@ -217,7 +217,7 @@ export default function OrderSection({ orderData }) {
                 />
 
                 {/* Потвърдете Поръчката */}
-                <button className="bg-emerald-700 text-white px-6 py-3 rounded-full w-full font-medium text-lg transition duration-300 hover:bg-emerald-800" type="submit">
+                <button className="bg-black text-white w-full py-4 hover:bg-white hover:text-black border border-black" type="submit">
                     Потвърдете Поръчката
                 </button>
             </form>

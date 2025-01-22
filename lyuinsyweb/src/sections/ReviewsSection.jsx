@@ -4,9 +4,9 @@ export default function ReviewsSection() {
     const reviews = [
         {
           name: "Сара Мичъл",
-          image: "https://randomuser.me/api/portraits/women/1.jpg", 
+          image: "https://randomuser.me/api/portraits/women/6.jpg", 
           rating: 5,
-          text: "Диамантеният Вечен Пръстен надмина всичките ми очаквания. Изработката е безупречна, а блясъкът му е като нищо, което съм виждала преди!",
+          text: "Диамантеният Вечен Пръс Изработката е безупречна, а блясъкът му е като нищо, което съм виждала преди!",
           title: "Абсолютно Зашеметяващ"
         },
         {
@@ -57,10 +57,10 @@ export default function ReviewsSection() {
       };
 
     return (
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-accentbackground">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10 relative">
-            <h2 className="text-4xl font-serif">Какво казват нашите клиенти</h2>
+            <h2 className="text-4xl font-serif text-text">Какво казват нашите клиенти</h2>
           </div>
 
           <div className="relative max-w-5xl mx-auto">
@@ -71,7 +71,7 @@ export default function ReviewsSection() {
               >
                 {reviews.map((review, index) => (
                   <div key={index} className="min-w-full">
-                    <div className="flex items-center gap-8 bg-gray-50 rounded-lg p-8">
+                    <div className="flex items-center gap-8 bg-background rounded-lg p-8 shadow-md">
                       <div className="w-1/3">
                         <img 
                           src={review.image} 
@@ -80,12 +80,12 @@ export default function ReviewsSection() {
                         />
                       </div>
                       <div className="w-2/3 space-y-3">
-                        <h3 className="text-2xl font-serif">{review.title}</h3>
-                        <div className="text-emerald-700 text-lg">
+                        <h3 className="text-2xl font-serif text-text">{review.title}</h3>
+                        <div className="text-discount text-lg">
                           {'★'.repeat(review.rating)}
                         </div>
-                        <p className="text-gray-600 text-lg">"{review.text}"</p>
-                        <p className="text-gray-800 font-medium">{review.name}</p>
+                        <p className="text-text text-lg">"{review.text}"</p>
+                        <p className="text-text font-medium">{review.name}</p>
                       </div>
                     </div>
                   </div>

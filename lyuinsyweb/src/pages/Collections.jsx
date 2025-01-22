@@ -29,11 +29,11 @@ const Collections = () => {
     return (
         
     <ScrollAnimation>
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-background">
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl font-serif mb-4">Нашите Колекции</h2>
-                    <p className="text-gray-600">
+                    <h2 className="text-4xl font-serif mb-4 text-text">Нашите Колекции</h2>
+                    <p className="text-text">
                         Открийте нашите внимателно подбрани колекции, всяка от които разказва своята уникална история
                     </p>
                 </div>
@@ -52,14 +52,14 @@ const Collections = () => {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-2xl font-serif mb-2 group-hover:text-emerald-700 transition-colors">
+                                    <h3 className="text-2xl font-serif mb-2 group-hover:text-text transition-colors">
                                         {collection.name}
                                     </h3>
-                                    <p className="text-gray-600 mb-4">
+                                    <p className="text-text mb-4">
                                         {collection.description}
                                     </p>
-                                    <div className="flex items-center text-emerald-700 font-medium">
-                                        <button >Изследвай Колекцията</button>
+                                    <div className="flex items-center text-text font-medium">
+                                        <button className="text-discount hover:text-red">Изследвай Колекцията</button>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                         </svg>

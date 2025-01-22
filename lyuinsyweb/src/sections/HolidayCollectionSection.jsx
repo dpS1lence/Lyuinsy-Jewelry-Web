@@ -29,49 +29,37 @@ export default function HolidayCollectionSection() {
     };
 
   return (
-    <section className="py-20">
+    <section className="py-20 bg-accentbackground">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 relative">
-          <h2 className="text-3xl font-serif mb-4">Колекция за Свети Валентин и 8-ми март</h2>
-          <p className="text-gray-600">
-            <span className="mr-2">💖</span>
-            Изключителни парчета за незабравими моменти
-            <span className="ml-2">💖</span>
-          </p>
+          <h2 className="text-3xl font-serif mb-4 text-text">Колекция за Свети Валентин и 8-ми март</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {items.map((item, index) => {
             return (
-              <div key={item.$id} className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-                <div className="relative">
+              <div 
+                key={item.$id} 
+                className={`group bg-background overflow-hidden transition duration-300 ${item.quantity === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                onClick={() => item.quantity > 0 && handleReserveClick(item.$id)}
+              >
+                <div className="relative overflow-hidden">
                   <img 
                     src={item.image}
                     alt={item.name}
-                    className={`w-full h-64 object-cover ${item.quantity === 0 ? 'filter grayscale' : ''}`}
+                    className={`w-full h-64 object-cover transition-transform duration-300 transform hover:scale-110 ${item.quantity === 0 ? 'filter grayscale' : ''}`}
                   />
                   {item.quantity === 0 && (
-                    <div className="absolute inset-0 bg-gray-300 opacity-50 flex items-center justify-center">
-                      <span className="text-white text-xl font-bold">Изчерпана</span>
+                    <div className="absolute inset-0 bg-accentbackground opacity-50 flex items-center justify-center">
+                      <span className="text-black text-4xl font-bold">Изчерпана</span>
                     </div>
                   )}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-serif mb-2">{item.name}</h3>
+                <div className={`p-6 flex flex-col justify-items-center items-center text-center ${item.quantity === 0 ? 'bg-accentbackground opacity-50' : ''}`}>
+                  <h3 className="text-md font-semibold mb-2 text-text">{item.name}</h3>
+                  <h3 className="text-md mb-2 text-text">{item.description.split(' ').slice(0, 3).join(' ') + '...'}</h3>
                   <div className="flex flex-col md:flex-row justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <>
-                        <span className="text-2xl font-light line-through text-gray-400">{item.oldPrice}лв</span>
-                        <span className="text-2xl font-bold text-emerald-700">{item.actualPrice}лв</span>
-                      </>
-                    </div>
-                    <button 
-                      onClick={() => handleReserveClick(item.$id)}
-                      className={`bg-emerald-700 text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition hover:bg-emerald-800 ${item.quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
-                      disabled={item.quantity === 0}
-                    >
-                      Разгледай
-                    </button>
+                    <span className="text-xl font-thin text-main">{item.actualPrice.toFixed(2)} лв</span>
                   </div>
                 </div>
               </div>

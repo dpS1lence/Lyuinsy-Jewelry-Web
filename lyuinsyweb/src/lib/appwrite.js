@@ -7,6 +7,7 @@ export const appwriteConfig = {
   storageId: import.meta.env.VITE_APPWRITE_STORAGE_ID,
   itemsCollectionId: import.meta.env.VITE_APPWRITE_ITEMS_COLLECTION_ID,
   collectionsCollectionId: import.meta.env.VITE_APPWRITE_COLLECTIONS_COLLECTION_ID,
+  collectionsEmailId: import.meta.env.VITE_APPWRITE_EMAIL_COLLECTION_ID,
 };
 
 // Log the appwriteConfig to the console
@@ -50,6 +51,27 @@ export async function uploadFile(file) {
     throw error;
   }
 }
+
+export async function saveEmail({email, date}){
+  try {
+    console.log(email,date);
+    
+    const item = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.collectionsEmailId,
+      ID.unique(),
+      {
+        email,
+        date
+      }
+    );
+
+    return item;
+  } catch (error) {
+    console.error("Error creating item:", error);
+    throw error;
+  }
+};
 
 // Create a new item
 export async function createItem({ name, description, oldPrice, actualPrice, discount, bulletsDescription, specialOffer, imageFile, quantity }) {

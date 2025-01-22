@@ -130,10 +130,10 @@ export default function ItemPurchaseDirect() {
     <ScrollAnimation>
       <div className="px-5 lg:px-32 md:py-20 flex flex-col md:flex-row">
         {/* Main Item Section */}
-        <div className="lg:w-2/3">
+        <div className="lg:w-3/5">
           <div className="flex flex-col justify-between items-start py-6 mb-8 rounded-xl">
             
-          <h2 className="text-2xl md:text-3xl font-semibold text-gray-900 mb-5">{item.name}</h2>
+          <h2 className="text-2xl md:text-3xl font-semibold text-text mb-5">{item.name}</h2>
             <div className="flex flex-col justify-center items-center md:flex-row w-full gap-8">
               <div className="relative w-full md:w-auto">
                 <img
@@ -170,15 +170,15 @@ export default function ItemPurchaseDirect() {
               </div>
               <div className="flex flex-col justify-between h-max">
                 <div className="flex flex-col items-start justify-center mt-6 md:mt-0">
-                  <p className="text-base md:text-lg text-gray-600 mb-3 pr-5">{item.description}</p>
-                  <p className="text-sm md:text-md text-gray-500">{item.deliveryDate}</p>
+                  <p className="text-base md:text-lg text-text mb-3 pr-5">{item.description}</p>
+                  <p className="text-sm md:text-md text-text">{item.deliveryDate}</p>
                 </div>
                 <div className="flex flex-col items-end text-right mt-6 md:mt-0 pr-0 md:pr-6">
                   {item.oldPrice && (
-                    <p className="text-lg line-through text-gray-400 mb-2">{item.oldPrice.toFixed(2)} лв</p>
+                    <p className="text-lg line-through text-text mb-2">{item.oldPrice.toFixed(2)} лв</p>
                   )}
-                  <p className="text-3xl md:text-4xl font-extrabold text-emerald-700">{item.actualPrice.toFixed(2)} лв</p>
-                  <p className="text-sm md:text-md text-gray-600 mt-2">Специално намаление!</p>
+                  <p className="text-3xl md:text-4xl font-extrabold text-text">{item.actualPrice.toFixed(2)} лв</p>
+                  <p className="text-sm md:text-md text-text mt-2">Специално намаление!</p>
                 </div>
               </div>
             </div>
@@ -195,12 +195,12 @@ export default function ItemPurchaseDirect() {
           {/* Order Container */}
           {orderedItems.length > 0 && (
             <div className="mb-12">
-              <h3 className="text-2xl font-semibold text-gray-800 mb-6">Добавени към поръчката:</h3>
+              <h3 className="text-2xl font-semibold text-text mb-6">Добавени към поръчката:</h3>
               {orderedItems.map((orderedItem) => (
-                <div key={orderedItem.$id} className="py-5 mb-6 bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
+                <div key={orderedItem.$id} className="py-5 mb-6 bg-accentbackground p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
                   <button 
                     onClick={() => handleRemoveFromOrder(orderedItem)}
-                    className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-gray-100"
+                    className="absolute top-3 right-3 text-text hover:text-discount transition-colors p-2 rounded-full hover:bg-accentbackground"
                     aria-label="Remove item"
                   >
                     <svg 
@@ -225,18 +225,18 @@ export default function ItemPurchaseDirect() {
                         className="md:w-48 object-cover rounded-lg mr-6 cursor-pointer transform transition-transform duration-200 hover:scale-105"
                       />
                       <div className="flex flex-col justify-center">
-                        <h2 className="text-xl font-semibold text-gray-900 mb-3">{orderedItem.name}</h2>
-                        <p className="text-md text-gray-600 mb-2">{orderedItem.description}</p>
-                        <p className="text-sm text-gray-500">{orderedItem.deliveryDate}</p>
+                        <h2 className="text-xl font-semibold text-text mb-3">{orderedItem.name}</h2>
+                        <p className="text-md text-text mb-2">{orderedItem.description}</p>
+                        <p className="text-sm text-text">{orderedItem.deliveryDate}</p>
                       </div>
                     </div>
                     <div className="flex flex-col">
                       <div className="flex flex-col items-end text-right pr-4">
                         {orderedItem.oldPrice && (
-                          <p className="text-lg line-through text-gray-400 mb-2">{orderedItem.oldPrice.toFixed(2)} лв</p>
+                          <p className="text-lg line-through text-text mb-2">{orderedItem.oldPrice.toFixed(2)} лв</p>
                         )}
-                        <p className="text-3xl font-extrabold text-emerald-700">{orderedItem.actualPrice.toFixed(2)} лв</p>
-                        <p className="text-md text-gray-600 mt-2">Специално намаление!</p>
+                        <p className="text-3xl font-extrabold text-text">{orderedItem.actualPrice.toFixed(2)} лв</p>
+                        <p className="text-md text-text mt-2">Специално намаление!</p>
                       </div>
                     </div>
                   </div>
@@ -247,11 +247,11 @@ export default function ItemPurchaseDirect() {
 
           {/* Upsell Section */}
           <div className="px-4 md:px-8 lg:px-12">
-            <h3 className="text-3xl font-serif mb-4 text-gray-900 text-center">ВИП оферти! Добави само сега!</h3>
+            <h3 className="text-3xl font-serif mb-4 text-text text-center">ВИП оферти! Добави само сега!</h3>
             {isUpsellActive ? (
               <>
                 <div className="flex justify-center items-center mb-8">
-                  <div className="bg-red-100 text-red-800 px-6 py-3 rounded-lg font-bold text-xl animate-pulse">
+                  <div className="bg-discount text-white px-6 py-3 rounded-lg font-bold text-xl animate-pulse">
                     Оставащо време: {formatTime(timeRemaining)}
                   </div>
                 </div>
@@ -259,7 +259,7 @@ export default function ItemPurchaseDirect() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {items.slice(0, 3).map((upsell) => (
                       <div key={upsell.$id} className="flex flex-col h-full">
-                        <div className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden p-6 flex flex-col h-full">
+                        <div className="bg-background border overflow-hidden p-6 flex flex-col h-full">
                           <div className="relative aspect-[4/3] mb-6">
                             <img
                               src={upsell.image}
@@ -267,36 +267,36 @@ export default function ItemPurchaseDirect() {
                               className="absolute inset-0 w-full h-full object-cover cursor-pointer"
                             />
                             {upsell.oldPrice && (
-                              <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                              <div className="absolute top-4 right-4 bg-discount text-white px-3 py-1 rounded-full text-sm font-bold">
                                 -{Math.round(((upsell.oldPrice - upsell.actualPrice) / upsell.oldPrice) * 100)}%
                               </div>
                             )}
                           </div>
                           
                           <div className="flex-grow">
-                            <h4 className="text-2xl font-serif text-gray-900 mb-4">{upsell.name}</h4>
+                            <h4 className="text-2xl font-serif text-text mb-4">{upsell.name}</h4>
                             <div className="flex items-end gap-3 mb-4">
                               {upsell.oldPrice && (
-                                <p className="text-lg font-medium text-gray-400 line-through">
+                                <p className="text-lg text-text line-through">
                                   {upsell.oldPrice.toFixed(2)} лв
                                 </p>
                               )}
-                              <p className="text-3xl font-bold text-emerald-700">
+                              <p className="text-2xl font-thin text-discount">
                                 {upsell.actualPrice.toFixed(2)} лв
                               </p>
                             </div>
-                            <div className="bg-emerald-50 rounded-lg p-4 mb-6">
-                              <p className="text-sm text-emerald-800 font-medium">
-                                Специална цена, валидна само следващите 5 минути!
+                            <div className="bg-accentbackground rounded-lg p-4 mb-6">
+                              <p className="text-sm text-text font-medium">
+                                Добави преди да свърши таймера!
                               </p>
                             </div>
                           </div>
 
                           <button
                             onClick={() => handleAddToOrder(upsell)}
-                            className="w-full bg-emerald-700 text-white px-8 py-4 rounded-xl hover:bg-emerald-800 transition-all duration-300 transform hover:scale-[1.02] font-semibold text-lg shadow-lg hover:shadow-xl"
+                            className="w-full bg-black text-white px-8 py-4 hover:bg-white border border-black hover:text-black"
                           >
-                            Добави към поръчката
+                            Добави
                           </button>
                         </div>
                       </div>
@@ -306,7 +306,7 @@ export default function ItemPurchaseDirect() {
               </>
             ) : (
               <div className="text-center py-12">
-                <p className="text-xl text-gray-600">Специалните оферти са изтекли!</p>
+                <p className="text-xl text-text">Специалните оферти са изтекли!</p>
               </div>
             )}
           </div>

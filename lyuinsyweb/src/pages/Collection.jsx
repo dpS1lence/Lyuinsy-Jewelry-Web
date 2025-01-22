@@ -43,11 +43,11 @@ const Collection = () => {
 
     return (
         <ScrollAnimation>
-            <section className="py-20 ">
+            <section className="py-20">
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-12 relative">
-                        <h2 className="text-3xl font-serif mb-4 text-red-600">{name}</h2>
-                        <p className="text-gray-700">{description}</p>
+                        <h2 className="text-3xl font-serif mb-4 text-text">{name}</h2>
+                        <p className="text-text">{description}</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -55,7 +55,7 @@ const Collection = () => {
                             const { $id, name, description, image, oldPrice, actualPrice, specialOffer, quantity } = item;
 
                             return (
-                                <div key={$id} className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+                                <div key={$id} className="group bg-background rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
                                     <div className="relative">
                                         <img 
                                             src={image}
@@ -63,35 +63,35 @@ const Collection = () => {
                                             className={`w-full h-64 object-cover ${quantity === 0 ? 'filter grayscale' : ''}`}
                                         />
                                         {quantity === 0 && (
-                                            <div className="absolute inset-0 bg-gray-300 opacity-50 flex items-center justify-center">
+                                            <div className="absolute inset-0 bg-accentbackground opacity-50 flex items-center justify-center">
                                                 <span className="text-white text-xl font-bold">Изчерпана</span>
                                             </div>
                                         )}
                                         {specialOffer && (
                                             <div className="absolute top-4 right-4">
-                                                <span className="bg-red-600 text-white px-4 py-1 rounded-full text-sm font-bold">
+                                                <span className="bg-discount text-white px-4 py-1 rounded-full text-sm font-bold">
                                                     Специална Оферта
                                                 </span>
                                             </div>
                                         )}
                                     </div>
                                     <div className="p-6">
-                                        <h3 className="text-xl font-serif mb-2 text-red-600">{name}</h3>
-                                        <p className="text-gray-600 mb-4">{description}</p>
+                                        <h3 className="text-xl font-serif mb-2 text-text">{name}</h3>
+                                        <p className="text-text mb-4">{description}</p>
                                         <div className="flex flex-col md:flex-row justify-between items-center">
                                             <div className="flex items-center gap-2">
                                                 {oldPrice ? (
                                                     <>
-                                                        <span className="text-2xl font-light line-through text-gray-400">{oldPrice}лв</span>
-                                                        <span className="text-2xl font-bold text-red-600">{actualPrice}лв</span>
+                                                        <span className="text-2xl font-light line-through text-text">{oldPrice}лв</span>
+                                                        <span className="text-2xl font-bold text-text">{actualPrice}лв</span>
                                                     </>
                                                 ) : (
-                                                    <span className="text-2xl font-semibold text-gray-800">{actualPrice}лв</span>
+                                                    <span className="text-2xl font-semibold text-text">{actualPrice}лв</span>
                                                 )}
                                             </div>
                                             <button 
                                                 onClick={() => handleReserveClick(item.$id)}
-                                                className={`${specialOffer ? 'bg-red-600 hover:bg-red-700' : 'bg-pink-600 hover:bg-pink-700'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition ${quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
+                                                className={`${specialOffer ? 'bg-discount hover:bg-red' : 'bg-buttonPrimary hover:bg-buttonHover'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition ${quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
                                                 disabled={quantity === 0}
                                             >
                                                 Разгледай
