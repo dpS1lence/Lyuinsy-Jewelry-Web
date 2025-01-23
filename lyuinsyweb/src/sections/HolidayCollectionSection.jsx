@@ -24,8 +24,11 @@ export default function HolidayCollectionSection() {
         fetchItems();
     }, []);
 
-    const handleReserveClick = (itemId) => {
-        navigate(`/item-purchase-direct/${itemId}`);
+    const handleReserveClick = (item) => {
+      if(item.quantity > 0){
+        console.log(item);
+        navigate(`/item-purchase-direct/${item.$id}`);
+      }
     };
 
   return (
@@ -41,7 +44,7 @@ export default function HolidayCollectionSection() {
               <div 
                 key={item.$id} 
                 className={`group bg-background overflow-hidden transition duration-300 ${item.quantity === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                onClick={() => item.quantity > 0 && handleReserveClick(item.$id)}
+                onClick={() => handleReserveClick(item)}
               >
                 <div className="relative overflow-hidden">
                   <img 

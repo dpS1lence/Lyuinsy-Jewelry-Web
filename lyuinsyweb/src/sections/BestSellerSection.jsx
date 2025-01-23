@@ -4,8 +4,8 @@ import { getAllItems } from "../lib/appwrite";
 import ScrollAnimation from "../components/ScrollAnimation";
 import { Databases } from "appwrite";
 import pearl from "../../src/assets/images/prearl6.png"
-import video1 from "../../src/assets/videos/swarowski.webm"
-import video2 from "../../src/assets/videos/swarowski2.webm"
+import video1 from "../../src/assets/videos/7.mp4"
+import video2 from "../../src/assets/videos/3.mp4"
 
 export default function BestSellerSection() {
     const [items, setItems] = useState([]);
@@ -31,6 +31,10 @@ export default function BestSellerSection() {
         navigate(`/item-purchase-direct/${itemId}`);
     };
 
+    const learnmore = () => {
+        navigate(`/collections`);
+    };
+
     return (
     <div className="bg-background">
         <div className="text-center relative bg-accentbackground py-20">
@@ -51,7 +55,7 @@ export default function BestSellerSection() {
                 <p className="text-lg text-text leading-relaxed">
                     Перлите символизират изящество и женственост.
                 </p>
-                <button className="bg-black border border-black text-white px-4 py-2 mt-16 transition-colors hover:bg-white hover:text-black">
+                <button onClick={learnmore} className="bg-black border border-black text-white px-4 py-2 mt-16 transition-colors hover:bg-white hover:text-black">
                     Научете повече
                 </button>
             </div>
@@ -68,7 +72,7 @@ export default function BestSellerSection() {
                 <p className="text-lg text-text leading-relaxed">
                     Нашата колекция от бижута е създ на всеки момент.
                 </p>
-                <button className="bg-black border border-black text-white px-4 py-2 mt-4 transition-colors hover:bg-white hover:text-black">
+                <button onClick={learnmore} className="bg-black border border-black text-white px-4 py-2 mt-4 transition-colors hover:bg-white hover:text-black">
                     Научете повече
                 </button>
             </div>
@@ -80,13 +84,13 @@ export default function BestSellerSection() {
             </p>
         </div>
         <div className="container mx-auto px-8 pt-10">
-            <div className="space-y-40">
+            <div className="space-y-10">
                 {items.map((item) => (
                     <ScrollAnimation key={item.$id}>
                         <div className="relative">
                             <div className="flex flex-col bg-background lg:flex-row items-center">
                                 <div className="lg:w-3/5">
-                                    <div className="bg-background shadow-sm overflow-hidden lg:py-24 lg:px-20">
+                                    <div className="bg-background shadow-sm overflow-hidden lg:pb-24 lg:px-20">
                                         <div className="relative">
                                             <img
                                                 src={item.image} // Assuming `image` holds the image URL

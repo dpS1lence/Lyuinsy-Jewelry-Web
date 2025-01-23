@@ -5,11 +5,13 @@ import ReviewsSection from "../sections/ReviewsSection";
 import CollectionsSection from "../sections/CollectionsSection";
 import ScrollAnimation from "../components/ScrollAnimation";
 import VideoSection from "../sections/VideoSection";
+import VideoSection2 from "../sections/VideoSection2";
+import VideoSection3 from "../sections/VideoSection3";
 
 const Home = () => {
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
       {/* Hero Section */}
       <ScrollAnimation>
         <IntroSection />
@@ -18,26 +20,22 @@ const Home = () => {
       {/* Best Sellers Section */}
         <BestSellerSection />
 
-      {/* Customer Reviews Section */}
-      <ScrollAnimation>
-        <ReviewsSection />
-      </ScrollAnimation>
-      {/* Video Section */}
-      <VideoSection />
-
       {/* Holiday Collection Grid */}
       <ScrollAnimation>
         <HolidayCollectionSection />
         </ScrollAnimation>
         {/* Video Section */}
         <VideoSection />
-
-      {/* Collection Grid */}
+        
       <ScrollAnimation>
         <CollectionsSection />
         </ScrollAnimation>
-        {/* Video Section */}
-        <VideoSection />
+        <VideoSection2 />
+{/* Customer Reviews Section */}
+<ScrollAnimation>
+        <ReviewsSection />
+      </ScrollAnimation>
+      {/* Collection Grid */}
     </div>
   );
 };

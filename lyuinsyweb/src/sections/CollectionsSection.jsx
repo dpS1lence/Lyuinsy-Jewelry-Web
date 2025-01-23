@@ -32,11 +32,11 @@ export default function CollectionsSection() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {collections.map((collection, index) => (
-                        <Link to={`/collection/${collection.$id}`} key={collection.$id}>
+                    {collections.map((collection) => (
                         <div 
-                            key={index}
+                            key={collection.$id}
                             className={`group cursor-pointer bg-background overflow-hidden transition-all duration-300`}
+                            onClick={() => navigate(`/collection/${collection.$id}`)}
                         >
                             <div className="aspect-w-16 aspect-h-9 relative">
                                 <img 
@@ -54,7 +54,6 @@ export default function CollectionsSection() {
                                 </div>
                             </div>
                         </div>
-                        </Link>
                     ))}
                 </div>
             </div>

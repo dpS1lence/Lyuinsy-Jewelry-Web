@@ -17,6 +17,7 @@ export default function Layout() {
 
     return () => clearTimeout(timer);
   }, []);
+  
   let navigate = useNavigate();
   const buynow = () => {
     navigate({
@@ -38,7 +39,7 @@ export default function Layout() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col max-w-full min-h-screen"> {/* Changed max-w-dvh to max-w-full */}
       <HolidayPopup 
         isOpen={isPopupOpen} 
         onClose={() => setIsPopupOpen(false)} 
@@ -60,12 +61,12 @@ export default function Layout() {
 
       <header className="bg-background border-b border-accentbackground relative">
         <div className="container mx-auto px-4 pb-4 relative z-10">
-          <nav className="flex flex-wrap items-center justify-center space-x-4 md:space-x-12">
-            <a href="/home" className="text-text hover:text-hover transition-colors font-medium">Начало</a>
-            <a href="/collections" className="text-text hover:text-hover transition-colors font-medium">Колекции</a>
-            <a href="/about" className="text-text hover:text-hover transition-colors font-medium">За нас</a>
-            <a href="/contacts" className="text-text hover:text-hover transition-colors font-medium">Контакт</a>
-            <button onClick={buynow} className="bg-black text-white border border-black px-8 py-2 font-medium lg:w-auto hover:bg-white hover:text-black">
+          <nav className="flex flex-col md:flex-row md:items-center justify-center md:space-x-12">
+            <a href="/home" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
+            <a href="/collections" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
+            <a href="/about" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
+            <a href="/contacts" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
+            <button onClick={buynow} className="border border-black px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit lg:w-auto bg-white text-black">
               Купи сега
             </button>
           </nav>
@@ -108,7 +109,7 @@ export default function Layout() {
       </section>
       <footer className="bg-black text-white">
         <div className="container mx-auto px-4 py-12">
-          <div className="flex flex-row justify-between items-start gap-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
           <div></div>
             <div>
               <h3 className="text-xl font-serif mb-4 text-white font-bold">Елегантни Бижута</h3>

@@ -42,7 +42,7 @@ const Collections = () => {
                     {collections.map((collection) => (
                         <Link to={`/collection/${collection.$id}`} key={collection.id}>
                             <div 
-                                className={`group cursor-pointer rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ${collection.theme}`}
+                                className={`group cursor-pointer shadow-sm overflow-hidden transition-all duration-300 ${collection.theme}`}
                             >
                                 <div className="aspect-w-16 aspect-h-9 relative">
                                     <img 
@@ -58,12 +58,6 @@ const Collections = () => {
                                     <p className="text-text mb-4">
                                         {collection.description}
                                     </p>
-                                    <div className="flex items-center text-text font-medium">
-                                        <button className="text-discount hover:text-red">Изследвай Колекцията</button>
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                        </svg>
-                                    </div>
                                 </div>
                             </div>
                         </Link>
