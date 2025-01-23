@@ -55,7 +55,7 @@ const Collection = () => {
                             const { $id, name, description, image, oldPrice, actualPrice, specialOffer, quantity } = item;
 
                             return (
-                                <div key={$id} className="group bg-background rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
+                                <div key={$id} className="group cursor-pointer bg-background shadow-sm overflow-hidden" onClick={() => handleReserveClick(item.$id)}>
                                     <div className="relative">
                                         <img 
                                             src={image}
@@ -78,15 +78,15 @@ const Collection = () => {
                                     <div className="p-6">
                                         <h3 className="text-xl font-serif mb-2 text-text">{name}</h3>
                                         <p className="text-text mb-4">{description}</p>
-                                        <div className="flex flex-col md:flex-row justify-between items-center">
-                                            <div className="flex items-center gap-2">
+                                        <div className="flex flex-col md:flex-row justify-between items-start">
+                                            <div className="flex items-start gap-2">
                                                 {oldPrice ? (
                                                     <>
                                                         <span className="text-2xl font-light line-through text-text">{oldPrice}лв</span>
-                                                        <span className="text-2xl font-bold text-text">{actualPrice}лв</span>
+                                                        <span className="text-2xl font-thin text-discount">{actualPrice}лв</span>
                                                     </>
                                                 ) : (
-                                                    <span className="text-2xl font-semibold text-text">{actualPrice}лв</span>
+                                                    <span className="text-2xl font-thin text-text">{actualPrice}лв</span>
                                                 )}
                                             </div>
                                             <button 

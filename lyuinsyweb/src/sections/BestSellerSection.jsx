@@ -55,7 +55,7 @@ export default function BestSellerSection() {
                 <p className="text-lg text-text leading-relaxed">
                     Перлите символизират изящество и женственост.
                 </p>
-                <button onClick={learnmore} className="bg-black border border-black text-white px-4 py-2 mt-16 transition-colors hover:bg-white hover:text-black">
+                <button onClick={learnmore} className="lg:bg-black lg:border border-black lg:text-white px-4 py-2 mt-16 transition-colors hover:bg-white hover:text-black">
                     Научете повече
                 </button>
             </div>
