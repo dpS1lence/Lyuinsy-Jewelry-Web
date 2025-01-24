@@ -74,7 +74,7 @@ export default function BestSellerSection() {
                     loop
                     playsInline
                 >
-                    <source src={videoSrc} type="video/mp4" />
+                    <source src={video1} type="video/mp4" />
                     Вашият браузър не поддържа видео таг.
                 </video>
             </div>
