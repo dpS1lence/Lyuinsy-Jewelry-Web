@@ -1,6 +1,5 @@
-import video1 from "../../src/assets/videos/4.mp4"
+import video1 from "../../src/assets/videos/4.mp4";
 import { useNavigate } from "react-router";
-import video1 from "../../src/assets/videos/7.mp4";
 import { useEffect, useRef } from 'react';
 
 export default function VideoSection() {
