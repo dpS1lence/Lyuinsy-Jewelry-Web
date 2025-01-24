@@ -90,7 +90,14 @@ export default function BestSellerSection() {
         </div>
         <div className="bg-white flex flex-col lg:flex-row items-stretch">
             <div className="lg:w-1/2">
-                <video className="w-full h-full object-cover" autoPlay loop muted>
+            <video
+                    ref={videoRef}
+                    className="w-full h-full object-cover"
+                    muted
+                    autoPlay
+                    loop
+                    playsInline
+                >
                     <source src={video2} type="video/mp4" />
                     Вашият браузър не поддържа видео таг.
                 </video>
