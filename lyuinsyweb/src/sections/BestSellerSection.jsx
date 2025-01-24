@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAllItems } from "../lib/appwrite";
 import ScrollAnimation from "../components/ScrollAnimation";
@@ -11,6 +11,7 @@ export default function BestSellerSection() {
     const [items, setItems] = useState([]);
     const navigate = useNavigate();
     const databases = new Databases();
+    const videoRef = useRef(null);
 
     useEffect(() => {
         // Fetch items from Appwrite
@@ -24,6 +25,26 @@ export default function BestSellerSection() {
             }
         };
 
+        const ensureVideoPlayback = async () => {
+            const video = videoRef.current;
+
+            if (video) {
+                // Set properties programmatically
+                video.muted = true;
+                video.autoplay = true;
+                video.loop = true;
+                video.playsInline = true;
+
+                // Try to play the video programmatically
+                try {
+                    await video.play();
+                } catch (error) {
+                    console.error("Video playback failed:", error);
+                }
+            }
+        };
+
+        ensureVideoPlayback();
         fetchItems();
     }, []);
 
@@ -45,8 +66,15 @@ export default function BestSellerSection() {
         </div>
         <div className="bg-white flex flex-col lg:flex-row-reverse items-stretch">
             <div className="lg:w-1/2">
-                <video className="w-full h-full object-cover" autoPlay loop muted>
-                    <source src={video1} type="video/mp4" />
+                <video
+                    ref={videoRef}
+                    className="w-full h-full object-cover"
+                    muted
+                    autoPlay
+                    loop
+                    playsInline
+                >
+                    <source src={videoSrc} type="video/mp4" />
                     Вашият браузър не поддържа видео таг.
                 </video>
             </div>
