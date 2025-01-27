@@ -4,6 +4,7 @@ import emailjs from 'emailjs-com';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { purchaseItem } from "../lib/appwrite";
+import { createOrder } from "../lib/appwrite";
 
 const sitekeyRE = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
@@ -62,7 +63,7 @@ export default function OrderSection({ orderData }) {
         const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
         const deliveryFee = 10;
         const discountAmount = 5 + discount; // Existing fixed discount plus promo discount
-        const totalPrice = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
+        const totalPriceValue = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
 
         console.log("inthere + " + orderData.mainItem.$id);
 
@@ -81,12 +82,25 @@ export default function OrderSection({ orderData }) {
             phone: formData.phone,
             address: formData.address,
             items: [
-                `Total Price: ${totalPrice.toFixed(2)} лв`,
+                `Total Price: ${parseFloat(totalPriceValue)} лв`,
                 `Delivery Fee: ${deliveryFee} лв`,
-                `Discounts: -${discountAmount.toFixed(2)} лв`,
+                `Discounts: -${discountAmount} лв`,
                 `Main Item: ${orderData.mainItem?.name}, Image: ${orderData.mainItem?.image}, ID: ${orderData.mainItem?.$id}, Price: ${mainItemPrice.toFixed(2)} лв`,
                 ...orderData.orderedItems.map(item => `Upsell Item: ${item.name}, Image: ${item.image}, ID: ${item.$id}, Price: ${item.actualPrice.toFixed(2)} лв`)
             ].join('\n'), // Join items for email
+        };
+        console.log(...orderData.orderedItems.map(item => item.$id));
+        
+        const orderDataArr = {
+            userNames: formData.name,
+            userAdress: formData.address,
+            userPhone: formData.phone,
+            userEmail: formData.email,
+            totalPrice: parseFloat(totalPriceValue),
+            promoCode: promoApplied ? formData.promoCode : 'Няма',
+            itemIds: orderData.orderedItems.length > 0 ? 
+                orderData.orderedItems.map(item => item.$id) : 
+                [orderData.mainItem.$id],
         };
 
         try {
@@ -97,10 +111,13 @@ export default function OrderSection({ orderData }) {
                 emailData,               // Replace with your email data object
                 'WvI-vMKQArYdGRtOQ'      // Replace with your user ID
             );
+
+            await createOrder(orderDataArr);
+
             console.log("Email sent successfully:", response);
 
             // Redirect to the confirmation page with order data
-            navigate('/order-confirmation', { state: { orderData, totalPrice } });
+            navigate('/order-confirmation', { state: { orderData, totalPriceValue } });
         } catch (error) {
             console.error("Error sending email:", error);
             alert("Неуспешно изпращане на имейла.");

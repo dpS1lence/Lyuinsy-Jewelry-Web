@@ -8,6 +8,7 @@ export const appwriteConfig = {
   itemsCollectionId: import.meta.env.VITE_APPWRITE_ITEMS_COLLECTION_ID,
   collectionsCollectionId: import.meta.env.VITE_APPWRITE_COLLECTIONS_COLLECTION_ID,
   collectionsEmailId: import.meta.env.VITE_APPWRITE_EMAIL_COLLECTION_ID,
+  collectionsOrders: import.meta.env.VITE_APPWRITE_ORDERS_COLLECTION_ID,
 };
 
 // Log the appwriteConfig to the console
@@ -54,8 +55,6 @@ export async function uploadFile(file) {
 
 export async function saveEmail({email, date}){
   try {
-    console.log(email,date);
-    
     const item = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.collectionsEmailId,
@@ -63,6 +62,31 @@ export async function saveEmail({email, date}){
       {
         email,
         date
+      }
+    );
+
+    return item;
+  } catch (error) {
+    console.error("Error creating item:", error);
+    throw error;
+  }
+};
+
+export async function createOrder({userNames, userAdress, userPhone, userEmail, totalPrice, promoCode, itemIds}){
+  try {
+    
+    const item = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.collectionsOrders,
+      ID.unique(),
+      {
+        itemIds,
+        userNames,
+        userAdress,
+        userPhone,
+        userEmail,
+        totalPrice,
+        promoCode
       }
     );
 

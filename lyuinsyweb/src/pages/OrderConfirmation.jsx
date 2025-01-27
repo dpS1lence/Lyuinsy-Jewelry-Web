@@ -103,7 +103,7 @@ export default function OrderConfirmation() {
                   <h4 className="text-lg font-medium text-text">{mainItem.name}</h4>
                   <p className="text-text mt-1">{mainItem.description}</p>
                   <p className="text-main font-medium mt-2">
-                    {mainItem.actualPrice.toFixed(2)} лв.
+                    {mainItem.actualPrice} лв.
                   </p>
                 </div>
               </div>
@@ -123,7 +123,7 @@ export default function OrderConfirmation() {
                     <div className="ml-6">
                       <h5 className="text-base font-medium text-text">{item.name}</h5>
                       <p className="text-main font-medium mt-1">
-                        {item.actualPrice.toFixed(2)} лв.
+                        {item.actualPrice} лв.
                       </p>
                     </div>
                   </div>
@@ -144,7 +144,7 @@ export default function OrderConfirmation() {
               <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
                 <div className="text-lg font-medium text-text">Обща сума</div>
                 <div className="text-xl font-bold text-main">
-                  {totalPrice.toFixed(2)} лв.
+                  {totalPrice} лв.
                 </div>
               </div>
             </div>
