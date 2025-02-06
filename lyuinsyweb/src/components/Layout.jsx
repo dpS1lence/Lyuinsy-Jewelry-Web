@@ -44,7 +44,7 @@ export default function Layout() {
         isOpen={isPopupOpen} 
         onClose={() => setIsPopupOpen(false)} 
       />
-      <header className="bg-background/20 hover:bg-background/80 transition-colors absolute top-0 left-0 right-0 z-10">
+      <header className="bg-background/20 hover:bg-background/80 transition-colors lg:absolute top-0 left-0 right-0 z-10">
         {/* Обявителен банер */}
         <div className="bg-discount text-white text-center py-2 px-4">
           <p className="text-sm font-medium animate-pulse">
