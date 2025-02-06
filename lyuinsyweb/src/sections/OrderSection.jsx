@@ -1,15 +1,17 @@
 import ReCAPTCHA from "react-google-recaptcha";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import emailjs from 'emailjs-com';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { purchaseItem } from "../lib/appwrite";
 import { createOrder } from "../lib/appwrite";
+import CheckoutButton from "../components/CeckoutButton";
 
 const sitekeyRE = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
 export default function OrderSection({ orderData }) {
     const [recaptchaValue, setRecaptchaValue] = useState(null);
+    const checkoutRef = useRef(null);
     const [formData, setFormData] = useState({
         promoCode: '',
         name: '',
@@ -132,9 +134,10 @@ export default function OrderSection({ orderData }) {
     const totalPrice = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
 
     return (
+        <>
         <div className="lg:w-2/5 lg:p-8 border-l border-gray-200 mb-2">
             <h3 className="text-3xl font-serif mb-6 text-text">Завършете Вашата Поръчка</h3>
-            <form className="space-y-6" onSubmit={handleSubmit}>
+            <form ref={checkoutRef} id="checkout-section" className="space-y-6" onSubmit={handleSubmit}>
                 {/* Промо Код */}
                 <div className="flex flex-col">
                     <div className="flex flex-row">
@@ -239,6 +242,7 @@ export default function OrderSection({ orderData }) {
                 </button>
             </form>
         </div>
+        <CheckoutButton checkoutRef={checkoutRef} /></>
     );
 }
 

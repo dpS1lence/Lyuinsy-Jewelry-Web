@@ -46,7 +46,7 @@ export default function CollectionsSection() {
                                 />
                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
                             </div>
-                            <div className="p-6 bg-[#F8F7F2]">
+                            <div className="p-6 bg-[#ffffff]">
                                 <h3 className="text-2xl font-serif mb-2 transition-colors">
                                     {collection.name}
                                 </h3>

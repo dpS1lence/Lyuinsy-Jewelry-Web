@@ -58,7 +58,7 @@ export default function BestSellerSection() {
 
     return (
     <div className="bg-background">
-        <div className="text-center relative bg-accentbackground py-20">
+        <div className="text-center relative bg-gradient-to-r from-accentbackground to-accentbackground-light py-20">
             <h2 className="text-5xl font-serif mb-6 text-text">Специални предложения</h2>
             <p className="text-text text-xl">
                 Открийте нашата изключителна колекция, която ще ви помогне да създадете незабравими моменти и да изразите своята любов по уникален начин.

@@ -44,41 +44,50 @@ export default function Layout() {
         isOpen={isPopupOpen} 
         onClose={() => setIsPopupOpen(false)} 
       />
-      <header className="bg-background/20 hover:bg-background/80 transition-colors lg:absolute top-0 left-0 right-0 z-10">
+      <header className="bg-background/50 hover:bg-background/70 transition-colors border-dashed border-spacing-8 border-b-4 border-gray-100">
         {/* Обявителен банер */}
         <div className="bg-discount text-white text-center py-2 px-4">
           <p className="text-sm font-medium animate-pulse">
-            ❤️ Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 100лв ✨
+            Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 100лв
           </p>
         </div>
 
         {/* Банер с логото */}
         <div className="flex justify-center">
           <div className="flex flex-col items-center">
-            <img src={Logo} alt="Бижута Люинси" className="w-40 hover:opacity-90 transition-opacity" />
+            <img src={Logo} alt="Бижута Люинси" className="w-52 hover:opacity-90 transition-opacity" />
           </div>
         </div>
 
         <div className="relative">
           <div className="container mx-auto px-4 pb-4 relative z-10">
-            <nav className="flex flex-col md:flex-row md:items-center justify-center md:space-x-12">
+            <nav className="flex flex-col md:flex-row md:items-center justify-center md:space-x-12 pb-5">
               <a href="/home" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
               <a href="/collections" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
               <a href="/about" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
               <a href="/contacts" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
-              <button onClick={buynow} className="border border-black px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit lg:w-auto bg-white text-black">
+              <button onClick={buynow} className="px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit lg:w-auto bg-pink-100 shadow-sm rounded-md text-black">
                 Купи сега
               </button>
             </nav>
           </div>
         </div>
       </header>
+      {/* <div className="absolute w-full top-[252px] z-20"> */}
+        {/* Elegant Gold Accent Section */}
+        {/* <section className="w-full bg-transparent py-0"> */}
+          {/* <div className="container mx-auto text-center"> */}
+            {/* <p className="text-sm text-yellow-800 font-serif tracking-wide italic">Изживей магията на ръчно изработените бижута</p> */}
+          {/* </div> */}
+        {/* </section> */}
+      {/* </div> */}
+
 
       <main className="flex-grow">
         <Outlet />
       </main>
 {/* Апел за действие */}
-<section className="bg-[#8DBAEC] py-20 relative overflow-hidden italic text-black">
+<section className="bg-blue-300 py-20 relative overflow-hidden italic text-black">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/white-diamond-dark.png')] opacity-20"></div>
         <div className="container mx-auto px-4 text-center relative">
           <h2 className="text-5xl font-serif mb-6">Присъедини се към нашия VIP списък</h2>
@@ -90,8 +99,8 @@ export default function Layout() {
             <div className="flex">
               <input 
                 type="email"
-                placeholder="Въведете вашата имейл адреса"
-                className="flex-1 bg-transparent px-6 py-3 text-text focus:outline-none"
+                placeholder="Електронна поща"
+                className="flex-1 bg-transparent min-w-44 md:min-w-64 px-6 py-3 text-text focus:outline-none"
                 value={email} // Bind the input value to the email state
                 onChange={(e) => setEmail(e.target.value)} // Update email state on input change
               />

@@ -139,7 +139,7 @@ export default function ItemPurchaseDirect() {
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-full md:max-w-md object-cover cursor-pointer shadow-sm hover:opacity-95 transition-opacity"
+                  className="w-96 md:w-full object-cover cursor-pointer shadow-sm hover:opacity-95 transition-opacity"
                   onClick={() => {
                     setPhotoIndex(0);
                     setIsLightboxOpen(true);

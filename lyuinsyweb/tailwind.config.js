@@ -8,10 +8,10 @@ export default {
     extend: {
       colors:  {
         background: '#FFFFFF',
-        discount: '#A20005',
+        discount: '#f472b6',
         hover: '#a2a2a2',
         text: '#000000',
-        accentbackground: '#F0EEE4',
+        accentbackground: '#fdf2f8',
       },
     },
   },
