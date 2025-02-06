@@ -44,32 +44,33 @@ export default function Layout() {
         isOpen={isPopupOpen} 
         onClose={() => setIsPopupOpen(false)} 
       />
-      
-      {/* Обявителен банер */}
-      <div className="bg-discount text-white text-center py-2 px-4">
-        <p className="text-sm font-medium animate-pulse">
-          ❤️ Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 100лв ✨
-        </p>
-      </div>
-
-      {/* Банер с логото */}
-      <div className="bg-background flex justify-center">
-        <div className="flex flex-col items-center">
-          <img src={Logo} alt="Бижута Люинси" className="w-40 hover:opacity-90 transition-opacity" />
+      <header className="bg-background/20 hover:bg-background/80 transition-colors absolute top-0 left-0 right-0 z-10">
+        {/* Обявителен банер */}
+        <div className="bg-discount text-white text-center py-2 px-4">
+          <p className="text-sm font-medium animate-pulse">
+            ❤️ Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 100лв ✨
+          </p>
         </div>
-      </div>
 
-      <header className="bg-background border-b border-accentbackground relative">
-        <div className="container mx-auto px-4 pb-4 relative z-10">
-          <nav className="flex flex-col md:flex-row md:items-center justify-center md:space-x-12">
-            <a href="/home" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
-            <a href="/collections" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
-            <a href="/about" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
-            <a href="/contacts" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
-            <button onClick={buynow} className="border border-black px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit lg:w-auto bg-white text-black">
-              Купи сега
-            </button>
-          </nav>
+        {/* Банер с логото */}
+        <div className="flex justify-center">
+          <div className="flex flex-col items-center">
+            <img src={Logo} alt="Бижута Люинси" className="w-40 hover:opacity-90 transition-opacity" />
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="container mx-auto px-4 pb-4 relative z-10">
+            <nav className="flex flex-col md:flex-row md:items-center justify-center md:space-x-12">
+              <a href="/home" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
+              <a href="/collections" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
+              <a href="/about" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
+              <a href="/contacts" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
+              <button onClick={buynow} className="border border-black px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit lg:w-auto bg-white text-black">
+                Купи сега
+              </button>
+            </nav>
+          </div>
         </div>
       </header>
 
