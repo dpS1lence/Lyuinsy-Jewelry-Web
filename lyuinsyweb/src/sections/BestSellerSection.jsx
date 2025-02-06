@@ -64,60 +64,6 @@ export default function BestSellerSection() {
                 Открийте нашата изключителна колекция, която ще ви помогне да създадете незабравими моменти и да изразите своята любов по уникален начин.
             </p>
         </div>
-        <div className="bg-white flex flex-col lg:flex-row-reverse items-stretch">
-            <div className="lg:w-1/2">
-                <video
-                    ref={videoRef}
-                    className="w-full h-full object-cover"
-                    muted
-                    autoPlay
-                    loop
-                    playsInline
-                >
-                    <source src={video1} type="video/mp4" />
-                    Вашият браузър не поддържа видео таг.
-                </video>
-            </div>
-            <div className="lg:w-1/2 lg:pl-32 p-8 flex flex-col justify-center items-start">
-                <h2 className="text-3xl font-serif mb-2">Елегантността на перлите</h2>
-                <p className="text-lg text-text leading-relaxed">
-                    Перлите символизират изящество и женственост.
-                </p>
-                <button onClick={learnmore} className="lg:bg-black lg:border border-black lg:text-white px-4 py-2 mt-16 transition-colors hover:bg-white hover:text-black">
-                    Научете повече
-                </button>
-            </div>
-        </div>
-        <div className="bg-white flex flex-col lg:flex-row items-stretch">
-            <div className="lg:w-1/2">
-            <video
-                    ref={videoRef}
-                    className="w-full h-full object-cover"
-                    muted
-                    autoPlay
-                    loop
-                    playsInline
-                >
-                    <source src={video2} type="video/mp4" />
-                    Вашият браузър не поддържа видео таг.
-                </video>
-            </div>
-            <div className="lg:w-1/2 p-8 lg:pl-32 flex flex-col justify-center items-start">
-                <h2 className="text-4xl font-serif mb-4">Изразете своя стил</h2>
-                <p className="text-lg text-text leading-relaxed">
-                    Нашата колекция от бижута е създ на всеки момент.
-                </p>
-                <button onClick={learnmore} className="bg-black border border-black text-white px-4 py-2 mt-4 transition-colors hover:bg-white hover:text-black">
-                    Научете повече
-                </button>
-            </div>
-        </div>
-        <div className="text-center relative bg-accentbackground py-20">
-            <h2 className="text-5xl font-serif mb-6 text-text">Специални предложения</h2>
-            <p className="text-text text-xl">
-                Открийте нашата изключителна колекция, която ще ви помогне да създадете незабравими моменти и да изразите своята любов по уникален начин.
-            </p>
-        </div>
         <div className="container mx-auto px-8 pt-10">
             <div className="space-y-10">
                 {items.map((item) => (
