@@ -30,7 +30,6 @@ I carefully selected and implemented a **funnel-based business model** specifica
 ![Order](https://github.com/user-attachments/assets/e069c266-9975-4cbc-a8cd-4b36c7e8165b)
 
 ## Contact
-If you have any questions or want to collaborate, feel free to reach out!
 
 📧 Email: davidpetkov2006@gmail.com  
 📷 Instagram: [@david.photo.graphy](https://www.instagram.com/david.photo.graphy/)  
@@ -38,7 +37,7 @@ If you have any questions or want to collaborate, feel free to reach out!
 
 ---
 ### Credits
-This project was fully designed, developed, and photographed by Me. The only exceptions are **2-3 homepage images/videos**, which were sourced externally.
+This project was fully designed, developed, and photographed by Me. The only exceptions are some **homepage videos**, which were sourced externally.
 
 Feel free to ⭐ the repo!
 
