@@ -13,9 +13,8 @@ export default function CollectionsSection() {
         // Fetch items from Appwrite
         const fetchItems = async () => {
             try {
-                const itemsFetch = await getAllCollections();
-                const filteredItems = itemsFetch; //.filter(item => item['collectionSpecialOffer']);
-                setItems(filteredItems);
+                const collectionsall = await getAllCollections();
+                setItems(collectionsall);
             } catch (error) {
                 console.error("Error fetching items:", error);
             }
@@ -44,7 +43,6 @@ export default function CollectionsSection() {
                                     alt={collection.name}
                                     className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
                                 />
-                                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
                             </div>
                             <div className="p-6 bg-[#ffffff]">
                                 <h3 className="text-2xl font-serif mb-2 transition-colors">

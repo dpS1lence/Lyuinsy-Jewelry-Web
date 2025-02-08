@@ -14,7 +14,7 @@ export default function HolidayCollectionSection() {
         const fetchItems = async () => {
             try {
                 const itemsFetch = await getAllItems();
-                const filteredItems = itemsFetch; //.filter(item => item['collectionSpecialOffer']);
+                const filteredItems = itemsFetch.filter(item => !item['upsellOffer']);
                 setItems(filteredItems);
             } catch (error) {
                 console.error("Error fetching items:", error);

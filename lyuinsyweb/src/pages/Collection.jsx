@@ -51,7 +51,7 @@ const Collection = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {items.map((item) => {
+                        {items.filter(item => !item['upsellOffer']).map((item) => {
                             const { $id, name, description, image, oldPrice, actualPrice, specialOffer, quantity } = item;
 
                             return (

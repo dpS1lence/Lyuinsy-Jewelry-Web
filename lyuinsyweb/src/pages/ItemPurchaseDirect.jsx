@@ -43,7 +43,7 @@ export default function ItemPurchaseDirect() {
         const dataAll = await getAllItems(); // Fetch all upsell items
 
         setItem(data);
-        setItems(dataAll);
+        setItems(dataAll.filter(item => item['upsellOffer']));
       } catch (error) {
         console.error("Failed to fetch collection:", error);
       } finally {

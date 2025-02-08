@@ -16,7 +16,7 @@ const Collections = () => {
         const fetchItems = async () => {
             try {
                 const itemsFetch = await getAllCollections();
-                const filteredItems = itemsFetch; //.filter(item => item['collectionSpecialOffer']);
+                const filteredItems = itemsFetch;
                 setItems(filteredItems);
             } catch (error) {
                 console.error("Error fetching items:", error);

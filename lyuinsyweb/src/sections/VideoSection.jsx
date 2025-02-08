@@ -1,4 +1,4 @@
-import video1 from "../../src/assets/videos/3.mp4";
+import video1 from "../../src/assets/videos/girlsvideopink.mp4";
 import { useNavigate } from "react-router";
 import { useEffect, useRef } from 'react';
 
