@@ -6,7 +6,7 @@ Welcome to the repository for the **Jewelry Shop Website** I developed for a cli
 
 - **Custom-Built Website** – Designed and developed without templates for a unique look and feel.
 - **Professional Photography** – All jewelry images were shot by me to capture the essence of each piece.
-- **High-Quality Assets** – Every visual element (except for 2-3 homepage images/videos) was created specifically for this brand.
+- **High-Quality Assets** – Every visual element (except for homepage videos) was created specifically for this brand.
 - **Admin Panel** – A custom-built admin dashboard for managing products, orders, and content.
 - **Optimized Funnel Design** – Eliminated unnecessary steps like registrations and carts to enable faster purchases.
 
