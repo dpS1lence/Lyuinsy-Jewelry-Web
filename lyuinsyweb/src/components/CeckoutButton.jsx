@@ -27,7 +27,7 @@ export default function CheckoutButton({ checkoutRef }) {
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: visible ? 0 : 100, opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.3 }}
-      className="sticky z-20 bottom-10 left-0 right-0 flex justify-center"
+      className="sticky z-20 bottom-10 left-0 right-0 flex justify-center md:hidden"
     >
         <motion.button
             onClick={scrollToCheckout}
