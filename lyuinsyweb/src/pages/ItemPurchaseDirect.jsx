@@ -128,7 +128,7 @@ export default function ItemPurchaseDirect() {
 
   return (
     <ScrollAnimation>
-      <div className="px-5 lg:px-32 md:py-20 flex flex-col md:flex-row">
+      <div className="px-5 xl:px-20 flex flex-col md:flex-row">
         {/* Main Item Section */}
         <div className="lg:w-3/5">
           <div className="flex flex-col justify-between items-start py-6 mb-8 rounded-xl">
@@ -177,9 +177,10 @@ export default function ItemPurchaseDirect() {
                   {item.oldPrice && (
                     <p className="text-lg line-through text-text mb-2">{item.oldPrice.toFixed(2)} лв</p>
                   )}
-                  <p className="text-3xl md:text-4xl font-extrabold text-text">{item.actualPrice.toFixed(2)} лв</p>
-                  <p className="text-sm md:text-md text-text mt-2">Специално намаление!</p>
+                  <p className="text-3xl md:text-4xl font-thin text-discount">{item.actualPrice.toFixed(2)} лв</p>
                 </div>
+                
+                <p className="text-md text-center md:text-md p-2 text-discount mt-2">Включва специална подаръчна кутия + изненада</p>
               </div>
             </div>
           </div>
@@ -235,7 +236,7 @@ export default function ItemPurchaseDirect() {
                         {orderedItem.oldPrice && (
                           <p className="text-lg line-through text-text mb-2">{orderedItem.oldPrice.toFixed(2)} лв</p>
                         )}
-                        <p className="text-3xl font-extrabold text-text">{orderedItem.actualPrice.toFixed(2)} лв</p>
+                        <p className="text-3xl font-thin text-discount">{orderedItem.actualPrice.toFixed(2)} лв</p>
                         <p className="text-md text-text mt-2">Специално намаление!</p>
                       </div>
                     </div>
@@ -246,7 +247,7 @@ export default function ItemPurchaseDirect() {
           )}
 
           {/* Upsell Section */}
-          <div className="px-4 md:px-8 lg:px-12">
+          <div className="">
             <h3 className="text-3xl font-serif mb-4 text-text text-center">ВИП оферти! Добави само сега!</h3>
             {isUpsellActive ? (
               <>
@@ -255,8 +256,8 @@ export default function ItemPurchaseDirect() {
                     Оставащо време: {formatTime(timeRemaining)}
                   </div>
                 </div>
-                <div className="mx-auto">
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                     {items.slice(0, 3).map((upsell) => (
                       <div key={upsell.$id} className="flex flex-col h-full">
                         <div className="bg-background border overflow-hidden p-6 flex flex-col h-full">

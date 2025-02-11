@@ -57,21 +57,23 @@ export default function BestSellerSection() {
     };
 
     return (
-    <div className="bg-background">
-        <div className="text-center relative bg-gradient-to-r from-accentbackground to-accentbackground-light py-20">
-            <h2 className="text-5xl font-serif mb-6 text-text">Специални предложения</h2>
-            <p className="text-text text-xl">
-                Открийте нашата изключителна колекция, която ще ви помогне да създадете незабравими моменти и да изразите своята любов по уникален начин.
-            </p>
+    <div className="bg-background mb-10">
+        <div className="text-left relative bg-gradient-to-r from-accentbackground to-accentbackground-light py-20">
+            <div className="mx-auto px-4 container">
+                <h2 className="text-5xl font-serif mb-6 text-text">Специални предложения</h2>
+                <p className="text-text text-xl">
+                    Открийте нашата изключителна колекция, която ще ви помогне да създадете незабравими моменти и да изразите своята любов по уникален начин.
+                </p>
+            </div>
         </div>
-        <div className="container mx-auto px-8 pt-10">
+        <div className="container mx-auto px-4 pt-10">
             <div className="space-y-10">
                 {items.map((item) => (
                     <ScrollAnimation key={item.$id}>
                         <div className="relative">
                             <div className="flex flex-col bg-background lg:flex-row items-center">
                                 <div className="lg:w-3/5">
-                                    <div className="bg-background shadow-sm overflow-hidden lg:pb-24 lg:px-20">
+                                    <div className="bg-background shadow-sm overflow-hidden">
                                         <div className="relative">
                                             <img
                                                 src={item.image} // Assuming `image` holds the image URL
@@ -91,7 +93,7 @@ export default function BestSellerSection() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="bg-background lg:w-2/5 h-full lg:py-24 lg:px-20 py-10 px-10">
+                                <div className="bg-background lg:w-2/5 h-full lg:py-24 lg:pl-10 py-10">
                                     <div className="flex flex-col justify-between">
                                         <h2 className="text-4xl font-serif mb-8">{item.name}</h2>
                                         <div className="space-y-6 mb-12">

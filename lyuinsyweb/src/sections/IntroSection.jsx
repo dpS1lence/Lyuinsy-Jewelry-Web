@@ -26,7 +26,7 @@ export default function IntroSection() {
               style={{ objectPosition: 'right' }}
             />
             {/* Content Overlay */}
-            <div className="absolute bottom-10 lg:bottom-72 left-0 lg:w-1/2 bg-white bg-opacity-75 hover:bg-opacity-85 flex flex-col items-start p-8 transition-opacity">
+            <div className="absolute bottom-10 lg:bottom-72 left-0 lg:w-1/2 bg-white bg-opacity-75 hover:bg-opacity-85 flex flex-col items-start p-4 lg:p-8 transition-opacity">
               <h1 className="text-4xl lg:text-5xl font-serif text-text mb-6 drop-shadow-lg">
                 Направи този 8-ми март незабравим
               </h1>

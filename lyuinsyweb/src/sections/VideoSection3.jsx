@@ -48,7 +48,7 @@ export default function VideoSection() {
                     Вашият браузър не поддържа видео таг.
                 </video>
             </div>
-            <div className="lg:w-1/2 lg:pl-32 p-8 flex flex-col justify-center items-start">
+            <div className="lg:w-1/2 lg:pl-32 p-4 flex flex-col justify-center items-start">
                 <h2 className="text-3xl font-serif mb-2">Направете Свети Валентин незабравим</h2>
                 <p className="text-lg text-text leading-relaxed">
                     Открийте нашата специална колекция от бижута за Свети Валентин.

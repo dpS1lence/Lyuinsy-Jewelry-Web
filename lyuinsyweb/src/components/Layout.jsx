@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import { motion } from "framer-motion";
 import Logo from "../assets/images/Lyuinsyia.png";
+import LogoNoText from "../assets/images/Lyuinsynotext.png";
 import HolidayPopup from "./HolidayPopup";
 import { useNavigate } from "react-router-dom";
 import { saveEmail } from '../lib/appwrite'; // Import saveEmail function
 
 export default function Layout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(false);
   const [email, setEmail] = useState(''); // State for email input
 
   useEffect(() => { 
@@ -16,6 +19,14 @@ export default function Layout() {
     }, 2000);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowHeader(window.scrollY > 300); // Show header after scrolling 100px
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   
   let navigate = useNavigate();
@@ -82,6 +93,24 @@ export default function Layout() {
         {/* </section> */}
       {/* </div> */}
 
+      <motion.header
+        id="animated-header"
+        className={`fixed z-40 h-20 bg-white w-screen top-0 border-dashed border-b-4 border-gray-100 transition-transform ${showHeader ? 'translate-y-0' : '-translate-y-full'}`}
+        initial={{ y: -100 }}
+        animate={{ y: showHeader ? 0 : -100 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="relative flex flex-row items-center justify-between lg:justify-center w-full h-full">
+          <a href="/home" className="text-text font-medium pl-5">
+            <img src={LogoNoText} className="h-16 w-16" alt="Бижута Люинси" />
+          </a>
+          <div className="flex flex-row justify-center mr-10">
+            <a href="/home" className="text-text font-medium pl-5">Начало</a>
+            <a className="text-text font-medium pl-5">|</a>
+            <a href="/collections" className="text-text font-medium pl-5">Колекции</a>
+          </div>
+        </div>
+      </motion.header>
 
       <main className="flex-grow">
         <Outlet />

@@ -135,7 +135,7 @@ export default function OrderSection({ orderData }) {
 
     return (
         <>
-        <div className="lg:w-2/5 lg:p-8 border-l border-gray-200 mb-2">
+        <div className="lg:w-2/5 lg:p-8 md:border-l-4 border-dashed border-gray-100 mb-2">
             <h3 className="text-3xl font-serif mb-6 text-text">Завършете Вашата Поръчка</h3>
             <form ref={checkoutRef} id="checkout-section" className="space-y-6" onSubmit={handleSubmit}>
                 {/* Промо Код */}

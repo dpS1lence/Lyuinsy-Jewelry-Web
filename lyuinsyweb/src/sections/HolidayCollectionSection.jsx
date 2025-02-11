@@ -32,7 +32,7 @@ export default function HolidayCollectionSection() {
     };
 
   return (
-    <section className="py-20 bg-accentbackground">
+    <section className="py-10 bg-accentbackground">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 relative">
           <h2 className="text-3xl font-serif mb-4 text-text">Колекция за Свети Валентин и 8-ми март</h2>

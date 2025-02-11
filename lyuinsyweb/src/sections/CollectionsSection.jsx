@@ -24,9 +24,9 @@ export default function CollectionsSection() {
     }, []);
 
     return (
-        <section className="py-20 bg-accentbackground">
+        <section className="py-10 bg-accentbackground">
             <div className="container mx-auto px-4">
-                <div className="text-center mb-16">
+                <div className="text-center mb-14">
                     <h2 className="text-5xl font-serif mb-4 text-text">Нашите Колекции</h2>
                 </div>
 
