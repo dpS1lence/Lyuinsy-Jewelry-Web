@@ -15,7 +15,7 @@ export default function Layout() {
   useEffect(() => { 
     // Show popup after 2 seconds
     const timer = setTimeout(() => {
-        setIsPopupOpen(false);
+        setIsPopupOpen(true);
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -30,9 +30,35 @@ export default function Layout() {
   }, []);
   
   let navigate = useNavigate();
-  const buynow = () => {
+  
+  const Home = () => {
+    navigate({
+        pathname: '/home'
+    }); 
+  };
+  const Collections = () => {
     navigate({
         pathname: '/collections'
+    }); 
+  };
+  const Us = () => {
+    navigate({
+        pathname: '/about'
+    }); 
+  };
+  const Contact = () => {
+    navigate({
+        pathname: '/contacts'
+    }); 
+  };
+  const Privacy = () => {
+    navigate({
+        pathname: '/privacy'
+    }); 
+  };
+  const Terms = () => {
+    navigate({
+        pathname: '/terms'
     }); 
   };
 
@@ -71,13 +97,13 @@ export default function Layout() {
         </div>
 
         <div className="relative">
-          <div className="container mx-auto px-4 pb-4 relative z-10">
+          <div className="container mx-auto md:px-4 pb-4 relative z-10">
             <nav className="flex flex-col md:flex-row md:items-center justify-center md:space-x-12 pb-5">
-              <a href="/home" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
-              <a href="/collections" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
-              <a href="/about" className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
-              <a href="/contacts" className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
-              <button onClick={buynow} className="px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit lg:w-auto bg-pink-100 shadow-sm rounded-md text-black">
+              <a onClick={Home} className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
+              <a onClick={Collections} className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
+              <a onClick={Us} className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
+              <a onClick={Contact} className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
+              <button onClick={Collections} className="px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit lg:w-auto bg-pink-100 shadow-sm rounded-md text-black">
                 Купи сега
               </button>
             </nav>
@@ -101,13 +127,13 @@ export default function Layout() {
         transition={{ duration: 0.3 }}
       >
         <div className="relative flex flex-row items-center justify-between lg:justify-center w-full h-full">
-          <a href="/home" className="text-text font-medium pl-5">
+          <a onClick={Home} className="text-text font-medium pl-5">
             <img src={LogoNoText} className="h-16 w-16" alt="Бижута Люинси" />
           </a>
           <div className="flex flex-row justify-center mr-10">
-            <a href="/home" className="text-text font-medium pl-5">Начало</a>
+            <a onClick={Home} className="text-text font-medium pl-5">Начало</a>
             <a className="text-text font-medium pl-5">|</a>
-            <a href="/collections" className="text-text font-medium pl-5">Колекции</a>
+            <a onClick={Collections} className="text-text font-medium pl-5">Колекции</a>
           </div>
         </div>
       </motion.header>
@@ -151,22 +177,20 @@ export default function Layout() {
           <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
           <div></div>
             <div>
-              <h3 className="text-xl font-serif mb-4 text-white font-bold">Елегантни Бижута</h3>
-              <p className="text-white">Създаваме безвременни бижута от 1990 г.</p>
+              <h3 className="text-xl font-serif mb-4 text-white font-bold">Lyuinsy Jewelry</h3>
+              <p className="text-white">Всички права запазени 2025©</p>
             </div>
             <div>
               <h4 className="text-lg mb-4 text-white font-bold">Бързи линкове</h4>
               <ul className="space-y-2 text-white">
                 <li><a href="/shipping" className="hover:text-hover">Информация за доставка</a></li>
-                <li><a href="/returns" className="hover:text-hover">Възстановяване</a></li>
-                <li><a href="/care" className="hover:text-hover">Позабота за бижутата</a></li>
+                <li><a onClick={Privacy} className="hover:text-hover">Защита на личните данни</a></li>
+                <li><a onClick={Terms} className="hover:text-hover">Общи условия за ползване</a></li>
               </ul>
             </div>
             <div>
               <h4 className="text-lg mb-4 text-white font-bold">Свържи се с нас</h4>
               <address className="text-white not-italic">
-                <p>123 улица на бижутата</p>
-                <p>Ню Йорк, НЙ 10001</p>
                 <p>Email: info@elegantgems.com</p>
               </address>
             </div>

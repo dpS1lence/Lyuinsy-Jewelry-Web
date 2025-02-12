@@ -49,7 +49,7 @@ export default function BestSellerSection() {
     }, []);
 
     const handleReserveClick = (itemId) => {
-        navigate(`/item-purchase-direct/${itemId}`);
+        navigate(`/item/${itemId}`);
     };
 
     const learnmore = () => {

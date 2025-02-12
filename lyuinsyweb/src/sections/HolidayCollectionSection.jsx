@@ -27,7 +27,7 @@ export default function HolidayCollectionSection() {
     const handleReserveClick = (item) => {
       if(item.quantity > 0){
         console.log(item);
-        navigate(`/item-purchase-direct/${item.$id}`);
+        navigate(`/item/${item.$id}`);
       }
     };
 

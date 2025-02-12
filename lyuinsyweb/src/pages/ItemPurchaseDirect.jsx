@@ -132,14 +132,13 @@ export default function ItemPurchaseDirect() {
         {/* Main Item Section */}
         <div className="lg:w-3/5">
           <div className="flex flex-col justify-between items-start py-6 mb-8 rounded-xl">
-            
-          <h2 className="text-2xl md:text-3xl font-semibold text-text mb-5">{item.name}</h2>
+            <h2 className="text-2xl md:text-3xl font-semibold text-text mb-5">{item.name}</h2>
             <div className="flex flex-col justify-center items-center md:flex-row w-full gap-8">
-              <div className="relative w-full md:w-auto">
+              <div className="relative md:w-1/2">
                 <img
                   src={item.image}
                   alt={item.name}
-                  className="w-96 md:w-full object-cover cursor-pointer shadow-sm hover:opacity-95 transition-opacity"
+                  className="w-96 md:max-w-full object-cover cursor-pointer shadow-sm hover:opacity-95 transition-opacity"
                   onClick={() => {
                     setPhotoIndex(0);
                     setIsLightboxOpen(true);
@@ -168,7 +167,7 @@ export default function ItemPurchaseDirect() {
                   </svg>
                 </div>
               </div>
-              <div className="flex flex-col justify-between h-max">
+              <div className="flex flex-col justify-between md:w-1/2 h-max">
                 <div className="flex flex-col items-start justify-center mt-6 md:mt-0">
                   <p className="text-base md:text-lg text-text mb-3 pr-5">{item.description}</p>
                   <p className="text-sm md:text-md text-text">{item.deliveryDate}</p>
@@ -198,7 +197,7 @@ export default function ItemPurchaseDirect() {
             <div className="mb-12">
               <h3 className="text-2xl font-semibold text-text mb-6">Добавени към поръчката:</h3>
               {orderedItems.map((orderedItem) => (
-                <div key={orderedItem.$id} className="py-5 mb-6 bg-accentbackground p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative">
+                <div key={orderedItem.$id} className="py-5 mb-6 bg-accentbackground p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative md:mr-6">
                   <button 
                     onClick={() => handleRemoveFromOrder(orderedItem)}
                     className="absolute top-3 right-3 text-text hover:text-discount transition-colors p-2 rounded-full hover:bg-accentbackground"
@@ -247,7 +246,7 @@ export default function ItemPurchaseDirect() {
           )}
 
           {/* Upsell Section */}
-          <div className="">
+          <div className="mb-10">
             <h3 className="text-3xl font-serif mb-4 text-text text-center">ВИП оферти! Добави само сега!</h3>
             {isUpsellActive ? (
               <>

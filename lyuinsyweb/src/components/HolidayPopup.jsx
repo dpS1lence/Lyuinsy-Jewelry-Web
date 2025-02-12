@@ -3,7 +3,10 @@ import { saveEmail } from '../lib/appwrite'; // Import appwriteConfig
 
 export default function HolidayPopup({ isOpen, onClose }) {
   const [email, setEmail] = useState('');
-  const [isClosed, setIsClosed] = useState(false); // New state to track if the popup is closed
+  const [isClosed, setIsClosed] = useState(() => {
+    const saved = localStorage.getItem('holidayPopupClosed');
+    return saved === 'true';
+  }); // Initialize state based on localStorage
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,6 +26,7 @@ export default function HolidayPopup({ isOpen, onClose }) {
 
   const handleClose = () => {
     setIsClosed(true); // Set the closed state to true
+    localStorage.setItem('holidayPopupClosed', 'true'); // Save to localStorage
     onClose();
   };
 
@@ -30,7 +34,7 @@ export default function HolidayPopup({ isOpen, onClose }) {
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
       <div className="bg-background rounded-lg max-w-md w-full relative animate-fade-in">
         <button 
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute right-4 top-4 text-text hover:text-discount"
         >
           ✕
@@ -59,10 +63,6 @@ export default function HolidayPopup({ isOpen, onClose }) {
               Запишете се за специални оферти
             </button>
           </form>
-          
-          <p className="text-text text-sm text-center mt-4">
-            🎉 Първите 50 подписки получават 20% отстъпка! 🎉
-          </p>
         </div>
       </div>
     </div>

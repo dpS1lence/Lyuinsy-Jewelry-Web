@@ -23,6 +23,7 @@ export default function OrderSection({ orderData }) {
     const [discount, setDiscount] = useState(0); // Track discount amount or percentage
     const [promoMessage, setPromoMessage] = useState(''); // Feedback message for promo code
     const navigate = useNavigate(); // Initialize useNavigate
+    const [deliveryOption, setDeliveryOption] = useState('home'); // State for delivery option
 
     const handleRecaptchaChange = (value) => {
         setRecaptchaValue(value);
@@ -41,7 +42,7 @@ export default function OrderSection({ orderData }) {
         }
 
         const enteredCode = formData.promoCode.trim().toUpperCase();
-        if (enteredCode === "КОЛЕДА2023") {
+        if (enteredCode === "8МАРТ2025") {
             const itemsTotal = (orderData.mainItem?.actualPrice || 0) + 
                 orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
             const calculatedDiscount = itemsTotal * 0.10; // 10% discount
@@ -51,6 +52,10 @@ export default function OrderSection({ orderData }) {
         } else {
             setPromoMessage("Невалиден промо код.");
         }
+    };
+
+    const handleDeliveryChange = (e) => {
+        setDeliveryOption(e.target.value);
     };
 
     const handleSubmit = async (e) => {
@@ -63,9 +68,9 @@ export default function OrderSection({ orderData }) {
         // Calculate total price
         const mainItemPrice = orderData.mainItem?.actualPrice || 0;
         const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
-        const deliveryFee = 10;
+        const deliveryFee = Math.max(0, totalPriceValue + 10 > 100 ? (deliveryOption === 'home' ? 6.99 : 5.99) : 0.00);
         const discountAmount = 5 + discount; // Existing fixed discount plus promo discount
-        const totalPriceValue = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
+        const totalPriceValue = mainItemPrice + orderedItemsPrice + deliveryFee;
 
         console.log("inthere + " + orderData.mainItem.$id);
 
@@ -82,7 +87,7 @@ export default function OrderSection({ orderData }) {
             name: formData.name,
             email: formData.email,
             phone: formData.phone,
-            address: formData.address,
+            address: deliveryOption + " - " + formData.address,
             items: [
                 `Total Price: ${parseFloat(totalPriceValue)} лв`,
                 `Delivery Fee: ${deliveryFee} лв`,
@@ -95,7 +100,7 @@ export default function OrderSection({ orderData }) {
         
         const orderDataArr = {
             userNames: formData.name,
-            userAdress: formData.address,
+            userAdress: deliveryOption + " - " + formData.address,
             userPhone: formData.phone,
             userEmail: formData.email,
             totalPrice: parseFloat(totalPriceValue),
@@ -126,11 +131,11 @@ export default function OrderSection({ orderData }) {
         }
     };
 
-    // Calculate total price for display
     const mainItemPrice = orderData.mainItem?.actualPrice || 0;
     const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
-    const deliveryFee = 10;
     const discountAmount = 5 + discount; // Fixed discount plus promo discount
+
+    const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 100 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
     const totalPrice = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
 
     return (
@@ -198,24 +203,64 @@ export default function OrderSection({ orderData }) {
                     required
                     onChange={handleInputChange}
                 />
-                <input
-                    type="text"
-                    name="address"
-                    placeholder="Адрес"
-                    className="w-full px-6 py-3 border border-gray-300 rounded text-text"
-                    required
-                    onChange={handleInputChange}
-                />
+                <div className="relative w-full">
+                    <input
+                        type="text"
+                        name="address"
+                        placeholder="Адрес"
+                        className="w-full px-6 py-3 border border-gray-300 rounded text-text"
+                        required
+                        onChange={handleInputChange}
+                    />
+                    <p className="absolute text-xs text-gray-500 mt-1">
+                        Доставка: 6.99лв (домашен адрес), 5.99лв (офис на Еконт или Спиди), (БЕЗПЛАТНА за поръчки над 100лв)
+                    </p>
+                </div>
+
+                {/* Delivery Options */}
+                <div className="flex justify-between pt-10">
+                    <div className="flex flex-col space-y-4">
+                        <label className="flex items-center cursor-pointer transition-transform transform hover:scale-105">
+                            <input
+                                type="radio"
+                                name="deliveryOption"
+                                value="home"
+                                checked={deliveryOption === 'home'}
+                                onChange={handleDeliveryChange}
+                                className="mr-2 accent-discount"
+                            />
+                            <span className="text-lg font-semibold text-text">Домашен адрес</span>
+                        </label>
+                        <label className="flex items-center cursor-pointer transition-transform transform hover:scale-105">
+                            <input
+                                type="radio"
+                                name="deliveryOption"
+                                value="econt"
+                                checked={deliveryOption === 'econt'}
+                                onChange={handleDeliveryChange}
+                                className="mr-2 accent-discount"
+                            />
+                            <span className="text-lg font-semibold text-text">Офис на Еконт</span>
+                        </label>
+                        <label className="flex items-center cursor-pointer transition-transform transform hover:scale-105">
+                            <input
+                                type="radio"
+                                name="deliveryOption"
+                                value="speedy"
+                                checked={deliveryOption === 'speedy'}
+                                onChange={handleDeliveryChange}
+                                className="mr-2 accent-discount"
+                            />
+                            <span className="text-lg font-semibold text-text">Офис на Спиди</span>
+                        </label>
+                    </div>
+                </div>
 
                 {/* Обобщение на Цената */}
                 <div className="mt-6 bg-white p-6 rounded-lg">
                     <div className="flex justify-between text-lg text-text">
                         <p>Цена за Доставка:</p>
-                        <p>10лв</p>
-                    </div>
-                    <div className="flex justify-between text-lg text-text">
-                        <p>Отстъпка:</p>
-                        <p>-5лв</p>
+                        <p>{deliveryFee.toFixed(2)}лв</p> {/* Display dynamic delivery fee */}
                     </div>
                     {promoApplied && (
                         <div className="flex justify-between text-lg text-text">
@@ -242,7 +287,8 @@ export default function OrderSection({ orderData }) {
                 </button>
             </form>
         </div>
-        <CheckoutButton checkoutRef={checkoutRef} /></>
+        <CheckoutButton checkoutRef={checkoutRef} />
+        </>
     );
 }
 

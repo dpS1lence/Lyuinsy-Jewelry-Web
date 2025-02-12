@@ -6,7 +6,10 @@ import AboutUs from "./pages/AboutUs";
 import Contact from "./pages/Contact";
 import Collections from "./pages/Collections";
 import Collection from "./pages/Collection";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import TermsAndConditions from "./pages/TermsAndConditions";
+import Shipping from "./pages/Shipping";
 const router = createBrowserRouter([
   {
       path: "/",
@@ -33,7 +36,7 @@ const router = createBrowserRouter([
             element: <Collections />
           },
           {
-            path: "/item-purchase-direct/:id",
+            path: "/item/:id",
             element: <ItemPurchaseDirect />
           },
           {
@@ -43,6 +46,18 @@ const router = createBrowserRouter([
           {
             path: "/order-confirmation",
             element: <OrderConfirmation />
+          },
+          {
+            path: "/privacy",  
+            element: <PrivacyPolicy />
+          },
+          {
+            path: "/terms",  
+            element: <TermsAndConditions />
+          },
+          {
+            path: "/shipping",  
+            element: <Shipping />
           },
       ]
   }
