@@ -61,6 +61,11 @@ export default function Layout() {
         pathname: '/terms'
     }); 
   };
+  const Shipping = () => {
+    navigate({
+        pathname: '/shipping'
+    }); 
+  };
 
   const handleEmailSubmit = async () => {
     const date = new Date().toISOString(); // Get the current datetime in ISO format
@@ -99,11 +104,11 @@ export default function Layout() {
         <div className="relative">
           <div className="container mx-auto md:px-4 pb-4 relative z-10">
             <nav className="flex flex-col md:flex-row md:items-center justify-center md:space-x-12 pb-5">
-              <a onClick={Home} className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
-              <a onClick={Collections} className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
-              <a onClick={Us} className="text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
-              <a onClick={Contact} className="text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
-              <button onClick={Collections} className="px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit lg:w-auto bg-pink-100 shadow-sm rounded-md text-black">
+              <a onClick={Home} className="cursor-pointer text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
+              <a onClick={Collections} className="cursor-pointer text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
+              <a onClick={Us} className="cursor-pointer text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
+              <a onClick={Contact} className="cursor-pointer text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
+              <button onClick={Collections} className="px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit cursor-pointer lg:w-auto bg-pink-100 shadow-sm rounded-md text-black">
                 Купи сега
               </button>
             </nav>
@@ -183,9 +188,9 @@ export default function Layout() {
             <div>
               <h4 className="text-lg mb-4 text-white font-bold">Бързи линкове</h4>
               <ul className="space-y-2 text-white">
-                <li><a href="/shipping" className="hover:text-hover">Информация за доставка</a></li>
-                <li><a onClick={Privacy} className="hover:text-hover">Защита на личните данни</a></li>
-                <li><a onClick={Terms} className="hover:text-hover">Общи условия за ползване</a></li>
+                <li><a onClick={Shipping} className="hover:text-hover cursor-pointer">Информация за доставка</a></li>
+                <li><a onClick={Privacy} className="hover:text-hover cursor-pointer">Защита на личните данни</a></li>
+                <li><a onClick={Terms} className="hover:text-hover cursor-pointer">Общи условия за ползване</a></li>
               </ul>
             </div>
             <div>
