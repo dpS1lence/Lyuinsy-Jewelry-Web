@@ -153,3 +153,39 @@ export const purchaseItem = async (itemId) => {
     console.error("Error purchasing item:", error);
   }
 };
+
+export const updateItem = async (itemId, updatedData) => {
+  try {
+    console.log("Updating item with ID:", itemId);
+    let image = null;
+
+    // If there's a new image, upload it first
+    if (updatedData.imageFile) {
+      const { fileUrl } = await uploadFile(updatedData.imageFile);
+      image = fileUrl;
+    }
+
+    // Update the item document
+    const updatedItem = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.itemsCollectionId,
+      itemId,
+      {
+        name: updatedData.name,
+        description: updatedData.description,
+        old_price: updatedData.oldPrice,
+        actual_price: updatedData.actualPrice,
+        discount: updatedData.discount,
+        bulletsDescription: updatedData.bulletsDescription || [],
+        special_offer: updatedData.specialOffer,
+        quantity: updatedData.quantity,
+        ...(image && { image }), // Only include image if a new image was uploaded
+      }
+    );
+
+    return updatedItem;
+  } catch (error) {
+    console.error("Error updating item:", error);
+    throw error;
+  }
+};

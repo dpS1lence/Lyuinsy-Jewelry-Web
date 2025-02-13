@@ -132,13 +132,13 @@ export default function Layout() {
         transition={{ duration: 0.3 }}
       >
         <div className="relative flex flex-row items-center justify-between lg:justify-center w-full h-full">
-          <a onClick={Home} className="text-text font-medium pl-5">
+          <a onClick={Home} className="cursor-pointer text-text font-medium pl-5">
             <img src={LogoNoText} className="h-16 w-16" alt="Бижута Люинси" />
           </a>
           <div className="flex flex-row justify-center mr-10">
-            <a onClick={Home} className="text-text font-medium pl-5">Начало</a>
+            <a onClick={Home} className="cursor-pointer text-text font-medium pl-5">Начало</a>
             <a className="text-text font-medium pl-5">|</a>
-            <a onClick={Collections} className="text-text font-medium pl-5">Колекции</a>
+            <a onClick={Collections} className="cursor-pointer text-text font-medium pl-5">Колекции</a>
           </div>
         </div>
       </motion.header>

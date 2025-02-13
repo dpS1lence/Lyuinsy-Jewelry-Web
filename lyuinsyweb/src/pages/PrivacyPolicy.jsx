@@ -26,8 +26,6 @@ const PrivacyPolicy = () => {
           <strong>Адрес:</strong> [Вашият адрес]
           <br />
           <strong>E-mail:</strong> info@lyuinsyjewelry.com
-          <br />
-          <strong>Телефон:</strong> [Вашият телефон]
         </p>
 
         <h2 className="text-2xl md:text-3xl font-serif mb-4 text-text">

@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 export default function OrderConfirmation() {
   const location = useLocation();
-  const { orderData, totalPrice, formData } = location.state || {};
+  const { orderData, deliveryFee, discountAmount, totalPriceValue, formData } = location.state || {};
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,12 +36,12 @@ export default function OrderConfirmation() {
   const { mainItem, orderedItems } = orderData;
 
   return (
-    <div className="min-h-screen bg-accentbackground py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Success Message Section */}
         <div className="text-center mb-12">
-          <div className="bg-main rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
-            <svg className="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="bg-pink-100 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center">
+            <svg className="w-12 h-12 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
             </svg>
           </div>
@@ -50,9 +50,6 @@ export default function OrderConfirmation() {
           </h1>
           <p className="text-xl text-text mb-2">
             Вашата поръчка е успешно приета.
-          </p>
-          <p className="text-lg text-text">
-            Ще получите имейл с потвърждение на посочения от Вас адрес.
           </p>
         </div>
 
@@ -135,16 +132,16 @@ export default function OrderConfirmation() {
             <div className="mt-8 border-t border-gray-200 pt-6">
               <div className="flex justify-between items-center">
                 <div className="text-text">Доставка</div>
-                <div className="text-text">10.00 лв.</div>
+                <div className="text-text">{deliveryFee} лв.</div>
               </div>
               <div className="flex justify-between items-center mt-2">
                 <div className="text-text">Отстъпка</div>
-                <div className="text-main">-5.00 лв.</div>
+                <div className="text-main">-{discountAmount} лв.</div>
               </div>
               <div className="flex justify-between items-center mt-4 pt-4 border-t border-gray-200">
                 <div className="text-lg font-medium text-text">Обща сума</div>
                 <div className="text-xl font-bold text-main">
-                  {totalPrice} лв.
+                  {totalPriceValue} лв.
                 </div>
               </div>
             </div>
@@ -153,25 +150,25 @@ export default function OrderConfirmation() {
 
         {/* Next Steps */}
         <div className="bg-main rounded-xl p-6 mb-8">
-          <h3 className="text-lg font-medium text-white mb-4">Следващи стъпки</h3>
+          <h3 className="text-lg font-medium text-black mb-4">Следващи стъпки</h3>
           <ul className="space-y-3">
-            <li className="flex items-center text-white">
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
-              </svg>
-              Ще получите имейл с потвърждение на поръчката
-            </li>
-            <li className="flex items-center text-white">
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <li className="flex items-center text-black">
+              <svg className="w-5 h-5 mr-2" fill="pink" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
               Ще Ви уведомим, когато поръчката бъде изпратена
             </li>
-            <li className="flex items-center text-white">
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <li className="flex items-center text-black">
+              <svg className="w-5 h-5 mr-2" fill="pink" viewBox="0 0 20 20">
                 <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
               </svg>
               Очаквайте доставка в рамките на 2-3 работни дни
+            </li>
+            <li className="flex items-center text-black">
+              <svg className="w-5 h-5 mr-2" fill="pink" viewBox="0 0 20 20">
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+              </svg>
+              При необходимост ще получите обаждане от наш служител
             </li>
           </ul>
         </div>
@@ -180,7 +177,7 @@ export default function OrderConfirmation() {
         <div className="text-center">
           <Link
             to="/"
-            className="inline-block bg-buttonPrimary text-white px-8 py-3 rounded-full hover:bg-buttonHover transition duration-300 text-lg font-medium"
+            className="inline-block bg-pink-100 text-black px-8 py-3 hover:bg-buttonHover transition duration-300 text-lg font-medium"
           >
             Обратно към началната страница
           </Link>

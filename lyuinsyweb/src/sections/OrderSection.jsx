@@ -60,19 +60,13 @@ export default function OrderSection({ orderData }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!recaptchaValue) {
-            alert("Моля, попълнете ReCAPTCHA.");
-            return;
-        }
 
         // Calculate total price
         const mainItemPrice = orderData.mainItem?.actualPrice || 0;
         const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
-        const deliveryFee = Math.max(0, totalPriceValue + 10 > 100 ? (deliveryOption === 'home' ? 6.99 : 5.99) : 0.00);
-        const discountAmount = 5 + discount; // Existing fixed discount plus promo discount
-        const totalPriceValue = mainItemPrice + orderedItemsPrice + deliveryFee;
-
-        console.log("inthere + " + orderData.mainItem.$id);
+        const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 100 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
+        const discountAmount = discount; // Existing fixed discount plus promo discount
+        const totalPriceValue = mainItemPrice + orderedItemsPrice + deliveryFee - discount;
 
         await purchaseItem(orderData.mainItem.$id);
         for (const item of orderData.orderedItems) {
@@ -96,7 +90,6 @@ export default function OrderSection({ orderData }) {
                 ...orderData.orderedItems.map(item => `Upsell Item: ${item.name}, Image: ${item.image}, ID: ${item.$id}, Price: ${item.actualPrice.toFixed(2)} лв`)
             ].join('\n'), // Join items for email
         };
-        console.log(...orderData.orderedItems.map(item => item.$id));
         
         const orderDataArr = {
             userNames: formData.name,
@@ -105,35 +98,31 @@ export default function OrderSection({ orderData }) {
             userEmail: formData.email,
             totalPrice: parseFloat(totalPriceValue),
             promoCode: promoApplied ? formData.promoCode : 'Няма',
-            itemIds: orderData.orderedItems.length > 0 ? 
-                orderData.orderedItems.map(item => item.$id) : 
-                [orderData.mainItem.$id],
+            itemIds: [
+                ...orderData.orderedItems.map(item => item.$id),
+                orderData.mainItem.$id
+            ], // Ensure itemIds is always an array
         };
 
         try {
-            // Send email using EmailJS
-            const response = await emailjs.send(
-                'service_jvj3h5g',       // Replace with your service ID
-                'template_esalbsu',      // Replace with your template ID
-                emailData,               // Replace with your email data object
-                'WvI-vMKQArYdGRtOQ'      // Replace with your user ID
+            await emailjs.send(
+                'service_jvj3h5g',
+                'template_esalbsu',
+                emailData,
+                'WvI-vMKQArYdGRtOQ'
             );
 
             await createOrder(orderDataArr);
-
-            console.log("Email sent successfully:", response);
-
-            // Redirect to the confirmation page with order data
-            navigate('/order-confirmation', { state: { orderData, totalPriceValue } });
+            
+            navigate('/order-confirmation', { state: { orderData, deliveryFee, discountAmount, totalPriceValue, formData } });
         } catch (error) {
             console.error("Error sending email:", error);
-            alert("Неуспешно изпращане на имейла.");
         }
     };
 
     const mainItemPrice = orderData.mainItem?.actualPrice || 0;
     const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
-    const discountAmount = 5 + discount; // Fixed discount plus promo discount
+    const discountAmount = discount; // Fixed discount plus promo discount
 
     const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 100 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
     const totalPrice = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
