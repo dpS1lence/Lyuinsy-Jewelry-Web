@@ -60,7 +60,10 @@ export default function OrderSection({ orderData }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        if (!recaptchaValue) {
+            alert("Моля, попълнете ReCAPTCHA.");
+            return;
+        }
         // Calculate total price
         const mainItemPrice = orderData.mainItem?.actualPrice || 0;
         const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
