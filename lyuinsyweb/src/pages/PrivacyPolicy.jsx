@@ -12,20 +12,20 @@ const PrivacyPolicy = () => {
           Защита на личните данни
         </h1>
         <p className="text-base md:text-lg text-text mb-6">
-          От 25 май 2018 г. в сила е новият регламент за защита на личните данни (GDPR) в Европейския съюз. Lyuinsy Jewelry събира и обработва лични данни единствено във връзка с направените поръчки – ние не поддържаме потребителски профили. Данните се обработват по начин, който гарантира сигурността, прозрачността и законосъобразността на процеса.
+          От 25 май 2018 г. в сила е новият регламент за защита на личните данни (GDPR) в Европейския съюз. Марси ЕООД е юридическо лице, администратор на лични данни. Марси ЕООД събира и обработва лични данни единствено във връзка с направените поръчки – ние не поддържаме потребителски профили. Данните се обработват по начин, който гарантира сигурността, прозрачността и законосъобразността на процеса.
         </p>
 
         <h2 className="text-2xl md:text-3xl font-serif mb-4 text-text">
           Информация за администратора на данни
         </h2>
         <p className="text-base md:text-lg text-text mb-6">
-          <strong>Наименование:</strong> Lyuinsy Jewelry
+          <strong>Наименование:</strong> Марси ЕООД
           <br />
-          <strong>ЕИК/Рег. номер:</strong> [Вашият ЕИК/Рег. номер]
+          <strong>ЕИК Булстат:</strong> BG124687212
           <br />
-          <strong>Адрес:</strong> [Вашият адрес]
+          <strong>Адрес със седалище:</strong> гр.Варна ул,,Струга” 45 ет.1 ап.100
           <br />
-          <strong>E-mail:</strong> info@lyuinsyjewelry.com
+          <strong>E-mail:</strong> lyuinsyjewelry@gmail.com
         </p>
 
         <h2 className="text-2xl md:text-3xl font-serif mb-4 text-text">
@@ -47,7 +47,7 @@ const PrivacyPolicy = () => {
           Обработка на лични данни
         </h2>
         <p className="text-base md:text-lg text-text mb-6">
-          Lyuinsy Jewelry обработва лични данни само когато извършвате поръчка. Събраните данни се използват за:
+          Марси ЕООД обработва лични данни само когато извършвате поръчка. Събраните данни се използват за:
         </p>
         <ul className="list-disc list-inside mb-6 text-base md:text-lg text-text">
           <li>Изпълнение на договорни задължения</li>
@@ -68,8 +68,8 @@ const PrivacyPolicy = () => {
         </h2>
         <p className="text-base md:text-lg text-text mb-6">
           Вие имате право да получите достъп до, коригирате или изтриете вашите лични данни, както и да ограничите обработката им или да възразите срещу нея. За да упражните тези права, моля свържете се с нас на:{" "}
-          <a href="mailto:info@lyuinsyjewelry.com" className="text-link underline">
-            info@lyuinsyjewelry.com
+          <a href="mailto:lyuinsyjewelry@gmail.com" className="text-link underline">
+            lyuinsyjewelry@gmail.com
           </a>
           .
         </p>
@@ -93,13 +93,13 @@ const PrivacyPolicy = () => {
         </h2>
         <p className="text-base md:text-lg text-text mb-6">
           Ако имате въпроси относно нашата политика за защита на личните данни или искате да упражните вашите права, моля свържете се с нас на:{" "}
-          <a href="mailto:info@lyuinsyjewelry.com" className="text-link underline">
-            info@lyuinsyjewelry.com
+          <a href="mailto:lyuinsyjewelry@gmail.com" className="text-link underline">
+            lyuinsyjewelry@gmail.com
           </a>
           .
         </p>
         <p className="text-base md:text-lg text-text mb-6">
-          Lyuinsy Jewelry спазва всички изисквания на GDPR и другите приложими закони, като обработва лични данни единствено с цел изпълнение на поръчките.
+          Фирма Марси ЕООД спазва всички изисквания на GDPR и другите приложими закони, като обработва лични данни единствено с цел изпълнение на поръчките.
         </p>
       </div>
     </div>

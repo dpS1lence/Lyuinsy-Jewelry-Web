@@ -196,11 +196,12 @@ export default function Layout() {
             <div>
               <h4 className="text-lg mb-4 text-white font-bold">Свържи се с нас</h4>
               <address className="text-white not-italic">
-                <p>Email: info@elegantgems.com</p>
+                <p>Email: lyuinsyjewelry@gmail.com</p>
               </address>
             </div>
             <div></div>
           </div>
+          <p className="text-center text-white mt-10 italic text-sm">Този магазин и предоставените изображения са създадени от <a href="https://devids.eu/" className="font-bold">devids.eu</a>.</p>
         </div>
       </footer>
     </div>

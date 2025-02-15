@@ -249,7 +249,7 @@ export default function OrderSection({ orderData }) {
                 </div>
 
                 {/* Обобщение на Цената */}
-                <div className="mt-6 bg-white p-6 rounded-lg">
+                <div className="mt-6 bg-white rounded-lg">
                     <div className="flex justify-between text-lg text-text">
                         <p>Цена за Доставка:</p>
                         <p>{deliveryFee.toFixed(2)}лв</p> {/* Display dynamic delivery fee */}
@@ -273,10 +273,14 @@ export default function OrderSection({ orderData }) {
                     onChange={handleRecaptchaChange}
                 />
 
-                {/* Потвърдете Поръчката */}
-                <button className="bg-black text-white w-full py-4 hover:bg-white hover:text-black border border-black" type="submit">
-                    Потвърдете Поръчката
-                </button>
+                <div className="flex flex-col items-center mt-4">
+                    <button className="bg-black text-white w-full py-4 hover:bg-white hover:text-black border border-black transition-colors" type="submit">
+                        Потвърдете Поръчката
+                    </button>
+                    <p className="text-center text-sm text-text mt-2">
+                        С натискането на бутона, вие се съгласявате с <a href="/terms" className="text-discount underline">Общите условия</a> и <a href="/privacy" className="text-discount underline">Политиката за поверителност</a>.
+                    </p>
+                </div>
             </form>
         </div>
         <CheckoutButton checkoutRef={checkoutRef} />

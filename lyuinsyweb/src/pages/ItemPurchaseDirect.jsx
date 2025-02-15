@@ -294,7 +294,7 @@ export default function ItemPurchaseDirect() {
 
                           <button
                             onClick={() => handleAddToOrder(upsell)}
-                            className="w-full bg-black text-white px-8 py-4 hover:bg-white border border-black hover:text-black"
+                            className="w-full bg-black text-white px-8 py-4 hover:bg-white border border-black hover:text-black transition-colors"
                           >
                             Добави
                           </button>
