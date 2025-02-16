@@ -6,6 +6,7 @@ import LogoNoText from "../assets/images/Lyuinsynotext.png";
 import HolidayPopup from "./HolidayPopup";
 import { useNavigate } from "react-router-dom";
 import { saveEmail } from '../lib/appwrite'; // Import saveEmail function
+import { Menu } from 'lucide-react';
 
 export default function Layout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -86,7 +87,7 @@ export default function Layout() {
         isOpen={isPopupOpen} 
         onClose={() => setIsPopupOpen(false)} 
       />
-      <header className="bg-background/50 hover:bg-background/70 transition-colors border-dashed border-spacing-8 border-b-4 border-gray-100">
+      <header className="bg-background/50 hover:bg-background/70 transition-colors border-dashed border-spacing-8 border-b-4 border-gray-100 hidden md:flex flex-col">
         {/* Обявителен банер */}
         <div className="bg-discount text-white text-center py-2 px-4">
           <p className="text-sm font-medium animate-pulse">
@@ -123,6 +124,24 @@ export default function Layout() {
           {/* </div> */}
         {/* </section> */}
       {/* </div> */}
+      <header className={`bg-white w-screen top-0 border-dashed border-b-4 border-gray-100 md:hidden`}
+      >
+        <div className="bg-discount text-white text-center py-2 px-4">
+          <p className="text-sm font-medium animate-pulse">
+            Промокод за 30% отстъпка!
+          </p>
+        </div>
+        <div className="relative flex flex-row items-center justify-between lg:justify-center w-full h-full">
+          <a onClick={Home} className="cursor-pointer text-text font-medium pl-5">
+            <img src={LogoNoText} className="h-16 w-16" alt="Бижута Люинси" />
+          </a>
+          <div className="flex flex-row justify-center mr-10">
+            <a onClick={Collections} className="cursor-pointer text-text font-medium pl-5">
+              <Menu name="bars" className="inline-block mr-2" /> Меню
+            </a>
+          </div>
+        </div>
+      </header>
 
       <motion.header
         id="animated-header"

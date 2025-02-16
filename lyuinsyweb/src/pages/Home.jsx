@@ -7,35 +7,20 @@ import ScrollAnimation from "../components/ScrollAnimation";
 import VideoSection from "../sections/VideoSection";
 import VideoSection2 from "../sections/VideoSection2";
 import VideoSection3 from "../sections/VideoSection3";
+import AboutUsSection from "../sections/AboutUsSection";
 
 const Home = () => {
 
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <ScrollAnimation>
         <IntroSection />
-      </ScrollAnimation>
-
-      {/* Best Sellers Section */}
         <BestSellerSection />
-
-      {/* Holiday Collection Grid */}
-      <ScrollAnimation>
+        <AboutUsSection />
         <HolidayCollectionSection />
-        </ScrollAnimation>
-        {/* Video Section */}
         <VideoSection />
-        
-      <ScrollAnimation>
         <CollectionsSection />
-        </ScrollAnimation>
         <VideoSection2 />
-{/* Customer Reviews Section */}
-<ScrollAnimation>
         <ReviewsSection />
-      </ScrollAnimation>
-      {/* Collection Grid */}
     </div>
   );
 };
