@@ -119,7 +119,7 @@ export default function BestSellerSection() {
                                         </div>
                                         <div className="flex justify-center items-center text-center">
                                             <button
-                                                onClick={() => handleReserveClick(item.$id)}
+                                                onClick={() => handleReserveClick(item.slug)}
                                                 className={`bg-black text-white border border-black px-8 py-4 font-medium w-full lg:w-auto hover:bg-white hover:text-black transition ${item.quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
                                                 disabled={item.quantity === 0}
                                             >

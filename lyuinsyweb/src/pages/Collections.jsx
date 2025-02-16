@@ -40,7 +40,7 @@ const Collections = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {collections.map((collection) => (
-                        <Link to={`/collection/${collection.$id}`} key={collection.id}>
+                        <Link to={`/collection/${collection.slug}`} key={collection.id}>
                             <div 
                                 className={`group cursor-pointer shadow-sm overflow-hidden transition-all duration-300 ${collection.theme}`}
                             >

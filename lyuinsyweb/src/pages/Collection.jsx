@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ScrollAnimation from "../components/ScrollAnimation";
 import { useNavigate } from "react-router-dom";
-import { getOneCollection } from '../lib/appwrite';
+import { getOneCollectionBySlug } from '../lib/appwrite';
 
 const Collection = () => {
     const { id } = useParams(); // Extract collection ID from URL
@@ -15,7 +15,7 @@ const Collection = () => {
 
         const fetchCollection = async () => {
             try {
-                const data = await getOneCollection(id); // Await the promise
+                const data = await getOneCollectionBySlug(id); // Await the promise
                 setCollection(data);
             } catch (error) {
                 console.error("Failed to fetch collection:", error);
@@ -37,8 +37,8 @@ const Collection = () => {
 
     const { name, description, items } = collection;
 
-    const handleReserveClick = (itemId) => {
-        navigate(`/item/${itemId}`);
+    const handleReserveClick = (slugId) => {
+        navigate(`/item/${slugId}`);
     };
 
     return (
@@ -51,10 +51,10 @@ const Collection = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {items.filter(item => !item['upsellOffer']).map((item) => {
-                        const { $id, name, description, image, oldPrice, actualPrice, specialOffer, quantity } = item;
+                        const { $id, name, description, image, oldPrice, actualPrice, specialOffer, quantity, slug } = item;
 
                         return (
-                            <div key={$id} className="group cursor-pointer bg-background shadow-sm overflow-hidden" onClick={() => handleReserveClick(item.$id)}>
+                            <div key={$id} className="group cursor-pointer bg-background shadow-sm overflow-hidden" onClick={() => handleReserveClick(item.slug)}>
                                 <div className="relative">
                                     <img 
                                         src={image}
@@ -89,7 +89,7 @@ const Collection = () => {
                                             )}
                                         </div>
                                         <button 
-                                            onClick={() => handleReserveClick(item.$id)}
+                                            onClick={() => handleReserveClick(item.slug)}
                                             className={`${specialOffer ? 'bg-discount hover:bg-red' : 'bg-buttonPrimary hover:bg-buttonHover'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition ${quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
                                             disabled={quantity === 0}
                                         >

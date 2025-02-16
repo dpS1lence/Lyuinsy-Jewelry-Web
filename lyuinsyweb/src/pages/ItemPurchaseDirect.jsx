@@ -2,7 +2,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import ScrollAnimation from "../components/ScrollAnimation";
 import OrderSection from "../sections/OrderSection";
-import { getAllItems, getOneItem } from "../lib/appwrite";
+import { getAllItems, getOneItemBySlug } from "../lib/appwrite";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 
@@ -39,7 +39,7 @@ export default function ItemPurchaseDirect() {
 
     const fetchItems = async () => {
       try {
-        const data = await getOneItem(id); // Fetch the main item
+        const data = await getOneItemBySlug(id); // Fetch the main item
         const dataAll = await getAllItems(); // Fetch all upsell items
 
         setItem(data);
@@ -93,7 +93,7 @@ export default function ItemPurchaseDirect() {
   }
 
   if (!items) {
-    return <div>Collection not found</div>; // Show if collection is null
+    return <div>Item not found</div>;
   }
 
   const handlePrevUpsell = () => {

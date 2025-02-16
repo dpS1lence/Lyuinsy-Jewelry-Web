@@ -96,6 +96,51 @@ export async function getOneItem(id) {
   }
 };
 
+export async function getOneItemBySlug(slug) {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.itemsCollectionId,
+      [Query.equal("slug", slug)]
+    );
+
+    if (response.documents.length === 0) {
+      throw new Error("Item not found");
+    }
+
+    return response.documents[0]; // Return the first match
+  } catch (error) {
+    console.error("Error fetching item:", error);
+    throw error;
+  }
+}
+
+export async function getOneCollectionBySlug(slug) {
+  try {
+    const response = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.collectionsCollectionId,
+      [Query.equal("slug", slug)]
+    );
+
+    if (response.documents.length === 0) {
+      throw new Error("Item not found");
+    }
+
+    const items = await getAllItems(300, 0);
+    
+    if (response) {
+      response.documents[0].items = items.filter(item => item.relatedCollection === response.documents[0].$id);
+    }
+
+    return response.documents[0]; // Return the first match
+  } catch (error) {
+    console.error("Error fetching item:", error);
+    throw error;
+  }
+}
+
+
 
 export async function getAllCollections() {
   try {

@@ -35,7 +35,7 @@ export default function CollectionsSection() {
                         <div 
                             key={collection.$id}
                             className={`group cursor-pointer bg-background overflow-hidden transition-all duration-300`}
-                            onClick={() => navigate(`/collection/${collection.$id}`)}
+                            onClick={() => navigate(`/collection/${collection.slug}`)}
                         >
                             <div className="aspect-w-16 aspect-h-9 relative">
                                 <img 
