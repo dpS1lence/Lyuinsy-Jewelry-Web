@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import ScrollAnimation from "../components/ScrollAnimation";
-import { useNavigate } from "react-router-dom";
 import { getOneCollectionBySlug } from '../lib/appwrite';
 
 const Collection = () => {
     const { id } = useParams(); // Extract collection ID from URL
     const [collection, setCollection] = useState(null); // Initialize state for collection
     const [loading, setLoading] = useState(true); // Loading state
-    const navigate = useNavigate();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -37,10 +35,6 @@ const Collection = () => {
 
     const { name, description, items } = collection;
 
-    const handleReserveClick = (slugId) => {
-        navigate(`/item/${slugId}`);
-    };
-
     return (
         <section className="py-20">
             <div className="container mx-auto px-4">
@@ -54,7 +48,7 @@ const Collection = () => {
                         const { $id, name, description, image, oldPrice, actualPrice, specialOffer, quantity, slug } = item;
 
                         return (
-                            <div key={$id} className="group cursor-pointer bg-background shadow-sm overflow-hidden" onClick={() => handleReserveClick(item.slug)}>
+                            <div key={$id} className="group cursor-pointer bg-background shadow-sm overflow-hidden">
                                 <div className="relative">
                                     <img 
                                         src={image}
@@ -88,13 +82,13 @@ const Collection = () => {
                                                 <span className="text-2xl font-thin text-text">{actualPrice}лв</span>
                                             )}
                                         </div>
-                                        <button 
-                                            onClick={() => handleReserveClick(item.slug)}
+                                        <Link 
+                                            to={`/item/${item.slug}`}
                                             className={`${specialOffer ? 'bg-discount hover:bg-red' : 'bg-buttonPrimary hover:bg-buttonHover'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition ${quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
                                             disabled={quantity === 0}
                                         >
                                             Разгледай
-                                        </button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

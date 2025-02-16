@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { getAllCollections } from "../lib/appwrite";
 import { Databases } from "appwrite";
-import { Link } from 'react-router-dom';
 
 export default function CollectionsSection() {
     const [collections, setItems] = useState([]);
-    const navigate = useNavigate();
     const databases = new Databases();
 
     useEffect(() => {
@@ -32,10 +30,10 @@ export default function CollectionsSection() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {collections.map((collection) => (
-                        <div 
+                        <Link 
                             key={collection.$id}
+                            to={`/collection/${collection.slug}`}
                             className={`group cursor-pointer bg-background overflow-hidden transition-all duration-300`}
-                            onClick={() => navigate(`/collection/${collection.slug}`)}
                         >
                             <div className="aspect-w-16 aspect-h-9 relative">
                                 <img 
@@ -51,7 +49,7 @@ export default function CollectionsSection() {
                                 <div className="flex items-center text-text font-medium">
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

@@ -1,13 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { getAllCollections } from "../lib/appwrite";
 import { Databases } from "appwrite";
-import { Link } from 'react-router-dom';
 import ScrollAnimation from "../components/ScrollAnimation";
 
 const Collections = () => {
     const [collections, setItems] = useState([]);
-    const navigate = useNavigate();
     const databases = new Databases();
 
     useEffect(() => {

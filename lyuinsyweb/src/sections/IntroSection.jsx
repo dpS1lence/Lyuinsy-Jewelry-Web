@@ -1,14 +1,8 @@
 import JewelryWoman from "../assets/images/gradinetwomanbg/womanpinkbg.png";
 import JewelryWomanMobile from "../assets/images/gradinetwomanbg/phonepinkwomanbg.png";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 export default function IntroSection() {
-
-  const navigate = useNavigate();
-
-  const navigateCollections = () => {
-    navigate(`/collections`);
-};
-
     return (
         <section className="relative flex">
           {/* Image */}
@@ -35,9 +29,9 @@ export default function IntroSection() {
                 където всяко парче разказва история за елегантност и любов
               </p>
               <div className="space-y-4">
-                <button onClick={navigateCollections} className="bg-black text-white border border-black px-8 py-4 font-medium w-full lg:w-auto hover:bg-white hover:text-black">
+                <Link to="/collections" className="bg-black text-white border border-black px-8 py-4 font-medium w-full lg:w-auto hover:bg-white hover:text-black">
                   Покажи Колекцията за 8-ми март
-                </button>
+                </Link>
                 <div className="text-text text-sm animate-pulse">
                   Безплатно опаковане на подаръци | Доставка за следващия ден | Гаранция за празници
                 </div>

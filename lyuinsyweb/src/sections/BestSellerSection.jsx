@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"; // Changed from useNavigate to Link
 import { getAllItems } from "../lib/appwrite";
 import ScrollAnimation from "../components/ScrollAnimation";
 import { Databases } from "appwrite";
@@ -9,7 +9,6 @@ import video2 from "../../src/assets/videos/3.mp4"
 
 export default function BestSellerSection() {
     const [items, setItems] = useState([]);
-    const navigate = useNavigate();
     const databases = new Databases();
     const videoRef = useRef(null);
 
@@ -47,14 +46,6 @@ export default function BestSellerSection() {
         ensureVideoPlayback();
         fetchItems();
     }, []);
-
-    const handleReserveClick = (itemId) => {
-        navigate(`/item/${itemId}`);
-    };
-
-    const learnmore = () => {
-        navigate(`/collections`);
-    };
 
     return (
     <div className="bg-background mb-10">
@@ -118,13 +109,12 @@ export default function BestSellerSection() {
                                             <span className="text-main">{`★★★★★`}</span>
                                         </div>
                                         <div className="flex justify-center items-center text-center">
-                                            <button
-                                                onClick={() => handleReserveClick(item.slug)}
+                                            <Link
+                                                to={`/item/${item.slug}`}
                                                 className={`bg-black text-white border border-black px-8 py-4 font-medium w-full lg:w-auto hover:bg-white hover:text-black transition ${item.quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
-                                                disabled={item.quantity === 0}
                                             >
                                                 Резервирай сега за Свети Валентин
-                                            </button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

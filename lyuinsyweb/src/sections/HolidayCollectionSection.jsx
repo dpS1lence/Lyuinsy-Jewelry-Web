@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"; // Changed from useNavigate to Link
 import { getAllItems } from "../lib/appwrite";
 import { Databases } from "appwrite";
 
 
 export default function HolidayCollectionSection() {
     const [items, setItems] = useState([]);
-    const navigate = useNavigate();
     const databases = new Databases();
 
     useEffect(() => {
@@ -24,13 +23,6 @@ export default function HolidayCollectionSection() {
         fetchItems();
     }, []);
 
-    const handleReserveClick = (item) => {
-      if(item.quantity > 0){
-        console.log(item);
-        navigate(`/item/${item.slug}`);
-      }
-    };
-
   return (
     <section className="py-10 bg-accentbackground">
       <div className="container mx-auto px-4">
@@ -44,14 +36,15 @@ export default function HolidayCollectionSection() {
               <div 
                 key={item.$id} 
                 className={`group bg-background overflow-hidden transition duration-300 ${item.quantity === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
-                onClick={() => handleReserveClick(item)}
               >
                 <div className="relative overflow-hidden">
-                  <img 
-                    src={item.image}
-                    alt={item.name}
-                    className={`w-full h-64 object-cover transition-transform duration-300 transform hover:scale-110 ${item.quantity === 0 ? 'filter grayscale' : ''}`}
-                  />
+                  <Link to={`/item/${item.slug}`}>
+                    <img 
+                      src={item.image}
+                      alt={item.name}
+                      className={`w-full h-64 object-cover transition-transform duration-300 transform hover:scale-110 ${item.quantity === 0 ? 'filter grayscale' : ''}`}
+                    />
+                  </Link>
                   {item.quantity === 0 && (
                     <div className="absolute inset-0 bg-accentbackground opacity-50 flex items-center justify-center">
                       <span className="text-black text-4xl font-bold">Изчерпана</span>

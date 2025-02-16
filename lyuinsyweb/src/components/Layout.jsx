@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom"; // Added Link import
 import { motion } from "framer-motion";
 import Logo from "../assets/images/Lyuinsyia.png";
 import LogoNoText from "../assets/images/Lyuinsynotext.png";
 import HolidayPopup from "./HolidayPopup";
-import { useNavigate } from "react-router-dom";
 import { saveEmail } from '../lib/appwrite'; // Import saveEmail function
 import { Menu } from 'lucide-react';
 
@@ -30,44 +29,6 @@ export default function Layout() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   
-  let navigate = useNavigate();
-  
-  const Home = () => {
-    navigate({
-        pathname: '/home'
-    }); 
-  };
-  const Collections = () => {
-    navigate({
-        pathname: '/collections'
-    }); 
-  };
-  const Us = () => {
-    navigate({
-        pathname: '/about'
-    }); 
-  };
-  const Contact = () => {
-    navigate({
-        pathname: '/contacts'
-    }); 
-  };
-  const Privacy = () => {
-    navigate({
-        pathname: '/privacy'
-    }); 
-  };
-  const Terms = () => {
-    navigate({
-        pathname: '/terms'
-    }); 
-  };
-  const Shipping = () => {
-    navigate({
-        pathname: '/shipping'
-    }); 
-  };
-
   const handleEmailSubmit = async () => {
     const date = new Date().toISOString(); // Get the current datetime in ISO format
 
@@ -105,40 +66,31 @@ export default function Layout() {
         <div className="relative">
           <div className="container mx-auto md:px-4 pb-4 relative z-10">
             <nav className="flex flex-col md:flex-row md:items-center justify-center md:space-x-12 pb-5">
-              <a onClick={Home} className="cursor-pointer text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</a>
-              <a onClick={Collections} className="cursor-pointer text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</a>
-              <a onClick={Us} className="cursor-pointer text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</a>
-              <a onClick={Contact} className="cursor-pointer text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</a>
-              <button onClick={Collections} className="px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit cursor-pointer lg:w-auto bg-pink-100 shadow-sm rounded-md text-black">
+              <Link to="/home" className="cursor-pointer text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">Начало</Link>
+              <Link to="/collections" className="cursor-pointer text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Колекции</Link>
+              <Link to="/about" className="cursor-pointer text-text hover:text-hover transition-colors font-medium pl-5 mb-5 md:mb-0 md:pl-0">За нас</Link>
+              <Link to="/contacts" className="cursor-pointer text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0">Контакт</Link>
+              <Link to="/collections" className="px-8 py-2 ml-5 hidden md:flex md:ml-0 font-medium w-fit cursor-pointer lg:w-auto bg-pink-100 shadow-sm rounded-md text-black">
                 Купи сега
-              </button>
+              </Link>
             </nav>
           </div>
         </div>
       </header>
-      {/* <div className="absolute w-full top-[252px] z-20"> */}
-        {/* Elegant Gold Accent Section */}
-        {/* <section className="w-full bg-transparent py-0"> */}
-          {/* <div className="container mx-auto text-center"> */}
-            {/* <p className="text-sm text-yellow-800 font-serif tracking-wide italic">Изживей магията на ръчно изработените бижута</p> */}
-          {/* </div> */}
-        {/* </section> */}
-      {/* </div> */}
-      <header className={`bg-white w-screen top-0 border-dashed border-b-4 border-gray-100 md:hidden`}
-      >
+      <header className={`bg-white w-screen top-0 border-dashed border-b-4 border-gray-100 md:hidden`}>
         <div className="bg-discount text-white text-center py-2 px-4">
           <p className="text-sm font-medium animate-pulse">
             Промокод за 30% отстъпка!
           </p>
         </div>
         <div className="relative flex flex-row items-center justify-between lg:justify-center w-full h-full">
-          <a onClick={Home} className="cursor-pointer text-text font-medium pl-5">
+          <Link to="/home" className="cursor-pointer text-text font-medium pl-5">
             <img src={LogoNoText} className="h-16 w-16" alt="Бижута Люинси" />
-          </a>
+          </Link>
           <div className="flex flex-row justify-center mr-10">
-            <a onClick={Collections} className="cursor-pointer text-text font-medium pl-5">
+            <Link to="/collections" className="cursor-pointer text-text font-medium pl-5">
               <Menu name="bars" className="inline-block mr-2" /> Меню
-            </a>
+            </Link>
           </div>
         </div>
       </header>
@@ -151,13 +103,13 @@ export default function Layout() {
         transition={{ duration: 0.3 }}
       >
         <div className="relative flex flex-row items-center justify-between lg:justify-center w-full h-full">
-          <a onClick={Home} className="cursor-pointer text-text font-medium pl-5">
+          <Link to="/home" className="cursor-pointer text-text font-medium pl-5">
             <img src={LogoNoText} className="h-16 w-16" alt="Бижута Люинси" />
-          </a>
+          </Link>
           <div className="flex flex-row justify-center mr-10">
-            <a onClick={Home} className="cursor-pointer text-text font-medium pl-5">Начало</a>
-            <a className="text-text font-medium pl-5">|</a>
-            <a onClick={Collections} className="cursor-pointer text-text font-medium pl-5">Колекции</a>
+            <Link to="/home" className="cursor-pointer text-text font-medium pl-5">Начало</Link>
+            <span className="text-text font-medium pl-5">|</span>
+            <Link to="/collections" className="cursor-pointer text-text font-medium pl-5">Колекции</Link>
           </div>
         </div>
       </motion.header>
@@ -207,9 +159,9 @@ export default function Layout() {
             <div>
               <h4 className="text-lg mb-4 text-white font-bold">Бързи линкове</h4>
               <ul className="space-y-2 text-white">
-                <li><a onClick={Shipping} className="hover:text-hover cursor-pointer">Информация за доставка</a></li>
-                <li><a onClick={Privacy} className="hover:text-hover cursor-pointer">Защита на личните данни</a></li>
-                <li><a onClick={Terms} className="hover:text-hover cursor-pointer">Общи условия за ползване</a></li>
+                <li><Link to="/shipping" className="hover:text-hover cursor-pointer">Информация за доставка</Link></li>
+                <li><Link to="/privacy" className="hover:text-hover cursor-pointer">Защита на личните данни</Link></li>
+                <li><Link to="/terms" className="hover:text-hover cursor-pointer">Общи условия за ползване</Link></li>
               </ul>
             </div>
             <div>
