@@ -5,7 +5,7 @@ import Logo from "../assets/images/Lyuinsyia.png";
 import LogoNoText from "../assets/images/Lyuinsynotext.png";
 import HolidayPopup from "./HolidayPopup";
 import { saveEmail } from '../lib/appwrite'; // Import saveEmail function
-import { Menu } from 'lucide-react';
+import { Menu, ArrowUp } from 'lucide-react';
 
 export default function Layout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -40,6 +40,10 @@ export default function Layout() {
     } catch (error) {
       console.error("Error saving email:", error.message); // Log only the error message
     }
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -175,6 +179,17 @@ export default function Layout() {
           <p className="text-center text-white mt-10 italic text-sm">Този магазин и предоставените изображения са създадени от <a href="https://devids.eu/" className="font-bold">devids.eu</a>.</p>
         </div>
       </footer>
+
+      {/* Scroll to Top Button */}
+      {window.location.pathname.includes("item") ? null : (
+        <button 
+          onClick={scrollToTop} 
+          className="fixed bottom-4 right-4 bg-black text-white rounded-full p-3 shadow-lg hover:bg-gray-700 transition-colors"
+          aria-label="Scroll to top"
+        >
+          <ArrowUp />
+        </button>
+      )}
     </div>
   );
 }

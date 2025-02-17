@@ -26,11 +26,11 @@ const Collection = () => {
     }, [id]);
 
     if (loading) {
-        return <div>Loading...</div>; // Show a loading state
+        return <div className="flex justify-center items-center h-screen"><p className="text-xl">Зареждане...</p></div>;
     }
 
     if (!collection) {
-        return <div>Loading...</div>; // Show if collection is null
+        return <div>Not found</div>; // Show if collection is null
     }
 
     const { name, description, items } = collection;
@@ -49,6 +49,10 @@ const Collection = () => {
 
                         return (
                             <div key={$id} className="group cursor-pointer bg-background shadow-sm overflow-hidden">
+                                <Link 
+                                            to={`/item/${item.slug}`}
+                                            disabled={quantity === 0}
+                                        >
                                 <div className="relative">
                                     <img 
                                         src={image}
@@ -82,15 +86,9 @@ const Collection = () => {
                                                 <span className="text-2xl font-thin text-text">{actualPrice}лв</span>
                                             )}
                                         </div>
-                                        <Link 
-                                            to={`/item/${item.slug}`}
-                                            className={`${specialOffer ? 'bg-discount hover:bg-red' : 'bg-buttonPrimary hover:bg-buttonHover'} text-white px-6 py-2 mt-2 md:mt-0 rounded-full transition ${quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
-                                            disabled={quantity === 0}
-                                        >
-                                            Разгледай
-                                        </Link>
                                     </div>
                                 </div>
+                                </Link>
                             </div>
                         );
                     })}

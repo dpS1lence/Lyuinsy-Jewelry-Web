@@ -10,6 +10,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import Shipping from "./pages/Shipping";
+import ErrorPage from "./pages/ErrorPage";
 const router = createBrowserRouter([
   {
       path: "/",
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
             path: "/shipping",  
             element: <Shipping />
           },
+          {
+            path: "*",
+            element: <ErrorPage />
+          }
       ]
   }
 ]);

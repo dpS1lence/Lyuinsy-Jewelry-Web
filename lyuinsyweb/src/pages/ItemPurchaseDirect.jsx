@@ -15,13 +15,6 @@ export default function ItemPurchaseDirect() {
   const [arrowsVisible, setArrowsVisible] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
-  const [timeRemaining, setTimeRemaining] = useState(() => {
-    const savedTime = localStorage.getItem('upsellTimeRemaining');
-    return savedTime ? parseInt(savedTime) : 5 * 60; // 5 minutes in seconds
-  });
-  const [isUpsellActive, setIsUpsellActive] = useState(() => {
-    return localStorage.getItem('upsellActive') !== 'false';
-  });
   const [loading, setLoading] = useState(true); // State for loading animation
 
   // Create array of all images (main item + upsell items)
@@ -64,32 +57,8 @@ export default function ItemPurchaseDirect() {
     }
   }, [items]);
 
-  useEffect(() => {
-    if (timeRemaining > 0 && isUpsellActive) {
-      const timer = setInterval(() => {
-        setTimeRemaining(prev => {
-          const newTime = prev - 1;
-          localStorage.setItem('upsellTimeRemaining', newTime.toString());
-          if (newTime <= 0) {
-            setIsUpsellActive(false);
-            localStorage.setItem('upsellActive', 'false');
-          }
-          return newTime;
-        });
-      }, 1000);
-
-      return () => clearInterval(timer);
-    }
-  }, [timeRemaining, isUpsellActive]);
-
-  const formatTime = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-  };
-
   if (loading) {
-    return <div className="flex justify-center items-center h-screen"><p className="text-xl">Loading...</p></div>; // Loading animation
+    return <div className="flex justify-center items-center h-screen"><p className="text-xl">Зареждане...</p></div>; // Loading animation
   }
 
   if (!items) {
@@ -247,63 +216,68 @@ export default function ItemPurchaseDirect() {
 
           {/* Upsell Section */}
           <div className="mb-10">
-            <h3 className="text-3xl font-serif mb-4 text-text text-center">ВИП оферти! Добави само сега!</h3>
-            {isUpsellActive ? (
-              <>
+            <div className="mb-10 text-center">
+                <h3 className="text-4xl font-serif mb-6 text-text font-bold flex items-center justify-center">
+                    Ексклузивни ВИП Оферти!
+                </h3>
                 <div className="flex justify-center items-center mb-8">
-                  <div className="bg-discount text-white px-6 py-3 rounded-lg font-bold text-xl animate-pulse">
-                    Оставащо време: {formatTime(timeRemaining)}
-                  </div>
+                    <div className="bg-accentbackground w-96 py-4  font-semibold text-md">
+                        <p className="text-black">
+                            Възползвайте се от нашите невероятни цени, налични само при покупка! 
+                        </p>
+                        <span className="font-bold text-black"> Добавете в количката сега и спестете!</span>
+                    </div>
                 </div>
-                <div className="">
-                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                    {items.slice(0, 3).map((upsell) => (
-                      <div key={upsell.$id} className="flex flex-col h-full">
-                        <div className="bg-background border overflow-hidden p-6 flex flex-col h-full">
-                          <div className="relative aspect-[4/3] mb-6">
-                            <img
-                              src={upsell.image}
-                              alt={upsell.name}
-                              className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-                            />
-                            {upsell.oldPrice && (
-                              <div className="absolute top-4 right-4 bg-discount text-white px-3 py-1 rounded-full text-sm font-bold">
-                                -{Math.round(((upsell.oldPrice - upsell.actualPrice) / upsell.oldPrice) * 100)}%
-                              </div>
-                            )}
-                          </div>
-                          
-                          <div className="flex-grow">
-                            <h4 className="text-2xl font-serif text-text mb-4">{upsell.name}</h4>
-                            <div className="flex items-end gap-3 mb-4">
-                              {upsell.oldPrice && (
-                                <p className="text-lg text-text line-through">
-                                  {upsell.oldPrice.toFixed(2)} лв
-                                </p>
-                              )}
-                              <p className="text-2xl font-thin text-discount">
-                                {upsell.actualPrice.toFixed(2)} лв
-                              </p>
+            </div>
+            {items && items.length > 0 ? (
+              <div className="">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                  {items.slice(0, 3).map((upsell) => (
+                    <div key={upsell.$id} className="flex flex-col h-full">
+                      <div className="bg-background border overflow-hidden p-6 flex flex-col h-full">
+                        <div className="relative aspect-[4/3] mb-6">
+                          <img
+                            src={upsell.image}
+                            alt={upsell.name}
+                            className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+                          />
+                          {upsell.oldPrice && (
+                            <div className="absolute top-4 right-4 bg-discount text-white px-3 py-1 rounded-full text-sm font-bold">
+                              -{Math.round(((upsell.oldPrice - upsell.actualPrice) / upsell.oldPrice) * 100)}%
                             </div>
-                            <div className="bg-accentbackground rounded-lg p-4 mb-6">
-                              <p className="text-sm text-text font-medium">
-                                Добави преди да свърши таймера!
-                              </p>
-                            </div>
-                          </div>
-
-                          <button
-                            onClick={() => handleAddToOrder(upsell)}
-                            className="w-full bg-black text-white px-8 py-4 hover:bg-white border border-black hover:text-black transition-colors"
-                          >
-                            Добави
-                          </button>
+                          )}
                         </div>
+                        
+                        <div className="flex-grow">
+                          <h4 className="text-2xl font-serif text-text mb-4">{upsell.name}</h4>
+                          <div className="flex items-end gap-3 mb-4">
+                            {upsell.oldPrice && (
+                              <p className="text-lg text-text line-through">
+                                {upsell.oldPrice.toFixed(2)} лв
+                              </p>
+                            )}
+                            <p className="text-2xl font-thin text-discount">
+                              {upsell.actualPrice.toFixed(2)} лв
+                            </p>
+                          </div>
+                          <div className="bg-accentbackground rounded-lg p-4 mb-6">
+                            <p className="text-sm text-text font-medium">
+                              Добави преди да свърши!
+                            </p>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => handleAddToOrder(upsell)}
+                          className="w-full bg-black text-white px-8 py-4 hover:bg-white border border-black hover:text-black transition-colors"
+                        >
+                          Добави
+                        </button>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              </>
+              </div>
             ) : (
               <div className="text-center py-12">
                 <p className="text-xl text-text">Специалните оферти са изтекли!</p>
