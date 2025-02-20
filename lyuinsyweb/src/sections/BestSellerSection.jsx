@@ -88,7 +88,7 @@ export default function BestSellerSection() {
                                     <h2 className="text-4xl font-serif mb-8">{item.name}</h2>
                                     <div className="space-y-6 mb-12">
                                         <p className="text-text text-lg leading-relaxed">
-                                            {item.description}
+                                            {item.description.length > 200 ? `${item.description.slice(0, 200)}...` : item.description}
                                         </p>
                                         <ul className="text-text text-lg leading-relaxed list-disc pl-8">
                                             {item.bulletsDescription.map((feature, index) => (

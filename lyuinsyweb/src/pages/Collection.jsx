@@ -74,16 +74,16 @@ const Collection = () => {
                                 </div>
                                 <div className="p-6">
                                     <h3 className="text-xl font-serif mb-2 text-text">{name}</h3>
-                                    <p className="text-text mb-4">{description}</p>
+                                    <p className=" mb-4 h-28 text-gray-500">{description.length > 100 ? `${description.slice(0, 200)}...` : description}</p>
                                     <div className="flex flex-col md:flex-row justify-between items-start">
-                                        <div className="flex items-start gap-2">
+                                        <div className="flex flex-col items-start justify-center gap-1">
                                             {oldPrice ? (
                                                 <>
-                                                    <span className="text-2xl font-light line-through text-text">{oldPrice}лв</span>
-                                                    <span className="text-2xl font-thin text-discount">{actualPrice}лв</span>
+                                                    <span className="text-sm font-light line-through text-gray-500">{oldPrice.toFixed(2)}лв</span>
+                                                    <span className="text-2xl font-thin text-discount">{actualPrice.toFixed(2)}лв</span>
                                                 </>
                                             ) : (
-                                                <span className="text-2xl font-thin text-text">{actualPrice}лв</span>
+                                                <span className="text-2xl font-thin text-text">{actualPrice.toFixed(2)}лв</span>
                                             )}
                                         </div>
                                     </div>
@@ -92,6 +92,11 @@ const Collection = () => {
                             </div>
                         );
                     })}
+                </div>
+                <div className="text-center mt-12">
+                    <Link className="bg-black text-white px-6 py-3 font-medium hover:bg-primary-dark transition-colors" to='/collections'>
+                        Виж всички
+                    </Link>
                 </div>
             </div>
         </section>
