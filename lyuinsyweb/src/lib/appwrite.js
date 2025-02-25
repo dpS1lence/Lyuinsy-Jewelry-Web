@@ -117,6 +117,14 @@ export async function getOneItemBySlug(slug) {
 
 export async function getOneCollectionBySlug(slug) {
   try {
+    if (slug === "all") {
+      const items = await getAllItems(300, 0);
+      return {
+        name: "Всички бижута",
+        items: items
+      };
+    }
+
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.collectionsCollectionId,

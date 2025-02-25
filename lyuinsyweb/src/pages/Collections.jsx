@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getAllCollections } from "../lib/appwrite";
 import { Databases } from "appwrite";
 import ScrollAnimation from "../components/ScrollAnimation";
+import allofit from "../assets/images/allofit.png";
 
 const Collections = () => {
     const [collections, setItems] = useState([]);
@@ -43,6 +44,27 @@ const Collections = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <Link to={`/collection/all`} key="all">
+                                <div 
+                                    className={`group cursor-pointer shadow-sm overflow-hidden transition-all duration-300`}
+                                >
+                                    <div className="aspect-w-16 aspect-h-9 relative">
+                                        <img 
+                                            src={allofit}
+                                            alt="all"
+                                            className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    </div>
+                                    <div className="p-6">
+                                        <h3 className="text-2xl font-serif mb-2 group-hover:text-text transition-colors">
+                                            All Jewelry
+                                        </h3>
+                                        <p className="text-text mb-4">
+                                            Всички бижута
+                                        </p>
+                                    </div>
+                                </div>
+                            </Link>
                         {collections.map((collection) => (
                             <Link to={`/collection/${collection.slug}`} key={collection.id}>
                                 <div 

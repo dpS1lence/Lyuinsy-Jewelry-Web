@@ -33,7 +33,7 @@ export default function ItemPurchaseDirect() {
     const fetchItems = async () => {
       try {
         const data = await getOneItemBySlug(id); // Fetch the main item
-        const dataAll = await getAllItems(); // Fetch all upsell items
+        const dataAll = await getAllItems(300, 0); // Fetch all upsell items
 
         setItem(data);
         setItems(dataAll.filter(item => item['upsellOffer']));
