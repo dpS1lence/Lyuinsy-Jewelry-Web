@@ -29,7 +29,7 @@ export default function IntroSection() {
                 където всяка гривничка разказва история за елегантност и любов
               </p>
               <div className="space-y-4">
-                <Link to="/collections" className="bg-black text-white border border-black px-8 py-4 font-medium w-full lg:w-auto hover:bg-white hover:text-black">
+                <Link to="/collection/kolekciq-8-mart" className="bg-black text-white border border-black px-8 py-4 font-medium w-full lg:w-auto hover:bg-white hover:text-black">
                   Покажи Колекцията за 8-ми март
                 </Link>
                 <div className="text-text text-sm animate-pulse">

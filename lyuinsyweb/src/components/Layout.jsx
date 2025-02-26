@@ -93,7 +93,7 @@ export default function Layout() {
           </Link>
           <div className="flex flex-row justify-center mr-10">
             <Link to="/collections" className="cursor-pointer text-text font-medium pl-5">
-              <Menu name="bars" className="inline-block mr-2" /> Меню
+              <Menu name="bars" className="inline-block mr-2" />  Колекции
             </Link>
           </div>
         </div>
@@ -101,7 +101,7 @@ export default function Layout() {
 
       <motion.header
         id="animated-header"
-        className={`fixed z-40 h-20 bg-white w-screen top-0 border-dashed border-b-4 border-gray-100 transition-transform ${showHeader ? 'translate-y-0' : '-translate-y-full'}`}
+        className={`fixed z-40 h-20 bg-white w-screen top-0 transition-transform ${showHeader ? 'translate-y-0' : '-translate-y-full'}`}
         initial={{ y: -100 }}
         animate={{ y: showHeader ? 0 : -100 }}
         transition={{ duration: 0.3 }}

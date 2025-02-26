@@ -80,7 +80,7 @@ export default function ItemPurchaseDirect() {
     <ScrollAnimation>
       <div className="px-5 xl:px-20 flex flex-col md:flex-row">
         {/* Main Item Section */}
-        <div className="lg:w-3/5">
+        <div className="lg:w-3/5 md:pr-8">
           <div className="flex flex-col md:flex-row gap-8 items-start my-8">
             {/* Left Image Section */}
             <div className="md:w-1/2 flex flex-col-reverse gap-4">
@@ -113,7 +113,7 @@ export default function ItemPurchaseDirect() {
             </div>
 
             {/* Right Text Section */}
-            <div className="md:w-1/2 flex flex-col justify-between pr-8">
+            <div className="md:w-1/2 flex flex-col justify-between">
               <h2 className="text-2xl md:text-3xl font-semibold text-text mb-5">{item.name}</h2>
               <ExpandableText text={item.description} />
               <p className="text-sm md:text-md text-text">{item.deliveryDate}</p>
@@ -204,11 +204,10 @@ export default function ItemPurchaseDirect() {
                 </div>
             </div>
             {items && items.length > 0 ? (
-              <div className="">
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
                   {items.slice(0, 3).map((upsell) => (
                     <div key={upsell.$id} className="flex flex-col h-full">
-                      <div className="bg-background border overflow-hidden p-6 flex flex-col h-full">
+                      <div className="bg-background border overflow-hidden p-4 flex flex-col h-full">
                         <div className="relative aspect-[4/3] mb-6">
                           <img
                             src={upsell.image}
@@ -251,7 +250,6 @@ export default function ItemPurchaseDirect() {
                     </div>
                   ))}
                 </div>
-              </div>
             ) : (
               <div className="text-center py-12">
                 <p className="text-xl text-text">Специалните оферти са изтекли!</p>

@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { purchaseItem } from "../lib/appwrite";
 import { createOrder } from "../lib/appwrite";
 import CheckoutButton from "../components/CeckoutButton";
+import Lightbox from "yet-another-react-lightbox";
+import card1 from "../assets/images/march-8-cards/1.png";
+import card2 from "../assets/images/march-8-cards/2.png";
+import card3 from "../assets/images/march-8-cards/3.png";
+import card4 from "../assets/images/march-8-cards/6.png";
 
 const sitekeyRE = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
 
@@ -24,6 +29,17 @@ export default function OrderSection({ orderData }) {
     const [promoMessage, setPromoMessage] = useState(''); // Feedback message for promo code
     const navigate = useNavigate(); // Initialize useNavigate
     const [deliveryOption, setDeliveryOption] = useState('home'); // State for delivery option
+    const [open, setOpen] = useState(false);
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    const [selectedCardTitle, setSelectedCardTitle] = useState(''); // State to track selected card title
+    const [isLoading, setIsLoading] = useState(false); // State to track loading
+
+    const images = [
+        { src: card1, title: 'Ягоди' },
+        { src: card2, title: 'Розова с пожелание' },
+        { src: card3, title: 'цветя' },
+        { src: card4, title: 'ваза с птичка и цветя' },
+    ];
 
     const handleRecaptchaChange = (value) => {
         setRecaptchaValue(value);
@@ -58,56 +74,69 @@ export default function OrderSection({ orderData }) {
         setDeliveryOption(e.target.value);
     };
 
+    const handleImageClick = (index) => {
+        setCurrentImageIndex(index);
+        setOpen(true);
+    };
+
+    const handleCardSelection = (index) => {
+        setSelectedCardTitle(images[index].title);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!recaptchaValue) {
             alert("Моля, попълнете ReCAPTCHA.");
             return;
         }
-        // Calculate total price
-        const mainItemPrice = orderData.mainItem?.actualPrice || 0;
-        const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
-        const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 100 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
-        const discountAmount = discount; // Existing fixed discount plus promo discount
-        const totalPriceValue = mainItemPrice + orderedItemsPrice + deliveryFee - discount;
 
-        await purchaseItem(orderData.mainItem.$id);
-        for (const item of orderData.orderedItems) {
-            await purchaseItem(item.$id);
-        }
-
-        // Send email logic here
-        const emailData = {
-            user_name: "John Doe",
-            user_email: "buterflycspro@gmail.com",
-            promoCode: promoApplied ? formData.promoCode : 'Няма',
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            address: deliveryOption + " - " + formData.address,
-            items: [
-                `Total Price: ${parseFloat(totalPriceValue)} лв`,
-                `Delivery Fee: ${deliveryFee} лв`,
-                `Discounts: -${discountAmount} лв`,
-                `Main Item: ${orderData.mainItem?.name}, Image: ${orderData.mainItem?.image}, ID: ${orderData.mainItem?.$id}, Price: ${mainItemPrice.toFixed(2)} лв`,
-                ...orderData.orderedItems.map(item => `Upsell Item: ${item.name}, Image: ${item.image}, ID: ${item.$id}, Price: ${item.actualPrice.toFixed(2)} лв`)
-            ].join('\n'), // Join items for email
-        };
-        
-        const orderDataArr = {
-            userNames: formData.name,
-            userAdress: deliveryOption + " - " + formData.address,
-            userPhone: formData.phone,
-            userEmail: formData.email,
-            totalPrice: parseFloat(totalPriceValue),
-            promoCode: promoApplied ? formData.promoCode : 'Няма',
-            itemIds: [
-                ...orderData.orderedItems.map(item => item.$id),
-                orderData.mainItem.$id
-            ], // Ensure itemIds is always an array
-        };
+        setIsLoading(true); // Set loading state to true
 
         try {
+            // Calculate total price
+            const mainItemPrice = orderData.mainItem?.actualPrice || 0;
+            const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
+            const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 100 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
+            const discountAmount = discount; // Existing fixed discount plus promo discount
+            const totalPriceValue = mainItemPrice + orderedItemsPrice + deliveryFee - discount;
+
+            await purchaseItem(orderData.mainItem.$id);
+            for (const item of orderData.orderedItems) {
+                await purchaseItem(item.$id);
+            }
+
+            // Send email logic here
+            const emailData = {
+                user_name: "John Doe",
+                user_email: "buterflycspro@gmail.com",
+                promoCode: promoApplied ? formData.promoCode : 'Няма',
+                name: formData.name,
+                email: formData.email,
+                phone: formData.phone,
+                address: deliveryOption + " - " + formData.address,
+                items: [
+                    `Total Price: ${parseFloat(totalPriceValue)} лв`,
+                    `Delivery Fee: ${deliveryFee} лв`,
+                    `Discounts: -${discountAmount} лв`,
+                    `Картичка: ${selectedCardTitle}`,
+                    `Main Item: ${orderData.mainItem?.name}, Image: ${orderData.mainItem?.image}, ID: ${orderData.mainItem?.$id}, Price: ${mainItemPrice.toFixed(2)} лв`,
+                    ...orderData.orderedItems.map(item => `Upsell Item: ${item.name}, Image: ${item.image}, ID: ${item.$id}, Price: ${item.actualPrice.toFixed(2)} лв`)
+                ].join('\n'), // Join items for email
+            };
+            
+            const orderDataArr = {
+                userNames: formData.name,
+                userAdress: deliveryOption + " - " + formData.address,
+                userPhone: formData.phone,
+                userEmail: formData.email,
+                totalPrice: parseFloat(totalPriceValue),
+                promoCode: promoApplied ? formData.promoCode + ` Kартичка: ${selectedCardTitle}` : `Няма промокод, картичка: ${selectedCardTitle}`,
+                itemIds: [
+                    ...orderData.orderedItems.map(item => item.$id),
+                    orderData.mainItem.$id
+                ], // Ensure itemIds is always an array
+            };
+
             await emailjs.send(
                 'service_jvj3h5g',
                 'template_esalbsu',
@@ -120,6 +149,8 @@ export default function OrderSection({ orderData }) {
             navigate('/order-confirmation', { state: { orderData, deliveryFee, discountAmount, totalPriceValue, formData } });
         } catch (error) {
             console.error("Error sending email:", error);
+        } finally {
+            setIsLoading(false); // Reset loading state
         }
     };
 
@@ -247,6 +278,25 @@ export default function OrderSection({ orderData }) {
                         </label>
                     </div>
                 </div>
+                    
+                {/* Special Card Section */}
+                <div>
+                    <h3 className="text-2xl font-bold text-text mb-4">Избери картичка</h3>
+                    <div className="flex justify-between">
+                        {images.map((image, index) => (
+                            <label key={index} className="w-1/4 p-2 cursor-pointer flex items-center flex-col-reverse">
+                                <input
+                                    type="radio"
+                                    name="imageSelection"
+                                    value={index}
+                                    className="mr-2 accent-discount mt-2"
+                                    onChange={() => handleCardSelection(index)}
+                                />
+                                <img src={image.src} alt={`Image ${index + 1}`} className="w-full h-auto" onClick={() => handleImageClick(index)} />
+                            </label>
+                        ))}
+                    </div>
+                </div>
 
                 {/* Обобщение на Цената */}
                 <div className="mt-6 bg-white rounded-lg">
@@ -274,8 +324,12 @@ export default function OrderSection({ orderData }) {
                 />
 
                 <div className="flex flex-col items-center mt-4">
-                    <button className="bg-black text-white w-full py-4 hover:bg-white hover:text-black border border-black transition-colors" type="submit">
-                        Потвърдете Поръчката
+                    <button
+                        className="bg-black lg:mt-4 text-white w-full py-4 hover:bg-white hover:text-black border border-black transition-colors"
+                        type="submit"
+                        disabled={isLoading} // Disable button when loading
+                    >
+                        {isLoading ? '...' : 'Потвърдете Поръчката'} {/* Show loading dots when loading */}
                     </button>
                     <p className="text-center text-sm text-text mt-2">
                         С натискането на бутона, вие се съгласявате с <a href="/terms" className="text-discount underline">Общите условия</a> и <a href="/privacy" className="text-discount underline">Политиката за поверителност</a>.
@@ -284,6 +338,12 @@ export default function OrderSection({ orderData }) {
             </form>
         </div>
         <CheckoutButton checkoutRef={checkoutRef} />
+        <Lightbox
+            open={open}
+            close={() => setOpen(false)}
+            slides={images}
+            index={currentImageIndex}
+        />
         </>
     );
 }

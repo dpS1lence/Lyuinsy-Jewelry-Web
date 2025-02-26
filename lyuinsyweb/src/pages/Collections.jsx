@@ -4,6 +4,7 @@ import { getAllCollections } from "../lib/appwrite";
 import { Databases } from "appwrite";
 import ScrollAnimation from "../components/ScrollAnimation";
 import allofit from "../assets/images/allofit.png";
+import march8 from "../assets/images/march8collection.png";
 
 const Collections = () => {
     const [collections, setItems] = useState([]);
@@ -44,6 +45,27 @@ const Collections = () => {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <Link to={`/collection/kolekciq-8-mart`} key="all">
+                                <div 
+                                    className={`group cursor-pointer shadow-sm overflow-hidden transition-all duration-300`}
+                                >
+                                    <div className="aspect-w-16 aspect-h-9 relative">
+                                        <img 
+                                            src={march8}
+                                            alt="all"
+                                            className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                                        />
+                                    </div>
+                                    <div className="p-6">
+                                        <h3 className="text-2xl font-serif mb-2 group-hover:text-text transition-colors">
+                                            Подаръци за 8 март
+                                        </h3>
+                                        <p className="text-text mb-4">
+                                            Цпециално подбрани бижута, подходящи за 8-ми март + картичка с послание от дизайнерсия екип...
+                                        </p>
+                                    </div>
+                                </div>
+                            </Link>
                     <Link to={`/collection/all`} key="all">
                                 <div 
                                     className={`group cursor-pointer shadow-sm overflow-hidden transition-all duration-300`}

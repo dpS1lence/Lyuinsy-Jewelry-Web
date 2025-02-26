@@ -125,6 +125,14 @@ export async function getOneCollectionBySlug(slug) {
       };
     }
 
+    if (slug === "kolekciq-8-mart") {
+      const items = await getAllItems(300, 0);
+      return {
+        name: "8 Март",
+        items: items
+      };
+    }
+
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.collectionsCollectionId,
