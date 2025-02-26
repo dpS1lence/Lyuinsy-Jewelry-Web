@@ -84,7 +84,7 @@ export default function Layout() {
       <header className={`bg-white w-screen top-0 border-dashed border-b-4 border-gray-100 md:hidden`}>
         <div className="bg-discount text-white text-center py-2 px-4">
           <p className="text-sm font-medium animate-pulse">
-            Промокод за 30% отстъпка!
+            Промокод за 10% отстъпка! - 8МАРТ2025
           </p>
         </div>
         <div className="relative flex flex-row items-center justify-between lg:justify-center w-full h-full">

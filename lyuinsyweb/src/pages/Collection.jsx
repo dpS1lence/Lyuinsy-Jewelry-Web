@@ -74,7 +74,7 @@ const Collection = () => {
                                 </div>
                                 <div className="p-6">
                                     <h3 className="text-xl font-serif mb-2 text-text">{name}</h3>
-                                    <p className=" mb-4 h-28 text-gray-500">{description.length > 100 ? `${description.slice(0, 200)}...` : description}</p>
+                                    <p className=" mb-4 h-28 text-gray-500 overflow-hidden">{description.length > 100 ? `${description.slice(0, 200)}...` : description}</p>
                                     <div className="flex flex-col md:flex-row justify-between items-start">
                                         <div className="flex flex-col items-start justify-center gap-1">
                                             {oldPrice ? (
