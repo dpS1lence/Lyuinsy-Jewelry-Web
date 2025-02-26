@@ -48,11 +48,11 @@ const Collection = () => {
                         const { $id, name, description, image, oldPrice, actualPrice, specialOffer, quantity, slug } = item;
 
                         return (
-                            <div key={$id} className="group cursor-pointer bg-background shadow-sm overflow-hidden">
+                            <div key={$id} className={`group bg-background shadow-sm overflow-hidden ${quantity === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
                                 <Link 
-                                            to={`/item/${item.slug}`}
-                                            disabled={quantity === 0}
-                                        >
+                                    to={quantity === 0 ? '#' : `/item/${item.slug}`}
+                                    className={quantity === 0 ? 'pointer-events-none' : ''}
+                                >
                                 <div className="relative">
                                     <img 
                                         src={image}
@@ -61,7 +61,7 @@ const Collection = () => {
                                     />
                                     {quantity === 0 && (
                                         <div className="absolute inset-0 bg-accentbackground opacity-50 flex items-center justify-center">
-                                            <span className="text-white text-xl font-bold">Изчерпана</span>
+                                            <span className="text-black text-4xl font-bold">Изчерпана</span>
                                         </div>
                                     )}
                                     {specialOffer && (
