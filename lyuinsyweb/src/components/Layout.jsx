@@ -6,14 +6,14 @@ import HolidayPopup from "./HolidayPopup";
 export default function Layout() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  useEffect(() => {
+  //useEffect(() => {
     // Show popup after 2 seconds
-    const timer = setTimeout(() => {
-        setIsPopupOpen(true);
-    }, 2000);
+    //const timer = setTimeout(() => {
+        //setIsPopupOpen(true);
+   // }, 2000);
 
-    return () => clearTimeout(timer);
-  }, []);
+    //return () => clearTimeout(timer);
+ // }, []);
 
   return (
     <div className="flex flex-col min-h-screen">
