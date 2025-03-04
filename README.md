@@ -1,6 +1,6 @@
 # Lyuinsy Jewelry
 
-Welcome to the repository for the **Jewelry Shop Website** I developed for a client. This project was built **entirely from scratch** without using any templates. Every aspect of the site, from **design, development, photography, and assets**, to the **admin panel and advertisements**, was crafted by me to ensure a unique and high-end user experience.
+Welcome to the repository for **Jewelry Shop Website**. This project was built **entirely from scratch** without using any templates. Every aspect of the site, from **design, development, photography, and assets**, to the **admin panel and advertisements**, was crafted by me to ensure a unique and high-end user experience.
 
 ## Features
 
