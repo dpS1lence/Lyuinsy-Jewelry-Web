@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import ScrollAnimation from "../components/ScrollAnimation";
 import OrderSection from "../sections/OrderSection";
 import { getAllItems, getOneItemBySlug } from "../lib/appwrite";
 import Lightbox from "yet-another-react-lightbox";
@@ -8,15 +7,14 @@ import "yet-another-react-lightbox/styles.css";
 import ExpandableText from "../components/ExpandableText";
 
 export default function ItemPurchaseDirect() {
-  const { id } = useParams(); // Get the ID from the URL
-  const [item, setItem] = useState(null); // State for the main item
-  const [items, setItems] = useState(null); // State for upsell items
-  const [orderedItems, setOrderedItems] = useState([]); // State for ordered items
+  const { id } = useParams();
+  const [item, setItem] = useState(null);
+  const [items, setItems] = useState(null);
+  const [orderedItems, setOrderedItems] = useState([]);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
-  const [loading, setLoading] = useState(true); // State for loading animation
+  const [loading, setLoading] = useState(true);
 
-  // Create array of all images (main item + upsell items)
   const allImages = item
   ? [item.image, ...(item.additionalImages || [])]
   : [];
@@ -32,15 +30,15 @@ export default function ItemPurchaseDirect() {
 
     const fetchItems = async () => {
       try {
-        const data = await getOneItemBySlug(id); // Fetch the main item
-        const dataAll = await getAllItems(300, 0); // Fetch all upsell items
+        const data = await getOneItemBySlug(id);
+        const dataAll = await getAllItems(300, 0);
 
         setItem(data);
         setItems(dataAll.filter(item => item['upsellOffer']));
       } catch (error) {
         console.error("Failed to fetch collection:", error);
       } finally {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false);
       }
     };
 
@@ -48,36 +46,36 @@ export default function ItemPurchaseDirect() {
   }, [id]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-screen"><p className="text-xl">Зареждане...</p></div>; // Loading animation
+    return <div className="flex justify-center items-center h-screen"><p className="text-xl">Зареждане...</p></div>;
   }
 
   if (!items) {
     return <div>Item not found</div>;
   }
-  // Function to handle adding an item to the order
+
   const handleAddToOrder = (upsellItem) => {
     setOrderedItems((prevOrdered) => [...prevOrdered, upsellItem]);
     setItems((prevItems) => prevItems.filter((item) => item.$id !== upsellItem.$id));
+    
+    // Smooth scroll to Main Item Section
+    document.getElementById('orderitems').scrollIntoView({ behavior: 'smooth' });
   };
 
-  // Prepare data to pass to OrderSection
+
   const orderData = {
-    mainItem: item, // Main item data
-    orderedItems: orderedItems // Selected upsell items
+    mainItem: item,
+    orderedItems: orderedItems
   };
 
   const handleRemoveFromOrder = (itemToRemove) => {
-    // Remove from ordered items
     setOrderedItems((prevOrdered) => 
       prevOrdered.filter((item) => item.$id !== itemToRemove.$id)
     );
     
-    // Add back to upsell items
     setItems((prevItems) => [...prevItems, itemToRemove]);
   };
 
   return (
-    <ScrollAnimation>
       <div className="px-5 xl:px-20 flex flex-col md:flex-row">
         {/* Main Item Section */}
         <div className="lg:w-3/5 md:pr-8">
@@ -123,7 +121,7 @@ export default function ItemPurchaseDirect() {
               )}
               <p className="text-3xl text-right md:text-4xl font-thin text-discount">{item.actualPrice.toFixed(2)} лв</p>
               
-              <p className="text-md text-right text-discount mt-2">Включва специална подаръчна кутия + изненада</p>
+              <p id="orderitems" className="text-md text-right text-discount mt-2">Включва специална подаръчна кутия + изненада</p>
             </div>
           </div>
 
@@ -261,5 +259,4 @@ export default function ItemPurchaseDirect() {
         {/* Existing Order Section */}
         <OrderSection orderData={orderData} />
       </div>
-    </ScrollAnimation>
   )};

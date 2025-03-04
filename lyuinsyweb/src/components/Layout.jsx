@@ -15,7 +15,7 @@ export default function Layout() {
   useEffect(() => { 
     // Show popup after 2 seconds
     const timer = setTimeout(() => {
-        setIsPopupOpen(true);
+        setIsPopupOpen(false);
     }, 2000);
 
     return () => clearTimeout(timer);
@@ -56,7 +56,7 @@ export default function Layout() {
         {/* Обявителен банер */}
         <div className="bg-discount text-white text-center py-2 px-4">
           <p className="text-sm font-medium animate-pulse">
-            Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 100лв
+            Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 60лв
           </p>
         </div>
 

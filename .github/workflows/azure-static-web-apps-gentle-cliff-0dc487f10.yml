@@ -42,6 +42,7 @@ jobs:
           echo "VITE_APPWRITE_ITEMS_COLLECTION_ID=$VITE_APPWRITE_ITEMS_COLLECTION_ID" >> .env.production
           echo "VITE_APPWRITE_COLLECTIONS_COLLECTION_ID=$VITE_APPWRITE_COLLECTIONS_COLLECTION_ID" >> .env.production
           echo "VITE_APPWRITE_ORDERS_COLLECTION_ID=$VITE_APPWRITE_ORDERS_COLLECTION_ID" >> .env.production
+          echo "VITE_APPWRITE_EMAIL_COLLECTION_ID=$VITE_APPWRITE_EMAIL_COLLECTION_ID" >> .env.production
           npm run build
         working-directory: ./lyuinsyweb
         env:
@@ -54,6 +55,7 @@ jobs:
           VITE_APPWRITE_ITEMS_COLLECTION_ID: ${{ secrets.VITE_APPWRITE_ITEMS_COLLECTION_ID }}
           VITE_APPWRITE_COLLECTIONS_COLLECTION_ID: ${{ secrets.VITE_APPWRITE_COLLECTIONS_COLLECTION_ID }}
           VITE_APPWRITE_ORDERS_COLLECTION_ID: ${{ secrets.VITE_APPWRITE_ORDERS_COLLECTION_ID }}
+          VITE_APPWRITE_EMAIL_COLLECTION_ID: ${{ secrets.VITE_APPWRITE_EMAIL_COLLECTION_ID }}
 
       # Deploy to Azure Static Web Apps
       - name: Deploy to Azure Static Web Apps

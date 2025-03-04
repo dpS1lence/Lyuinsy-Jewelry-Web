@@ -96,7 +96,7 @@ export default function OrderSection({ orderData }) {
             // Calculate total price
             const mainItemPrice = orderData.mainItem?.actualPrice || 0;
             const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
-            const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 100 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
+            const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 60 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
             const discountAmount = discount; // Existing fixed discount plus promo discount
             const totalPriceValue = mainItemPrice + orderedItemsPrice + deliveryFee - discount;
 
@@ -156,10 +156,12 @@ export default function OrderSection({ orderData }) {
 
     const mainItemPrice = orderData.mainItem?.actualPrice || 0;
     const orderedItemsPrice = orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
+    const orderedItemsPriceNoDisc = orderData.orderedItems.reduce((total, item) => total + item.oldPrice, 0);
     const discountAmount = discount; // Fixed discount plus promo discount
 
-    const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 100 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
+    const deliveryFee = Math.max(0, mainItemPrice + orderedItemsPrice > 60 ? 0.00 : (deliveryOption === 'home' ? 6.99 : 5.99));
     const totalPrice = mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
+    const totalPriceNoDiscount = orderData.mainItem?.oldPrice + orderedItemsPriceNoDisc + deliveryFee - discountAmount;
 
     return (
         <>
@@ -236,7 +238,7 @@ export default function OrderSection({ orderData }) {
                         onChange={handleInputChange}
                     />
                     <p className="absolute text-xs text-gray-500 mt-1">
-                        Доставка: 6.99лв (домашен адрес), 5.99лв (офис на Еконт или Спиди), (БЕЗПЛАТНА за поръчки над 100лв)
+                        Доставка: 6.99лв (домашен адрес), 5.99лв (офис на Еконт или Спиди), (БЕЗПЛАТНА за поръчки над 60лв)
                     </p>
                 </div>
 
@@ -300,20 +302,21 @@ export default function OrderSection({ orderData }) {
 
                 {/* Обобщение на Цената */}
                 <div className="mt-6 bg-white rounded-lg">
+                   
                     <div className="flex justify-between text-lg text-text">
-                        <p>Цена за Доставка:</p>
+                        <p>Цена за Доставка</p>
                         <p>{deliveryFee.toFixed(2)}лв</p> {/* Display dynamic delivery fee */}
                     </div>
                     {promoApplied && (
                         <div className="flex justify-between text-lg text-text">
-                            <p>Промо Отстъпка (10%):</p>
-                            <p>-{discount.toFixed(2)}лв</p>
+                            <p>Промо Отстъпка (10%)</p>
+                            <p className="text-discount">-{discount.toFixed(2)}лв</p>
                         </div>
                     )}
                     <div className="border-t border-gray-300 my-4"></div>
-                    <div className="flex justify-between text-2xl font-bold text-text">
+                    <div className="flex justify-between text-2xl text-text">
                         <p>Общо:</p>
-                        <p>{totalPrice.toFixed(2)} лв</p> {/* Display dynamic total price */}
+                        <p className="text-discount "><span className="font-extralight text-text text-xl line-through">{totalPriceNoDiscount.toFixed(2)} лв</span> {totalPrice.toFixed(2)} лв</p>
                     </div>
                 </div>
 

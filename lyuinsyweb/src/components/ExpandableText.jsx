@@ -14,13 +14,11 @@ function ExpandableText({ text, maxHeight = 300 }) {
   }, [text]);
 
   return (
-    <div className="relative">
-      {/* Motion container animates its height from maxHeight to full content height */}
       <motion.div
         animate={{ height: isExpanded ? `${fullHeight}px` : `${maxHeight}px` }}
         transition={{ duration: 0.3 }}
         style={{ overflow: 'hidden' }}
-        className='mb-6'
+        className='relative mb-6'
       >
         <p ref={textRef} className="text-base md:text-lg text-text mb-3">
           {text}
@@ -40,8 +38,6 @@ function ExpandableText({ text, maxHeight = 300 }) {
         </button>
       )}
       </motion.div>
-
-    </div>
   );
 }
 
