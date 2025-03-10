@@ -58,7 +58,7 @@ export default function OrderSection({ orderData }) {
         }
 
         const enteredCode = formData.promoCode.trim().toUpperCase();
-        if (enteredCode === "8МАРТ2025") {
+        if (enteredCode === "SPRING25") {
             const itemsTotal = (orderData.mainItem?.actualPrice || 0) + 
                 orderData.orderedItems.reduce((total, item) => total + item.actualPrice, 0);
             const calculatedDiscount = itemsTotal * 0.10; // 10% discount
