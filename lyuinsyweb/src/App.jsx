@@ -11,6 +11,7 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import Shipping from "./pages/Shipping";
 import ErrorPage from "./pages/ErrorPage";
+import SpringFunnel from "./pages/SpringFunnel";
 const router = createBrowserRouter([
   {
       path: "/",
@@ -59,6 +60,10 @@ const router = createBrowserRouter([
           {
             path: "/shipping",  
             element: <Shipping />
+          },
+          {
+            path: "/specialni-grivnichki-za-proletta",  
+            element: <SpringFunnel />
           },
           {
             path: "*",

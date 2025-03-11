@@ -56,7 +56,7 @@ export default function Layout() {
         {/* Обявителен банер */}
         <div className="bg-discount text-white text-center py-2 px-4">
           <p className="text-sm font-medium animate-pulse">
-            Специални предложения за Свети Валентин и 8-ми март! | Безплатна доставка на поръчки над 60лв
+            Специални предложения пролетната визия! | Промокод SPRING25
           </p>
         </div>
 
@@ -84,7 +84,7 @@ export default function Layout() {
       <header className={`bg-white w-screen top-0 border-dashed border-b-4 border-gray-100 md:hidden`}>
         <div className="bg-discount text-white text-center py-2 px-4">
           <p className="text-sm font-medium animate-pulse">
-            Промокод за 10% отстъпка! - 8МАРТ2025
+            Промокод за 10% отстъпка! - SPRING25
           </p>
         </div>
         <div className="relative flex flex-row items-center justify-between lg:justify-center w-full h-full">

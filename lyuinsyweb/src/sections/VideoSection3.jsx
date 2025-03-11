@@ -1,9 +1,7 @@
-import video1 from "../../src/assets/videos/new/8.mp4";
-import { useNavigate } from "react-router";
+import video1 from "../../src/assets/videos/Springvid.mp4";
 import { useEffect, useRef } from 'react';
 
-export default function VideoSection() {
-    const navigate = useNavigate();
+export default function VideoSection3() {
     const videoRef = useRef(null);
 
     useEffect(() => {
@@ -29,34 +27,18 @@ export default function VideoSection() {
         }
     }, []);
 
-    const learnmore = () => {
-        navigate(`/collections`);
-    };
-
     return (
-        <div className="bg-white flex flex-col lg:flex-row-reverse items-stretch">
-            <div className="lg:w-1/2">
-                <video
-                    ref={videoRef}
-                    className="w-full h-full object-cover"
-                    muted
-                    autoPlay
-                    loop
-                    playsInline
-                >
-                    <source src={video1} type="video/mp4" />
-                    Вашият браузър не поддържа видео таг.
-                </video>
-            </div>
-            <div className="lg:w-1/2 lg:pl-32 p-4 flex flex-col justify-center items-start">
-                <h2 className="text-3xl font-serif mb-2">Направете Свети Валентин незабравим</h2>
-                <p className="text-lg text-text leading-relaxed">
-                    Открийте нашата специална колекция от бижута за Свети Валентин.
-                </p>
-                <button onClick={learnmore} className="bg-black border border-black text-white px-4 py-2 mt-16 transition-colors hover:bg-white hover:text-black">
-                    Научете повече
-                </button>
-            </div>
-        </div>
+        <video 
+            ref={videoRef} 
+            className="flex w-full h-[30rem] lg:w-full lg:h-[60rem] object-cover lg:object-cover lg:object-center"
+            style={{ objectPosition: 'right' }}
+            muted 
+            autoPlay 
+            loop 
+            playsInline
+        >
+            <source src={video1} type="video/mp4" />
+            Вашият браузър не поддържа видео таг.
+        </video>
     );
 };

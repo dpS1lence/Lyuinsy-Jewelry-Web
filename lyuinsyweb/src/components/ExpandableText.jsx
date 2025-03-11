@@ -18,7 +18,7 @@ function ExpandableText({ text, maxHeight = 300 }) {
         animate={{ height: isExpanded ? `${fullHeight}px` : `${maxHeight}px` }}
         transition={{ duration: 0.3 }}
         style={{ overflow: 'hidden' }}
-        className='relative mb-6'
+        className='relative mb-6 max-h-fit'
       >
         <p ref={textRef} className="text-base md:text-lg text-text mb-3">
           {text}

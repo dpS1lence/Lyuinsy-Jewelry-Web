@@ -111,7 +111,7 @@ export default function ItemPurchaseDirect() {
             </div>
 
             {/* Right Text Section */}
-            <div className="md:w-1/2 flex flex-col justify-between">
+            <div className="md:w-1/2 flex flex-col md:justify-between">
               <h2 className="text-2xl md:text-3xl font-semibold text-text mb-5">{item.name}</h2>
               <ExpandableText text={item.description} />
               <p className="text-sm md:text-md text-text">{item.deliveryDate}</p>
