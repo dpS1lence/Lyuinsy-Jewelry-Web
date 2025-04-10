@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Outlet, Link } from "react-router-dom"; // Added Link import
 import { motion } from "framer-motion";
-import Logo from "../assets/images/Lyuinsyia.png";
+import Logo from "../assets/images/lusylogo.png";
 import LogoNoText from "../assets/images/Lyuinsynotext.png";
 import HolidayPopup from "./HolidayPopup";
 import { saveEmail } from '../lib/appwrite'; // Import saveEmail function
@@ -157,7 +157,7 @@ export default function Layout() {
           <div className="flex flex-col lg:flex-row justify-between items-start gap-8">
           <div></div>
             <div>
-              <h3 className="text-xl font-serif mb-4 text-white font-bold">Lyuinsy Jewelry</h3>
+              <h3 className="text-xl font-serif mb-4 text-white font-bold">Lusy Jewelry</h3>
               <p className="text-white">Всички права запазени 2025©</p>
             </div>
             <div>

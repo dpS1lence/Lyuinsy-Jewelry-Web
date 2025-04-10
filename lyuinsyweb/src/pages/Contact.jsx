@@ -6,7 +6,7 @@ const Contact = () => {
             <p className="text-lg text-text mb-4">Свържете се с нас чрез следните канали:</p>
             <ul className="list-disc list-inside mb-8">
                 <li>Имейл: <a className="text-discount">lyuinsyjewelry@gmail.com</a></li>
-                <li>Фейсбук: <a href="https://www.facebook.com/profile.php?id=61566195975065" className="text-discount">Lyuinsy Jewelry</a></li>
+                <li>Фейсбук: <a href="https://www.facebook.com/profile.php?id=61566195975065" className="text-discount">Lusy Jewelry</a></li>
             </ul>
         </div>
   )};
