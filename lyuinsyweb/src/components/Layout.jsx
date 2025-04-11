@@ -127,7 +127,7 @@ export default function Layout() {
         <div className="container mx-auto px-4 text-center relative">
           <h2 className="text-5xl font-serif mb-6">Присъедини се към нашия VIP списък</h2>
           <p className="text-text max-w-2xl mx-auto mb-12 text-lg">
-            Бъдете първите, които ще получат достъп до нашите ексклузивни колекции за Свети Валентин и 8-ми март. 
+            Бъдете първите, които ще получат достъп до нашите ексклузивни колекции. 
             Получавайте персонализирани препоръки и VIP-ексклузивни отстъпки.
           </p>
           <div className="max-w-md mx-auto bg-background p-1 rounded-full backdrop-blur-sm mb-8">

@@ -53,7 +53,7 @@ export default function HolidayPopup({ isOpen, onClose }) {
           <div className="text-center mb-6">
             <span className="text-accent text-4xl mb-2">❤️</span>
             <h2 className="text-2xl font-serif text-text mb-2">
-              Специални предложения за Свети Валентин и 8-ми март!
+              Специални предложения за пролетта!
             </h2>
             <p className="text-text mb-4">
               Присъединете се към нашия списък за ексклузивни оферти и новини!

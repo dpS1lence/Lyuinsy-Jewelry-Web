@@ -113,7 +113,7 @@ export default function BestSellerSection() {
                                                 to={`/item/${item.slug}`}
                                                 className={`bg-black text-white border border-black px-8 py-4 font-medium w-full lg:w-auto hover:bg-white hover:text-black transition ${item.quantity === 0 ? 'cursor-not-allowed opacity-50' : ''}`}
                                             >
-                                                Резервирай сега за Свети Валентин
+                                                Разгледай елегантността
                                             </Link>
                                         </div>
                                     </div>
