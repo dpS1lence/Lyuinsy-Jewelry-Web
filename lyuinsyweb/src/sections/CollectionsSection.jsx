@@ -33,24 +33,6 @@ export default function CollectionsSection() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <Link 
                             key="all"
-                            to={`/collection/kolekciq-8-mart`}
-                            className={`group cursor-pointer bg-background overflow-hidden transition-all duration-300`}
-                        >
-                            <div className="aspect-w-16 aspect-h-9 relative">
-                                <img 
-                                    src={march8collection}
-                                    alt="all"
-                                    className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
-                                />
-                            </div>
-                            <div className="p-6 bg-[#ffffff]">
-                                <h3 className="text-2xl font-serif mb-2 transition-colors">
-                                    Подаръци за 8 март
-                                </h3>
-                            </div>
-                        </Link>
-                <Link 
-                            key="all"
                             to={`/collection/all`}
                             className={`group cursor-pointer bg-background overflow-hidden transition-all duration-300`}
                         >
