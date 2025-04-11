@@ -281,7 +281,7 @@ export default function OrderSection({ orderData }) {
                     </div>
                 </div>
                     
-                {/* Special Card Section */}
+                {/* Special Card Section
                 <div>
                     <h3 className="text-2xl font-bold text-text mb-4">Избери картичка</h3>
                     <div className="flex justify-between">
@@ -298,7 +298,7 @@ export default function OrderSection({ orderData }) {
                             </label>
                         ))}
                     </div>
-                </div>
+                </div> */}
 
                 {/* Обобщение на Цената */}
                 <div className="mt-6 bg-white rounded-lg">
