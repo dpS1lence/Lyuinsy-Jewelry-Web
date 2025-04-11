@@ -10,10 +10,6 @@ export const appwriteConfig = {
   collectionsEmailId: import.meta.env.VITE_APPWRITE_EMAIL_COLLECTION_ID,
   collectionsOrders: import.meta.env.VITE_APPWRITE_ORDERS_COLLECTION_ID,
 };
-
-// Log the appwriteConfig to the console
-console.log("Appwrite Configuration:", appwriteConfig);
-
 const client = new Client();
 
 client
@@ -181,10 +177,8 @@ export async function getOneCollection(id) {
 
     // Filter the collections to find the one with the given id
     const collection = collections.documents.find(collection => collection.$id === id);
-    console.log(collection);
     // Fetch all items
     const items = await getAllItems(300, 0);
-    console.log(items);
     
     // Add 'items' attribute to the collection with an array of items that belong to this collection
     if (collection) {
@@ -201,9 +195,6 @@ export async function getOneCollection(id) {
 export const purchaseItem = async (itemId) => {
   try {
     const item = await getOneItem(itemId);
-    console.log(item);
-    console.log(itemId);
-    console.log(item.quantity);
     if (item && item.quantity > 0) {
       await updateItem(itemId, { quantity: item.quantity - 1 }); // Decrement quantity by 1
       console.log("Item quantity updated successfully");
@@ -217,7 +208,6 @@ export const purchaseItem = async (itemId) => {
 
 export const updateItem = async (itemId, updatedData) => {
   try {
-    console.log("Updating item with ID:", itemId);
     let image = null;
 
     // If there's a new image, upload it first
