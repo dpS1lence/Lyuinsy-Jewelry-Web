@@ -12,13 +12,13 @@ export default function Layout() {
   const [showHeader, setShowHeader] = useState(false);
   const [email, setEmail] = useState(''); // State for email input
 
-  useEffect(() => { 
-    // Show popup after 2 seconds
-    const timer = setTimeout(() => {
-        setIsPopupOpen(false);
-    }, 2000);
-    //return () => clearTimeout(timer);
- // }, []);
+useEffect(() => { 
+  // Show popup after 2 seconds
+  const timer = setTimeout(() => {
+      setIsPopupOpen(false);
+  }, 2000);
+  //return () => clearTimeout(timer);
+}, []);
 
   useEffect(() => {
     const handleScroll = () => {
