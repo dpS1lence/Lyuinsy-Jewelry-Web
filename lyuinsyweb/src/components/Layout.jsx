@@ -17,9 +17,8 @@ export default function Layout() {
     const timer = setTimeout(() => {
         setIsPopupOpen(false);
     }, 2000);
-
-    return () => clearTimeout(timer);
-  }, []);
+    //return () => clearTimeout(timer);
+ // }, []);
 
   useEffect(() => {
     const handleScroll = () => {
