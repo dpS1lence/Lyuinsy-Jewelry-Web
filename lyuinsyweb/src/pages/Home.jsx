@@ -4,35 +4,23 @@ import IntroSection from "../sections/IntroSection";
 import ReviewsSection from "../sections/ReviewsSection";
 import CollectionsSection from "../sections/CollectionsSection";
 import ScrollAnimation from "../components/ScrollAnimation";
+import VideoSection from "../sections/VideoSection";
+import VideoSection2 from "../sections/VideoSection2";
+import VideoSection3 from "../sections/VideoSection3";
+import AboutUsSection from "../sections/AboutUsSection";
 
 const Home = () => {
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <ScrollAnimation>
+    <div className="bg-white">
         <IntroSection />
-      </ScrollAnimation>
-
-      {/* Best Sellers Section */}
-      <ScrollAnimation>
         <BestSellerSection />
-      </ScrollAnimation>
-
-      {/* Customer Reviews Section */}
-      <ScrollAnimation>
-        <ReviewsSection />
-      </ScrollAnimation>
-
-      {/* Holiday Collection Grid */}
-      <ScrollAnimation>
+        <AboutUsSection />
         <HolidayCollectionSection />
-      </ScrollAnimation>
-
-      {/* Collection Grid */}
-      <ScrollAnimation>
+        <VideoSection />
         <CollectionsSection />
-      </ScrollAnimation>
+        <VideoSection2 />
+        <ReviewsSection />
     </div>
   );
 };

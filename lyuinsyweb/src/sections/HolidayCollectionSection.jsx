@@ -1,98 +1,61 @@
-import { useNavigate } from "react-router-dom";
-import Jewelry1 from "../assets/images/8.png";
-import Jewelry2 from "../assets/images/6.png";
-import Jewelry3 from "../assets/images/5.png";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"; // Changed from useNavigate to Link
+import { getAllItems } from "../lib/appwrite";
+import { Databases } from "appwrite";
 
-const items = [
-  {
-    id: 1,
-    title: "Celestial Diamond Ring",
-    description: "A stunning diamond ring that captures the essence of the night sky.",
-    price: 899,
-    image: Jewelry1,
-  },
-  {
-    id: 2,
-    title: "Winter Frost Necklace",
-    description: "A beautiful necklace that sparkles like fresh snow.",
-    price: 1099,
-    image: Jewelry2,
-  },
-  {
-    id: 3,
-    title: "Ruby Snowflake Pendant",
-    description: "A unique pendant that combines elegance with a winter theme.",
-    price: 799,
-    image: Jewelry3,
-  },
-  // Add more items as needed
-];
 
 export default function HolidayCollectionSection() {
-  const navigate = useNavigate();
+    const [items, setItems] = useState([]);
+    const databases = new Databases();
 
-  const handleReserveClick = (item) => {
-    console.log("Item clicked:", item);
-    navigate({
-      pathname: '/item-purchase-direct/' + item.id,
-      state: { item },
-    });
-  };
+    useEffect(() => {
+        // Fetch items from Appwrite
+        const fetchItems = async () => {
+            try {
+                const itemsFetch = await getAllItems();
+                const filteredItems = itemsFetch.filter(item => !item['upsellOffer']);
+                setItems(filteredItems);
+            } catch (error) {
+                console.error("Error fetching items:", error);
+            }
+        };
+
+        fetchItems();
+    }, []);
 
   return (
-    <section className="py-20">
+    <section className="py-10 bg-accentbackground">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 relative">
-          <h2 className="text-3xl font-serif mb-4">Holiday Collection</h2>
-          <p className="text-gray-600">
-            <span className="mr-2">✨</span>
-            Exquisite pieces for unforgettable moments
-            <span className="ml-2">✨</span>
-          </p>
+          <h2 className="text-3xl font-serif mb-4 text-text">Пролетна колекция</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {items.map((item, index) => {
-            const hasDiscount = [0, 2, 4, 7].includes(index);
-            const discountPercent = hasDiscount ? [30, 25, 35, 40][Math.floor(Math.random() * 4)] : 0;
-            const discountPrice = hasDiscount ? Math.round(item.price * (1 - discountPercent / 100)) : item.price;
-
             return (
-              <div key={item.id} className="group bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-                <div className="relative">
-                  <img 
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-64 object-cover"
-                  />
-                  {hasDiscount && (
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-red-600 text-white px-4 py-1 rounded-full text-sm font-bold">
-                        {discountPercent}% OFF
-                      </span>
+              <div 
+                key={item.$id} 
+                className={`group bg-background overflow-hidden transition duration-300 ${item.quantity === 0 ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+              >
+                <div className="relative overflow-hidden">
+                  <Link to={`/item/${item.slug}`}>
+                    <img 
+                      src={item.image}
+                      alt={item.name}
+                      className={`w-full h-64 object-cover transition-transform duration-300 transform hover:scale-110 ${item.quantity === 0 ? 'filter grayscale' : ''}`}
+                    />
+                  </Link>
+                  {item.quantity === 0 && (
+                    <div className="absolute inset-0 bg-accentbackground opacity-50 flex items-center justify-center">
+                      <span className="text-black text-4xl font-bold">Изчерпана</span>
                     </div>
                   )}
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-serif mb-2">{item.title}</h3>
-                  <p className="text-gray-600 mb-4">{hasDiscount ? "Limited Time Offer" : "Exclusive Piece"}</p>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      {hasDiscount ? (
-                        <>
-                          <span className="text-2xl font-light line-through text-gray-400">${item.price}</span>
-                          <span className="text-2xl font-bold text-red-600">${discountPrice}</span>
-                        </>
-                      ) : (
-                        <span className="text-2xl font-semibold text-gray-800">${item.price}</span>
-                      )}
-                    </div>
-                    <button 
-                      onClick={() => handleReserveClick(item)}
-                      className={`${hasDiscount ? 'bg-red-600 hover:bg-red-700' : 'bg-emerald-700'} text-white px-6 py-2 rounded-full transition`}
-                    >
-                      Reserve for Christmas
-                    </button>
+                <div className={`p-6 flex flex-col justify-items-center items-center text-center ${item.quantity === 0 ? 'bg-accentbackground opacity-50' : ''}`}>
+                  <h3 className="text-md font-semibold mb-2 text-text">{item.name}</h3>
+                  <h3 className="text-md mb-2 text-text">{item.description.split(' ').slice(0, 3).join(' ') + '...'}</h3>
+                  <div className="flex flex-col md:flex-row justify-between items-center">
+                    <span className="text-xl font-thin text-main">{item.actualPrice.toFixed(2)} лв</span>
                   </div>
                 </div>
               </div>

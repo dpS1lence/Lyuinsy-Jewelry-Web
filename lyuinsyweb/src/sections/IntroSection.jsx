@@ -1,33 +1,42 @@
-import JewelryWoman from "../assets/images/woman.png";
+import JewelryWoman from "../assets/images/gradinetwomanbg/womanpinkbg.png";
+import JewelryWomanMobile from "../assets/images/gradinetwomanbg/phonepinkwomanbg.png";
+import { Link } from "react-router-dom";
+import VideoSection from "./VideoSection3";
 
 export default function IntroSection() {
     return (
-        <section className="relative h-screen flex flex-col lg:flex-row">
-          {/* Left side - Image */}
-          <div className="w-full lg:w-2/3 h-full relative">
+        <section className="relative flex">
+          {/* Image */}
+          <div className="w-full relative">
+            <VideoSection />
+            {/* Desktop Image 
             <img 
               src={JewelryWoman} 
-              alt="Elegant jewelry collection" 
-              className="w-full h-full object-cover animate-kenburns"
+              alt="Колекция от елегантни бижута" 
+              className="hidden md:flex w-full h-[40rem] lg:w-full lg:h-[60rem] object-cover lg:object-cover lg:object-center"
+              style={{ objectPosition: 'right' }}
             />
-          </div>
-
-          {/* Right side - Content */}
-          <div className="w-full lg:w-1/3 bg-emerald-900 flex items-center py-10">
-            <div className="px-8 lg:px-12 animate-fade-in-up">
-              <h1 className="text-4xl lg:text-5xl font-serif text-white mb-6 drop-shadow-lg">
-                Make This Christmas Unforgettable
+            <img 
+              src={JewelryWomanMobile} 
+              alt="Колекция от елегантни бижута" 
+              className="w-full md:hidden h-[40rem] object-cover"
+              style={{ objectPosition: 'right' }}
+            />*/}
+            {/* Content Overlay */}
+            <div className="absolute bottom-10 lg:bottom-72 left-0 lg:w-1/2 bg-white bg-opacity-75 hover:bg-opacity-85 flex flex-col items-start p-4 lg:p-8 transition-opacity">
+              <h1 className="text-4xl lg:text-5xl font-serif text-text mb-6 drop-shadow-lg">
+                Приветствайте пролетта с нов аксесоар
               </h1>
-              <p className="text-xl text-gray-100 mb-8 leading-relaxed">
-                Discover our enchanting holiday collection of fine jewelry, 
-                where each piece tells a story of elegance and love
+              <p className="text-xl text-text mb-8 leading-relaxed">
+                Открийте нашата пролетна колекция, където всяко бижу 
+                разказва история за свежест и обновление.
               </p>
               <div className="space-y-4">
-                <button className="bg-red-700 text-white px-8 py-4 rounded-full font-medium hover:bg-red-800 transition-all transform hover:scale-105 shadow-lg w-full lg:w-auto">
-                  🎄 Shop Holiday Collection
-                </button>
-                <div className="text-white/80 text-sm animate-pulse">
-                  🎁 Free Gift Wrapping | ✨ Next Day Delivery | 💝 Holiday Guarantee
+                <Link to="/collection/all" className="bg-black text-white border border-black px-8 py-4 font-medium w-full lg:w-auto hover:bg-white hover:text-black">
+                  Покажи Пролетната Колекция
+                </Link>
+                <div className="text-text text-sm animate-pulse">
+                  Безплатно опаковане на подаръци | Доставка за следващия ден | Гаранция за празници
                 </div>
               </div>
             </div>

@@ -1,303 +1,262 @@
-import { useLocation, useParams } from "react-router-dom";
-import Jewelry1 from "../assets/images/8.png";
-import Jewelry2 from "../assets/images/6.png";
-import Jewelry3 from "../assets/images/5.png";
-import { useEffect } from 'react';
-import ScrollAnimation from "../components/ScrollAnimation";
-import { useState } from "react";
-
-const items = [
-  {
-    id: 1,
-    title: "Celestial Diamond Ring",
-    description: "A stunning diamond ring that captures the essence of the night sky.",
-    price: 899,
-    image: Jewelry1,
-  },
-  {
-    id: 2,
-    title: "Winter Frost Necklace",
-    description: "A beautiful necklace that sparkles like fresh snow.",
-    price: 1099,
-    image: Jewelry2,
-  },
-  {
-    id: 3,
-    title: "Ruby Snowflake Pendant",
-    description: "A unique pendant that combines elegance with a winter theme.",
-    price: 799,
-    image: Jewelry3,
-  },
-];
-
-const upsellItems = [
-  {
-    id: 1,
-    title: "Golden Star Choker",
-    price: 499,
-    image: Jewelry1,
-  },
-  {
-    id: 2,
-    title: "Crystal Dream Bangle",
-    price: 299,
-    image: Jewelry2,
-  },
-  {
-    id: 3,
-    title: "Rose Gold Snowfall Set",
-    price: 399,
-    image: Jewelry3,
-  },
-];
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import OrderSection from "../sections/OrderSection";
+import { getAllItems, getOneItemBySlug } from "../lib/appwrite";
+import Lightbox from "yet-another-react-lightbox";
+import "yet-another-react-lightbox/styles.css";
+import ExpandableText from "../components/ExpandableText";
 
 export default function ItemPurchaseDirect() {
-  const { id } = useParams(); // Get the ID from the URL
-  const item = items.find(item => item.id === parseInt(id)); // Find the item by ID
+  const { id } = useParams();
+  const [item, setItem] = useState(null);
+  const [items, setItems] = useState(null);
+  const [orderedItems, setOrderedItems] = useState([]);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  if (!item) {
-    return <div>Item not found</div>; // Handle case where item is not found
+  const allImages = item
+  ? [item.image, ...(item.additionalImages || [])]
+  : [];
+  const imagesForLightbox = item
+  ? [
+      { src: item.image },
+      ...(item.additionalImages ? item.additionalImages.map(image => ({ src: image })) : [])
+    ]
+  : [];
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    const fetchItems = async () => {
+      try {
+        const data = await getOneItemBySlug(id);
+        const dataAll = await getAllItems(300, 0);
+
+        setItem(data);
+        setItems(dataAll.filter(item => item['upsellOffer']));
+      } catch (error) {
+        console.error("Failed to fetch collection:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchItems();
+  }, [id]);
+
+  if (loading) {
+    return <div className="flex justify-center items-center h-screen"><p className="text-xl">Зареждане...</p></div>;
   }
 
-  useEffect(() => {
-    window.scrollTo(0, 0); // Scroll to the top
-  }, []);
+  if (!items) {
+    return <div>Item not found</div>;
+  }
 
-
-  const [currentUpsell, setCurrentUpsell] = useState(0);
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-
-  useEffect(() => {
-      const handleResize = () => {
-          setIsSmallScreen(window.innerWidth < 1500);
-      };
-
-      // Set initial value and add resize listener
-      handleResize();
-      window.addEventListener("resize", handleResize);
-
-      return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-      if (isSmallScreen) {
-          const interval = setInterval(() => {
-              setCurrentUpsell((prev) => (prev === upsellItems.length - 1 ? 0 : prev + 1));
-          }, 5000);
-          return () => clearInterval(interval);
-      }
-  }, [isSmallScreen, upsellItems.length]);
-
-  const handlePrevUpsell = () => {
-      setCurrentUpsell((prev) => (prev === 0 ? upsellItems.length - 1 : prev - 1));
+  const handleAddToOrder = (upsellItem) => {
+    setOrderedItems((prevOrdered) => [...prevOrdered, upsellItem]);
+    setItems((prevItems) => prevItems.filter((item) => item.$id !== upsellItem.$id));
+    
+    // Smooth scroll to Main Item Section
+    document.getElementById('orderitems').scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleNextUpsell = () => {
-      setCurrentUpsell((prev) => (prev === upsellItems.length - 1 ? 0 : prev + 1));
+
+  const orderData = {
+    mainItem: item,
+    orderedItems: orderedItems
+  };
+
+  const handleRemoveFromOrder = (itemToRemove) => {
+    setOrderedItems((prevOrdered) => 
+      prevOrdered.filter((item) => item.$id !== itemToRemove.$id)
+    );
+    
+    setItems((prevItems) => [...prevItems, itemToRemove]);
   };
 
   return (
-    <ScrollAnimation>
-    <div className="px-4 py-20 flex flex-col md:flex-row">
-      {/* Main Item Section */}
-      <div className="w-2/3">
-        <div className="flex flex-col md:flex-row items-center mb-12">
-          <img
-            src={item.image}
-            alt={item.title}
-            className="w-full md:w-1/2 h-80 object-cover rounded-lg shadow-lg"
-          />
-          <div className="md:ml-12 mt-6 md:mt-0">
-            <h2 className="text-5xl font-serif mb-6 text-gray-900">{item.title}</h2>
-            <p className="text-lg text-gray-600 mb-4">{item.description}</p>
-            <p className="text-4xl font-bold text-gray-900 mb-6">${item.price}</p>
-            <p className="text-gray-500 text-sm">
-              An email will be sent to you for confirmation.
-            </p>
+      <div className="px-5 xl:px-20 flex flex-col md:flex-row">
+        {/* Main Item Section */}
+        <div className="lg:w-3/5 md:pr-8">
+          <div className="flex flex-col md:flex-row gap-8 items-start my-8">
+            {/* Left Image Section */}
+            <div className="md:w-1/2 flex flex-col-reverse gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {
+                (allImages.length > 3 ? allImages.slice(1, 4) : allImages.slice(1)).map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Снимка на артикул ${index + 1}`}
+                    className="w-full h-32 object-cover cursor-pointer shadow-sm hover:opacity-90 transition"
+                    onClick={() => {
+                      setPhotoIndex(index + 1);
+                      setIsLightboxOpen(true);
+                    }}
+                  />
+                ))
+              }
+              </div>
+
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-full object-cover shadow-sm cursor-pointer hover:opacity-90 transition"
+                onClick={() => {
+                  setPhotoIndex(0);
+                  setIsLightboxOpen(true);
+                }}
+              />
+            </div>
+
+            {/* Right Text Section */}
+            <div className="md:w-1/2 flex flex-col md:justify-between">
+              <h2 className="text-2xl md:text-3xl font-semibold text-text mb-5">{item.name}</h2>
+              <ExpandableText text={item.description} />
+              <p className="text-sm md:text-md text-text">{item.deliveryDate}</p>
+              
+              {item.oldPrice && (
+                <p className="text-lg text-right line-through text-text mb-2">{item.oldPrice.toFixed(2)} лв</p>
+              )}
+              <p className="text-3xl text-right md:text-4xl font-thin text-discount">{item.actualPrice.toFixed(2)} лв</p>
+              
+              <p id="orderitems" className="text-md text-right text-discount mt-2">Включва специална подаръчна кутия + изненада</p>
+            </div>
           </div>
-        </div>
-  
-        <div className="px-12">
-            <h3 className="text-3xl font-serif mb-8 text-gray-900">Limited Time Offers</h3>
-            <div className="relative max-w-5xl mx-auto">
-                {isSmallScreen ? (
-                    <div className="overflow-hidden">
-                        <div
-                            className="flex transition-transform duration-500 ease-in-out"
-                            style={{ transform: `translateX(-${currentUpsell * 100}%)` }}
-                        >
-                            {upsellItems.map((upsell) => (
-                                <div key={upsell.id} className="min-w-full">
-                                    <div className="bg-white rounded-lg shadow-sm border overflow-hidden p-6">
-                                        <img
-                                            src={upsell.image}
-                                            alt={upsell.title}
-                                            className="w-full h-48 object-cover rounded-lg"
-                                        />
-                                        <div className="mt-4">
-                                            <h4 className="text-xl font-serif text-gray-900 mb-2">{upsell.title}</h4>
-                                            <div className="flex justify-between items-center">
-                                                <p className="text-xl font-bold text-gray-800 line-through">
-                                                    ${upsell.price}
-                                                </p>
-                                                <p className="text-xl font-bold text-emerald-700">
-                                                    ${upsell.price - upsell.price * 0.2}
-                                                </p>
-                                            </div>
-                                            <p className="text-sm text-gray-500">
-                                                Discounted price available for the next 5 minutes.
-                                            </p>
-                                            <div className="mt-4">
-                                                <button className="bg-emerald-700 text-white px-6 py-2 rounded-full hover:bg-emerald-800 transition duration-300">
-                                                    Add to Order
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+
+          {/* Add Lightbox component */}
+          <Lightbox
+            open={isLightboxOpen}
+            close={() => setIsLightboxOpen(false)}
+            index={photoIndex}
+            slides={imagesForLightbox}
+          />
+
+          {/* Order Container */}
+          {orderedItems.length > 0 && (
+            <div className="mb-12">
+              <h3 className="text-2xl font-semibold text-text mb-6">Добавени към поръчката:</h3>
+              {orderedItems.map((orderedItem) => (
+                <div key={orderedItem.$id} className="py-5 mb-6 bg-accentbackground p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow relative md:mr-6">
+                  <button 
+                    onClick={() => handleRemoveFromOrder(orderedItem)}
+                    className="absolute top-3 right-3 text-text hover:text-discount transition-colors p-2 rounded-full hover:bg-accentbackground"
+                    aria-label="Remove item"
+                  >
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      className="h-6 w-6" 
+                      viewBox="0 0 20 20" 
+                      fill="currentColor"
+                    >
+                      <path 
+                        fillRule="evenodd" 
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" 
+                        clipRule="evenodd" 
+                      />
+                    </svg>
+                  </button>
+
+                  <div className="flex flex-col">
+                    <div className="flex flex-col md:flex-row">
+                      <img
+                        src={orderedItem.image}
+                        alt={orderedItem.name}
+                        className="md:w-48 object-cover rounded-lg mr-6 cursor-pointer transform transition-transform duration-200 hover:scale-105"
+                      />
+                      <div className="flex flex-col justify-center">
+                        <h2 className="text-xl font-semibold text-text mb-3">{orderedItem.name}</h2>
+                        <p className="text-md text-text mb-2">{orderedItem.description}</p>
+                        <p className="text-sm text-text">{orderedItem.deliveryDate}</p>
+                      </div>
                     </div>
-                ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {upsellItems.map((upsell) => (
-                            <div
-                                key={upsell.id}
-                                className="bg-white rounded-lg shadow-sm border overflow-hidden p-6 transition transform hover:scale-105"
-                            >
-                                <img
-                                    src={upsell.image}
-                                    alt={upsell.title}
-                                    className="w-full h-48 object-cover rounded-lg"
-                                />
-                                <div className="mt-4">
-                                    <h4 className="text-xl font-serif text-gray-900 mb-2">{upsell.title}</h4>
-                                    <div className="flex justify-between items-center">
-                                        <p className="text-xl font-bold text-gray-800 line-through">${upsell.price}</p>
-                                        <p className="text-xl font-bold text-emerald-700">
-                                            ${upsell.price - upsell.price * 0.2}
-                                        </p>
-                                    </div>
-                                    <p className="text-sm text-gray-500">
-                                        Discounted price available for the next 5 minutes.
-                                    </p>
-                                    <div className="mt-4">
-                                        <button className="bg-emerald-700 text-white px-6 py-2 rounded-full hover:bg-emerald-800 transition duration-300">
-                                            Add to Order
-                                        </button>
-                                    </div>
-                                </div>
+                    <div className="flex flex-col">
+                      <div className="flex flex-col items-end text-right pr-4">
+                        {orderedItem.oldPrice && (
+                          <p className="text-lg line-through text-text mb-2">{orderedItem.oldPrice.toFixed(2)} лв</p>
+                        )}
+                        <p className="text-3xl font-thin text-discount">{orderedItem.actualPrice.toFixed(2)} лв</p>
+                        <p className="text-md text-text mt-2">Специално намаление!</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Upsell Section */}
+          <div className="mb-10">
+            <div className="mb-10 text-center">
+                <h3 className="text-4xl font-serif mb-6 text-text font-bold flex items-center justify-center">
+                    Ексклузивни ВИП Оферти!
+                </h3>
+                <div className="flex justify-center items-center mb-8">
+                    <div className="bg-accentbackground w-96 py-4  font-semibold text-md">
+                        <p className="text-black">
+                            Възползвайте се от нашите невероятни цени, налични само при покупка! 
+                        </p>
+                        <span className="font-bold text-black"> Добавете в количката сега и спестете!</span>
+                    </div>
+                </div>
+            </div>
+            {items && items.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                  {items.slice(0, 3).map((upsell) => (
+                    <div key={upsell.$id} className="flex flex-col h-full">
+                      <div className="bg-background border overflow-hidden p-4 flex flex-col h-full">
+                        <div className="relative aspect-[4/3] mb-6">
+                          <img
+                            src={upsell.image}
+                            alt={upsell.name}
+                            className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+                          />
+                          {upsell.oldPrice && (
+                            <div className="absolute top-4 right-4 bg-discount text-white px-3 py-1 rounded-full text-sm font-bold">
+                              -{Math.round(((upsell.oldPrice - upsell.actualPrice) / upsell.oldPrice) * 100)}%
                             </div>
-                        ))}
-                    </div>
-                )}
-                {isSmallScreen && (
-                    <div className="flex justify-center gap-4 mt-6">
-                        <button
-                            onClick={handlePrevUpsell}
-                            className="bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M15 19l-7-7 7-7"
-                                />
-                            </svg>
-                        </button>
+                          )}
+                        </div>
+                        
+                        <div className="flex-grow">
+                          <h4 className="text-2xl font-serif text-text mb-4">{upsell.name}</h4>
+                          <div className="flex items-end gap-3 mb-4">
+                            {upsell.oldPrice && (
+                              <p className="text-lg text-text line-through">
+                                {upsell.oldPrice.toFixed(2)} лв
+                              </p>
+                            )}
+                            <p className="text-2xl font-thin text-discount">
+                              {upsell.actualPrice.toFixed(2)} лв
+                            </p>
+                          </div>
+                          <div className="bg-accentbackground rounded-lg p-4 mb-6">
+                            <p className="text-sm text-text font-medium">
+                              Добави преди да свърши!
+                            </p>
+                          </div>
+                        </div>
 
                         <button
-                            onClick={handleNextUpsell}
-                            className="bg-gray-100 p-2 rounded-full hover:bg-gray-200 transition"
+                          onClick={() => handleAddToOrder(upsell)}
+                          className="w-full bg-black text-white px-8 py-4 hover:bg-white border border-black hover:text-black transition-colors"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="h-5 w-5"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M9 5l7 7-7 7"
-                                />
-                            </svg>
+                          Добави
                         </button>
+                      </div>
                     </div>
-                )}
-            </div>
+                  ))}
+                </div>
+            ) : (
+              <div className="text-center py-12">
+                <p className="text-xl text-text">Специалните оферти са изтекли!</p>
+              </div>
+            )}
+          </div>
         </div>
+
+        {/* Existing Order Section */}
+        <OrderSection orderData={orderData} />
       </div>
-  
-      {/* Order Section */}
-      <div className="w-1/3bg-gray-50 p-8 border-l border-gray-100">
-        <h3 className="text-3xl font-serif mb-6 text-gray-900">Complete Your Order</h3>
-        <form className="space-y-6">
-          {/* Promo Code */}
-          <div className="flex">
-            <input
-              type="text"
-              placeholder="Enter your promo code"
-              className="flex-1 px-6 py-3 border border-gray-300 rounded-l-full text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500"
-            />
-            <button className="bg-emerald-700 text-white px-8 py-3 rounded-r-full font-medium hover:bg-emerald-800 transition transform hover:scale-105">
-              Apply
-            </button>
-          </div>
-          
-          {/* Contact Info */}
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
-            required
-          />
-          <input
-            type="tel"
-            placeholder="Phone Number"
-            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
-            required
-          />
-          <input
-            type="text"
-            placeholder="Address"
-            className="w-full px-6 py-3 border border-gray-300 rounded text-gray-800"
-            required
-          />
-  
-          {/* Price Summary */}
-          <div className="mt-6 bg-white p-6 rounded-lg">
-            <div className="flex justify-between text-lg text-gray-700">
-              <p>Delivery Cost:</p>
-              <p>$10</p>
-            </div>
-            <div className="flex justify-between text-lg text-gray-700">
-              <p>Discount:</p>
-              <p>-$5</p>
-            </div>
-            <div className="border-t border-gray-300 my-4"></div>
-            <div className="flex justify-between text-2xl font-bold text-gray-900">
-              <p>Total:</p>
-              <p>${item.price + 10 - 5}</p>
-            </div>
-          </div>
-  
-          {/* Confirm Order */}
-          <button className="bg-emerald-600 text-white px-6 py-3 rounded-full w-full font-medium text-lg transition duration-300">
-            Confirm Order
-          </button>
-        </form>
-      </div>
-    </div>
-    </ScrollAnimation>
   )};
-  

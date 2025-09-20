@@ -1,41 +1,46 @@
 import { useState, useEffect } from 'react';
+import img1 from "../assets/images/womanstock/1.png";
+import img2 from "../assets/images/womanstock/2.png";
+import img3 from "../assets/images/womanstock/3.png";
+import img4 from "../assets/images/womanstock/4.png";
+import img5 from "../assets/images/womanstock/5.png";
 
 export default function ReviewsSection() {
     const reviews = [
         {
-          name: "Sarah Mitchell",
-          image: "https://randomuser.me/api/portraits/women/1.jpg", 
+          name: "Милена Георгиева",
+          image: img1, 
           rating: 5,
-          text: "The Diamond Eternity Ring exceeded all my expectations. The craftsmanship is impeccable, and it sparkles like nothing I've ever seen before!",
-          title: "Absolutely Stunning"
+          text: "Поръчах с малко притеснение, защото не обичам да купувам бижута онлайн, но бях приятно изненадана! Гривната е много стилна, а изработката изглежда качествена. Доставката беше навреме, добре опаковано, без забележки. Определено ще поръчам пак!",
+          title: "Без забележки"
         },
         {
-          name: "James Wilson",
-          image: "https://randomuser.me/api/portraits/men/2.jpg",
+          name: "Даниела Петрова",
+          image: img2,
           rating: 5, 
-          text: "My wife was speechless when I gave her the Sapphire Pendant. The quality and attention to detail is remarkable.",
-          title: "Perfect Anniversary Gift"
+          text: "Колието, което взех, е още по-красиво на живо! Стои елегантно и нежно, точно това, което търсех. Харесва ми, че не е твърде лъскаво, а с изчистен и стилен дизайн. Досега не бях поръчвала от този сайт, но останах доволна.",
+          title: "Стилен дизайн"
         },
         {
-          name: "Emily Chen",
-          image: "https://randomuser.me/api/portraits/women/3.jpg",
+          name: "Мария Николова",
+          image: img3,
           rating: 5,
-          text: "The Pearl Bracelet is pure elegance. Each pearl is perfectly matched and the gold settings are beautifully crafted.",
-          title: "Pure Elegance"
+          text: "Много съм доволна от покупката! Гривната, която взех, е лека, удобна и изглежда качествена. Носих я няколко пъти и не е променила цвета си, което беше най-голямото ми притеснение. Доставката отне няколко дни, но всичко беше наред.",
+          title: "Лека, удобна и качествена"
         },
         {
-          name: "Michael Brown",
-          image: "https://randomuser.me/api/portraits/men/4.jpg",
+          name: "Ивелина Стоянова",
+          image: img4,
           rating: 5,
-          text: "Outstanding service and even better jewelry. The pieces are exactly as described and the quality is exceptional.",
-          title: "Exceptional Quality"
+          text: "Купих обеци за подарък и приятелката ми беше очарована! Много фина изработка, без евтин блясък или тежест. Опаковката също беше хубава, което прави цялостното впечатление по-добро. Радвам се, че избрах точно този магазин.",
+          title: "Много фина изработка"
         },
         {
-          name: "Sofia Rodriguez",
-          image: "https://randomuser.me/api/portraits/women/5.jpg",
+          name: "Елица Василева",
+          image: img5,
           rating: 5,
-          text: "I've never received so many compliments on a piece of jewelry before. Truly a conversation starter!",
-          title: "Show Stopper"
+          text: "Поръчах си гривна и съм супер доволна! Размерът пасна идеално, а камъкът блести красиво на светлина. Нося я вече две седмици и изглежда като нова. Бях скептична в началото, но определено си заслужаваше.",
+          title: "Блести красиво на светлина"
         }
       ];
     
@@ -57,10 +62,10 @@ export default function ReviewsSection() {
       };
 
     return (
-        <section className="py-12 bg-white">
+        <section className="py-12 bg-accentbackground">
         <div className="container mx-auto px-4">
           <div className="text-center mb-10 relative">
-            <h2 className="text-4xl font-serif">What Our Clients Say</h2>
+            <h2 className="text-4xl font-serif text-text">Какво казват нашите клиенти</h2>
           </div>
 
           <div className="relative max-w-5xl mx-auto">
@@ -71,7 +76,7 @@ export default function ReviewsSection() {
               >
                 {reviews.map((review, index) => (
                   <div key={index} className="min-w-full">
-                    <div className="flex items-center gap-8 bg-gray-50 rounded-lg p-8">
+                    <div className="flex items-center gap-8 bg-background rounded-lg p-8 shadow-md">
                       <div className="w-1/3">
                         <img 
                           src={review.image} 
@@ -80,12 +85,12 @@ export default function ReviewsSection() {
                         />
                       </div>
                       <div className="w-2/3 space-y-3">
-                        <h3 className="text-2xl font-serif">{review.title}</h3>
-                        <div className="text-emerald-700 text-lg">
+                        <h3 className="text-2xl font-serif text-text">{review.title}</h3>
+                        <div className="text-discount text-lg">
                           {'★'.repeat(review.rating)}
                         </div>
-                        <p className="text-gray-600 text-lg">"{review.text}"</p>
-                        <p className="text-gray-800 font-medium">{review.name}</p>
+                        <p className="text-text text-lg">"{review.text}"</p>
+                        <p className="text-text font-medium">{review.name}</p>
                       </div>
                     </div>
                   </div>
