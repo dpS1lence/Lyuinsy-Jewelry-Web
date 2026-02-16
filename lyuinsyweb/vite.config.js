@@ -9,4 +9,13 @@ export default defineConfig({
     port: 3000, // Optional: Specify a port if needed
   },
   plugins: [react(), imagetools()],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    },
+  },
+  // Ensure proper routing for SPA
+  appType: "spa",
 });

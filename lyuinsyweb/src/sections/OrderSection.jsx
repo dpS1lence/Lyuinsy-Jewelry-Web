@@ -118,12 +118,13 @@ export default function OrderSection({ orderData }) {
       const totalPriceValue =
         mainItemPrice + orderedItemsPrice + deliveryFee - discount;
 
+      // Update inventory quantities
       await purchaseItem(orderData.mainItem.$id);
       for (const item of orderData.orderedItems) {
         await purchaseItem(item.$id);
       }
 
-      // Send email logic here
+      // Prepare email data
       const emailData = {
         user_name: "John Doe",
         user_email: "buterflycspro@gmail.com",
@@ -166,13 +167,21 @@ export default function OrderSection({ orderData }) {
         ], // Ensure itemIds is always an array
       };
 
-      await emailjs.send(
-        "service_jvj3h5g",
-        "template_esalbsu",
-        emailData,
-        "WvI-vMKQArYdGRtOQ",
-      );
+      // Try to send email, but don't block order creation if it fails
+      try {
+        await emailjs.send(
+          "service_jvj3h5g",
+          "template_esalbsu",
+          emailData,
+          "WvI-vMKQArYdGRtOQ",
+        );
+        console.log("Email sent successfully");
+      } catch (emailError) {
+        console.error("Error sending email:", emailError);
+        // Continue with order creation even if email fails
+      }
 
+      // Create order in database
       await createOrder(orderDataArr);
 
       navigate("/order-confirmation", {
