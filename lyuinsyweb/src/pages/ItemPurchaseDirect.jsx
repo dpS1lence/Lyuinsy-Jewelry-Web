@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import OrderSection from "../sections/OrderSection";
 import { getAllItems, getOneItemBySlug } from "../lib/appwrite";
+import OptimizedImage from "../components/OptimizedImage";
 import Lightbox from "yet-another-react-lightbox";
 import "yet-another-react-lightbox/styles.css";
 import ExpandableText from "../components/ExpandableText";
@@ -60,7 +61,7 @@ export default function ItemPurchaseDirect() {
   const handleAddToOrder = (upsellItem) => {
     setOrderedItems((prevOrdered) => [...prevOrdered, upsellItem]);
     setItems((prevItems) =>
-      prevItems.filter((item) => item.$id !== upsellItem.$id)
+      prevItems.filter((item) => item.$id !== upsellItem.$id),
     );
 
     // Smooth scroll to Main Item Section
@@ -76,7 +77,7 @@ export default function ItemPurchaseDirect() {
 
   const handleRemoveFromOrder = (itemToRemove) => {
     setOrderedItems((prevOrdered) =>
-      prevOrdered.filter((item) => item.$id !== itemToRemove.$id)
+      prevOrdered.filter((item) => item.$id !== itemToRemove.$id),
     );
 
     setItems((prevItems) => [...prevItems, itemToRemove]);
@@ -94,7 +95,7 @@ export default function ItemPurchaseDirect() {
                 ? allImages.slice(1, 4)
                 : allImages.slice(1)
               ).map((image, index) => (
-                <img
+                <OptimizedImage
                   key={index}
                   src={image}
                   alt={`Снимка на артикул ${index + 1}`}
@@ -107,7 +108,7 @@ export default function ItemPurchaseDirect() {
               ))}
             </div>
 
-            <img
+            <OptimizedImage
               src={item.image}
               alt={item.name}
               className="w-full object-cover shadow-sm cursor-pointer hover:opacity-90 transition"
@@ -184,7 +185,7 @@ export default function ItemPurchaseDirect() {
 
                 <div className="flex flex-col">
                   <div className="flex flex-col md:flex-row">
-                    <img
+                    <OptimizedImage
                       src={orderedItem.image}
                       alt={orderedItem.name}
                       className="md:w-48 object-cover rounded-lg mr-6 cursor-pointer transform transition-transform duration-200 hover:scale-105"
@@ -247,7 +248,7 @@ export default function ItemPurchaseDirect() {
                 <div key={upsell.$id} className="flex flex-col h-full">
                   <div className="bg-background border overflow-hidden p-4 flex flex-col h-full">
                     <div className="relative aspect-[4/3] mb-6">
-                      <img
+                      <OptimizedImage
                         src={upsell.image}
                         alt={upsell.name}
                         className="absolute inset-0 w-full h-full object-cover cursor-pointer"
@@ -258,7 +259,7 @@ export default function ItemPurchaseDirect() {
                           {Math.round(
                             ((upsell.oldPrice - upsell.actualPrice) /
                               upsell.oldPrice) *
-                              100
+                              100,
                           )}
                           %
                         </div>

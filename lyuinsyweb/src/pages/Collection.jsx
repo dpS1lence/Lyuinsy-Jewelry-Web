@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import ScrollAnimation from "../components/ScrollAnimation";
+import OptimizedImage from "../components/OptimizedImage";
 import { getOneCollectionBySlug } from "../lib/appwrite";
 
 const Collection = () => {
@@ -75,7 +76,7 @@ const Collection = () => {
                     className={quantity === 0 ? "pointer-events-none" : ""}
                   >
                     <div className="relative">
-                      <img
+                      <OptimizedImage
                         src={image}
                         alt={name}
                         className={`w-full h-64 object-cover ${

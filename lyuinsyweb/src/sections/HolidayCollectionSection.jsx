@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Changed from useNavigate to Link
 import { getAllItems } from "../lib/appwrite";
+import OptimizedImage from "../components/OptimizedImage";
 import { Databases } from "appwrite";
 
 export default function HolidayCollectionSection() {
@@ -27,7 +28,7 @@ export default function HolidayCollectionSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 relative">
           <h2 className="text-3xl font-serif mb-4 text-text">
-            Пролетна колекция
+            Нашата Колекция
           </h2>
         </div>
 
@@ -42,7 +43,7 @@ export default function HolidayCollectionSection() {
               >
                 <div className="relative overflow-hidden">
                   <Link to={`/item/${item.slug}`}>
-                    <img
+                    <OptimizedImage
                       src={item.image}
                       alt={item.name}
                       className={`w-full h-64 object-cover transition-transform duration-300 transform hover:scale-110 ${

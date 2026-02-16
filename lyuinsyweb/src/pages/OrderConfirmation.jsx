@@ -2,6 +2,7 @@ import React from "react";
 import { useLocation, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
+import OptimizedImage from "../components/OptimizedImage";
 
 export default function OrderConfirmation() {
   const location = useLocation();
@@ -106,7 +107,7 @@ export default function OrderConfirmation() {
             {/* Main Product */}
             <div className="mb-6 border-b border-gray-200 pb-6">
               <div className="flex items-center">
-                <img
+                <OptimizedImage
                   src={mainItem.image}
                   alt={mainItem.name}
                   className="w-24 h-24 object-cover rounded-lg"
@@ -131,7 +132,7 @@ export default function OrderConfirmation() {
                 </h4>
                 {orderedItems.map((item) => (
                   <div key={item.$id} className="flex items-center">
-                    <img
+                    <OptimizedImage
                       src={item.image}
                       alt={item.name}
                       className="w-20 h-20 object-cover rounded-lg"
@@ -227,7 +228,7 @@ OrderConfirmation.propTypes = {
             image: PropTypes.string.isRequired,
             actualPrice: PropTypes.number.isRequired,
             $id: PropTypes.string.isRequired,
-          })
+          }),
         ).isRequired,
       }),
       totalPrice: PropTypes.number,

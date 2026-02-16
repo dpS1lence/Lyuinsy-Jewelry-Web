@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { purchaseItem } from "../lib/appwrite";
 import { createOrder } from "../lib/appwrite";
 import CheckoutButton from "../components/CeckoutButton";
+import OptimizedImage from "../components/OptimizedImage";
 import Lightbox from "yet-another-react-lightbox";
 import card1 from "../assets/images/march-8-cards/1.png";
 import card2 from "../assets/images/march-8-cards/2.png";
@@ -58,18 +59,18 @@ export default function OrderSection({ orderData }) {
     }
 
     const enteredCode = formData.promoCode.trim().toUpperCase();
-    if (enteredCode === "SPRING25") {
+    if (enteredCode === "PROMO2026") {
       const itemsTotal =
         (orderData.mainItem?.actualPrice || 0) +
         orderData.orderedItems.reduce(
           (total, item) => total + item.actualPrice,
-          0
+          0,
         );
       const calculatedDiscount = itemsTotal * 0.1; // 10% discount
       setDiscount(calculatedDiscount);
       setPromoApplied(true);
       setPromoMessage(
-        "Промо кодът е успешно приложен! Получавате 10% отстъпка."
+        "Промо кодът е успешно приложен! Получавате 10% отстъпка.",
       );
     } else {
       setPromoMessage("Невалиден промо код.");
@@ -103,15 +104,15 @@ export default function OrderSection({ orderData }) {
       const mainItemPrice = orderData.mainItem?.actualPrice || 0;
       const orderedItemsPrice = orderData.orderedItems.reduce(
         (total, item) => total + item.actualPrice,
-        0
+        0,
       );
       const deliveryFee = Math.max(
         0,
-        mainItemPrice + orderedItemsPrice > 60
+        mainItemPrice + orderedItemsPrice > 30
           ? 0.0
           : deliveryOption === "home"
-          ? 6.99
-          : 5.99
+            ? 3.99
+            : 2.99,
       );
       const discountAmount = discount; // Existing fixed discount plus promo discount
       const totalPriceValue =
@@ -139,13 +140,13 @@ export default function OrderSection({ orderData }) {
           `Main Item: ${orderData.mainItem?.name}, Image: ${
             orderData.mainItem?.image
           }, ID: ${orderData.mainItem?.$id}, Price: ${mainItemPrice.toFixed(
-            2
+            2,
           )} €`,
           ...orderData.orderedItems.map(
             (item) =>
               `Upsell Item: ${item.name}, Image: ${item.image}, ID: ${
                 item.$id
-              }, Price: ${item.actualPrice.toFixed(2)} €`
+              }, Price: ${item.actualPrice.toFixed(2)} €`,
           ),
         ].join("\n"), // Join items for email
       };
@@ -169,7 +170,7 @@ export default function OrderSection({ orderData }) {
         "service_jvj3h5g",
         "template_esalbsu",
         emailData,
-        "WvI-vMKQArYdGRtOQ"
+        "WvI-vMKQArYdGRtOQ",
       );
 
       await createOrder(orderDataArr);
@@ -193,21 +194,21 @@ export default function OrderSection({ orderData }) {
   const mainItemPrice = orderData.mainItem?.actualPrice || 0;
   const orderedItemsPrice = orderData.orderedItems.reduce(
     (total, item) => total + item.actualPrice,
-    0
+    0,
   );
   const orderedItemsPriceNoDisc = orderData.orderedItems.reduce(
     (total, item) => total + item.oldPrice,
-    0
+    0,
   );
   const discountAmount = discount; // Fixed discount plus promo discount
 
   const deliveryFee = Math.max(
     0,
-    mainItemPrice + orderedItemsPrice > 60
+    mainItemPrice + orderedItemsPrice > 30
       ? 0.0
       : deliveryOption === "home"
-      ? 3.99
-      : 2.99
+        ? 3.99
+        : 2.99,
   );
   const totalPrice =
     mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
@@ -362,7 +363,7 @@ export default function OrderSection({ orderData }) {
                                     className="mr-2 accent-discount mt-2"
                                     onChange={() => handleCardSelection(index)}
                                 />
-                                <img src={image.src} alt={`Image ${index + 1}`} className="w-full h-auto" onClick={() => handleImageClick(index)} />
+                                <OptimizedImage src={image.src} alt={`Image ${index + 1}`} className="w-full h-auto" onClick={() => handleImageClick(index)} />
                             </label>
                         ))}
                     </div>

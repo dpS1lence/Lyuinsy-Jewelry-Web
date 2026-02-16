@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom"; // Changed from useNavigate to Link
 import { getAllItems } from "../lib/appwrite";
 import ScrollAnimation from "../components/ScrollAnimation";
+import OptimizedImage from "../components/OptimizedImage";
 import { Databases } from "appwrite";
 import pearl from "../../src/assets/images/prearl6.png";
 import video1 from "../../src/assets/videos/7.mp4";
@@ -69,7 +70,7 @@ export default function BestSellerSection() {
                 <div className="lg:w-3/5">
                   <div className="bg-background shadow-sm overflow-hidden">
                     <div className="relative">
-                      <img
+                      <OptimizedImage
                         src={item.image} // Assuming `image` holds the image URL
                         alt={item.title}
                         className={`w-full lg:h-[600px] object-cover ${
