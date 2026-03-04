@@ -6,7 +6,8 @@ export const appwriteConfig = {
   databaseId: import.meta.env.VITE_APPWRITE_DATABASE_ID,
   storageId: import.meta.env.VITE_APPWRITE_STORAGE_ID,
   itemsCollectionId: import.meta.env.VITE_APPWRITE_ITEMS_COLLECTION_ID,
-  collectionsCollectionId: import.meta.env.VITE_APPWRITE_COLLECTIONS_COLLECTION_ID,
+  collectionsCollectionId: import.meta.env
+    .VITE_APPWRITE_COLLECTIONS_COLLECTION_ID,
   collectionsEmailId: import.meta.env.VITE_APPWRITE_EMAIL_COLLECTION_ID,
   collectionsOrders: import.meta.env.VITE_APPWRITE_ORDERS_COLLECTION_ID,
 };
@@ -18,7 +19,7 @@ client
 
 const databases = new Databases(client);
 
-export async function saveEmail({email, date}){
+export async function saveEmail({ email, date }) {
   try {
     const item = await databases.createDocument(
       appwriteConfig.databaseId,
@@ -26,8 +27,8 @@ export async function saveEmail({email, date}){
       ID.unique(),
       {
         email,
-        date
-      }
+        date,
+      },
     );
 
     return item;
@@ -35,11 +36,18 @@ export async function saveEmail({email, date}){
     console.error("Error creating item:", error);
     throw error;
   }
-};
+}
 
-export async function createOrder({userNames, userAdress, userPhone, userEmail, totalPrice, promoCode, itemIds}){
+export async function createOrder({
+  userNames,
+  userAdress,
+  userPhone,
+  userEmail,
+  totalPrice,
+  promoCode,
+  itemIds,
+}) {
   try {
-    
     const item = await databases.createDocument(
       appwriteConfig.databaseId,
       appwriteConfig.collectionsOrders,
@@ -51,8 +59,8 @@ export async function createOrder({userNames, userAdress, userPhone, userEmail, 
         userPhone,
         userEmail,
         totalPrice,
-        promoCode
-      }
+        promoCode,
+      },
     );
 
     return item;
@@ -60,7 +68,7 @@ export async function createOrder({userNames, userAdress, userPhone, userEmail, 
     console.error("Error creating item:", error);
     throw error;
   }
-};
+}
 
 // Get all items
 export async function getAllItems(limit = 10, offset = 0) {
@@ -68,7 +76,7 @@ export async function getAllItems(limit = 10, offset = 0) {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.itemsCollectionId,
-      [Query.limit(limit), Query.offset(offset)]
+      [Query.limit(limit), Query.offset(offset)],
     );
 
     return response.documents;
@@ -76,28 +84,28 @@ export async function getAllItems(limit = 10, offset = 0) {
     console.error("Error fetching items:", error);
     throw error;
   }
-};
+}
 
 export async function getOneItem(id) {
   try {
     const item = await databases.getDocument(
       appwriteConfig.databaseId,
       appwriteConfig.itemsCollectionId,
-      id
+      id,
     );
     return item;
   } catch (error) {
     console.error("Error fetching item:", error);
     throw error;
   }
-};
+}
 
 export async function getOneItemBySlug(slug) {
   try {
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.itemsCollectionId,
-      [Query.equal("slug", slug)]
+      [Query.equal("slug", slug)],
     );
 
     if (response.documents.length === 0) {
@@ -117,7 +125,7 @@ export async function getOneCollectionBySlug(slug) {
       const items = await getAllItems(300, 0);
       return {
         name: "Всички бижута",
-        items: items
+        items: items,
       };
     }
 
@@ -125,14 +133,14 @@ export async function getOneCollectionBySlug(slug) {
       const items = await getAllItems(300, 0);
       return {
         name: "8 Март",
-        items: items
+        items: items,
       };
     }
 
     const response = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.collectionsCollectionId,
-      [Query.equal("slug", slug)]
+      [Query.equal("slug", slug)],
     );
 
     if (response.documents.length === 0) {
@@ -140,9 +148,11 @@ export async function getOneCollectionBySlug(slug) {
     }
 
     const items = await getAllItems(300, 0);
-    
+
     if (response) {
-      response.documents[0].items = items.filter(item => item.relatedCollection === response.documents[0].$id);
+      response.documents[0].items = items.filter(
+        (item) => item.relatedCollection === response.documents[0].$id,
+      );
     }
 
     return response.documents[0]; // Return the first match
@@ -152,13 +162,11 @@ export async function getOneCollectionBySlug(slug) {
   }
 }
 
-
-
 export async function getAllCollections() {
   try {
     const collections = await databases.listDocuments(
       appwriteConfig.databaseId,
-      appwriteConfig.collectionsCollectionId
+      appwriteConfig.collectionsCollectionId,
     );
 
     return collections.documents;
@@ -166,31 +174,35 @@ export async function getAllCollections() {
     console.error("Error fetching items:", error);
     throw error;
   }
-};
+}
 
 export async function getOneCollection(id) {
   try {
     const collections = await databases.listDocuments(
       appwriteConfig.databaseId,
-      appwriteConfig.collectionsCollectionId
+      appwriteConfig.collectionsCollectionId,
     );
 
     // Filter the collections to find the one with the given id
-    const collection = collections.documents.find(collection => collection.$id === id);
+    const collection = collections.documents.find(
+      (collection) => collection.$id === id,
+    );
     // Fetch all items
     const items = await getAllItems(300, 0);
-    
+
     // Add 'items' attribute to the collection with an array of items that belong to this collection
     if (collection) {
-      collection.items = items.filter(item => item.relatedCollection === collection.$id);
+      collection.items = items.filter(
+        (item) => item.relatedCollection === collection.$id,
+      );
     }
-    
+
     return collection || null; // Return the found collection or null if not found
   } catch (error) {
     console.error("Error fetching collection:", error);
     throw error;
   }
-};
+}
 
 export const purchaseItem = async (itemId) => {
   try {
@@ -231,7 +243,7 @@ export const updateItem = async (itemId, updatedData) => {
         special_offer: updatedData.specialOffer,
         quantity: updatedData.quantity,
         ...(image && { image }), // Only include image if a new image was uploaded
-      }
+      },
     );
 
     return updatedItem;

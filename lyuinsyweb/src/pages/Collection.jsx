@@ -39,6 +39,7 @@ const Collection = () => {
   }
 
   const { name, description, items } = collection;
+  const BGN_RATE = 1.95583;
 
   return (
     <section className="py-20">
@@ -109,18 +110,21 @@ const Collection = () => {
                       </p>
                       <div className="flex flex-col md:flex-row justify-between items-start">
                         <div className="flex flex-col items-start justify-center gap-1">
-                          {oldPrice ? (
+                          {oldPrice && oldPrice !== actualPrice ? (
                             <>
                               <span className="text-sm font-light line-through text-gray-500">
-                                {oldPrice.toFixed(2)}€
+                                {oldPrice.toFixed(2)}€ /{" "}
+                                {(oldPrice * BGN_RATE).toFixed(2)} лв.
                               </span>
                               <span className="text-2xl font-thin text-discount">
-                                {actualPrice.toFixed(2)}€
+                                {actualPrice.toFixed(2)}€ /{" "}
+                                {(actualPrice * BGN_RATE).toFixed(2)} лв.
                               </span>
                             </>
                           ) : (
-                            <span className="text-2xl font-thin text-text">
-                              {actualPrice.toFixed(2)}€
+                            <span className="text-2xl font-thin text-black">
+                              {actualPrice.toFixed(2)}€ /{" "}
+                              {(actualPrice * BGN_RATE).toFixed(2)} лв.
                             </span>
                           )}
                         </div>

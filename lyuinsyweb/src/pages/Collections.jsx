@@ -4,8 +4,6 @@ import { getAllCollections } from "../lib/appwrite";
 import { Databases } from "appwrite";
 import ScrollAnimation from "../components/ScrollAnimation";
 import OptimizedImage from "../components/OptimizedImage";
-import allofit from "../assets/images/allofit.png";
-import march8 from "../assets/images/march8collection.png";
 
 const Collections = () => {
   const [collections, setItems] = useState([]);
@@ -45,34 +43,15 @@ const Collections = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-serif mb-4 text-text">
-              Нашите Колекции
+              Нашите категории
             </h2>
             <p className="text-text">
-              Открийте нашите внимателно подбрани колекции, всяка от която
-              разказва своята уникална история
+              Открийте нашите внимателно подбрани категории, всяка от която
+              разказва своята уникална история.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Link to={`/collection/all`} key="all">
-              <div
-                className={`group cursor-pointer shadow-sm overflow-hidden transition-all duration-300`}
-              >
-                <div className="aspect-w-16 aspect-h-9 relative">
-                  <OptimizedImage
-                    src={allofit}
-                    alt="all"
-                    className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-serif mb-2 group-hover:text-text transition-colors">
-                    All Jewelry
-                  </h3>
-                  <p className="text-text mb-4">Всички бижута</p>
-                </div>
-              </div>
-            </Link>
             {collections.map((collection) => (
               <Link to={`/collection/${collection.slug}`} key={collection.id}>
                 <div

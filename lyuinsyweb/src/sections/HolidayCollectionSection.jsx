@@ -7,6 +7,7 @@ import { Databases } from "appwrite";
 export default function HolidayCollectionSection() {
   const [items, setItems] = useState([]);
   const databases = new Databases();
+  const BGN_RATE = 1.95583;
 
   useEffect(() => {
     // Fetch items from Appwrite
@@ -27,9 +28,7 @@ export default function HolidayCollectionSection() {
     <section className="py-10 bg-accentbackground">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12 relative">
-          <h2 className="text-3xl font-serif mb-4 text-text">
-            Нашата Колекция
-          </h2>
+          <h2 className="text-3xl font-serif mb-4 text-text">Избрани бижута</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -70,9 +69,22 @@ export default function HolidayCollectionSection() {
                   <h3 className="text-md mb-2 text-text">
                     {item.description.split(" ").slice(0, 3).join(" ") + "..."}
                   </h3>
-                  <div className="flex flex-col md:flex-row justify-between items-center">
-                    <span className="text-xl font-thin text-main">
-                      {item.actualPrice.toFixed(2)} €
+                  <div className="flex flex-col items-center">
+                    {item.oldPrice && item.oldPrice !== item.actualPrice && (
+                      <span className="text-sm font-light line-through text-gray-400">
+                        {item.oldPrice.toFixed(2)} € /{" "}
+                        {(item.oldPrice * BGN_RATE).toFixed(2)} лв.
+                      </span>
+                    )}
+                    <span
+                      className={`text-xl font-thin ${
+                        item.oldPrice && item.oldPrice !== item.actualPrice
+                          ? "text-discount"
+                          : "text-black"
+                      }`}
+                    >
+                      {item.actualPrice.toFixed(2)} € /{" "}
+                      {(item.actualPrice * BGN_RATE).toFixed(2)} лв.
                     </span>
                   </div>
                 </div>

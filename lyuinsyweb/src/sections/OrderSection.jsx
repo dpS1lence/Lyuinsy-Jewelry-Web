@@ -108,13 +108,13 @@ export default function OrderSection({ orderData }) {
       );
       const deliveryFee = Math.max(
         0,
-        mainItemPrice + orderedItemsPrice > 30
+        mainItemPrice + orderedItemsPrice > 50
           ? 0.0
           : deliveryOption === "home"
-            ? 3.99
-            : 2.99,
+            ? 4.8
+            : 3,
       );
-      const discountAmount = discount; // Existing fixed discount plus promo discount
+      const discountAmount = discount;
       const totalPriceValue =
         mainItemPrice + orderedItemsPrice + deliveryFee - discount;
 
@@ -206,23 +206,24 @@ export default function OrderSection({ orderData }) {
     0,
   );
   const orderedItemsPriceNoDisc = orderData.orderedItems.reduce(
-    (total, item) => total + item.oldPrice,
+    (total, item) => total + (item.oldPrice || item.actualPrice),
     0,
   );
   const discountAmount = discount; // Fixed discount plus promo discount
+  const BGN_RATE = 1.95583;
 
   const deliveryFee = Math.max(
     0,
-    mainItemPrice + orderedItemsPrice > 30
+    mainItemPrice + orderedItemsPrice > 50
       ? 0.0
       : deliveryOption === "home"
-        ? 3.99
-        : 2.99,
+        ? 4.8
+        : 3,
   );
   const totalPrice =
     mainItemPrice + orderedItemsPrice + deliveryFee - discountAmount;
   const totalPriceNoDiscount =
-    orderData.mainItem?.oldPrice +
+    (orderData.mainItem?.oldPrice || orderData.mainItem?.actualPrice || 0) +
     orderedItemsPriceNoDisc +
     deliveryFee -
     discountAmount;
@@ -309,8 +310,8 @@ export default function OrderSection({ orderData }) {
               onChange={handleInputChange}
             />
             <p className="absolute text-xs text-gray-500 mt-1">
-              *Доставка: 3.99€ (домашен адрес), 2.99€ (офис на Еконт или Спиди),
-              (БЕЗПЛАТНА за поръчки над 30€)
+              *Доставка: 4.80€ (домашен адрес), 3€ (офис на Спиди), (БЕЗПЛАТНА
+              за поръчки над 50€)
             </p>
           </div>
 
@@ -328,19 +329,6 @@ export default function OrderSection({ orderData }) {
                 />
                 <span className="text-lg font-semibold text-text">
                   Домашен адрес
-                </span>
-              </label>
-              <label className="flex items-center cursor-pointer transition-transform transform hover:scale-105">
-                <input
-                  type="radio"
-                  name="deliveryOption"
-                  value="econt"
-                  checked={deliveryOption === "econt"}
-                  onChange={handleDeliveryChange}
-                  className="mr-2 accent-discount"
-                />
-                <span className="text-lg font-semibold text-text">
-                  Офис на Еконт
                 </span>
               </label>
               <label className="flex items-center cursor-pointer transition-transform transform hover:scale-105">
@@ -382,23 +370,38 @@ export default function OrderSection({ orderData }) {
           <div className="mt-6 bg-white rounded-lg">
             <div className="flex justify-between text-lg text-text">
               <p>Цена за Доставка</p>
-              <p>{deliveryFee.toFixed(2)}€</p>{" "}
-              {/* Display dynamic delivery fee */}
+              <p>
+                {deliveryFee.toFixed(2)}€ /{" "}
+                {(deliveryFee * BGN_RATE).toFixed(2)} лв.
+              </p>
             </div>
             {promoApplied && (
               <div className="flex justify-between text-lg text-text">
                 <p>Промо Отстъпка (10%)</p>
-                <p className="text-discount">-{discount.toFixed(2)}€</p>
+                <p className="text-discount">
+                  -{discount.toFixed(2)}€ / -{(discount * BGN_RATE).toFixed(2)}{" "}
+                  лв.
+                </p>
               </div>
             )}
             <div className="border-t border-gray-300 my-4"></div>
             <div className="flex justify-between text-2xl text-text">
               <p>Общо:</p>
-              <p className="text-discount ">
-                <span className="font-extralight text-text text-xl line-through">
-                  {totalPriceNoDiscount.toFixed(2)} €
-                </span>{" "}
-                {totalPrice.toFixed(2)} €
+              <p
+                className={
+                  totalPriceNoDiscount !== totalPrice
+                    ? "text-discount"
+                    : "text-black"
+                }
+              >
+                {totalPriceNoDiscount !== totalPrice && (
+                  <span className="font-extralight text-text text-xl line-through mr-2">
+                    {totalPriceNoDiscount.toFixed(2)} € /{" "}
+                    {(totalPriceNoDiscount * BGN_RATE).toFixed(2)} лв.
+                  </span>
+                )}
+                {totalPrice.toFixed(2)} € / {(totalPrice * BGN_RATE).toFixed(2)}{" "}
+                лв.
               </p>
             </div>
           </div>

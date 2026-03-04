@@ -87,7 +87,7 @@ export default function Layout() {
                 to="/collections"
                 className="cursor-pointer text-text hover:text-hover transition-colors font-medium mb-5 md:mb-0 pl-5 md:pl-0"
               >
-                Колекции
+                Категории
               </Link>
               <Link
                 to="/about"
@@ -136,7 +136,7 @@ export default function Layout() {
               to="/collections"
               className="cursor-pointer text-text font-medium pl-5"
             >
-              <Menu name="bars" className="inline-block mr-2" /> Колекции
+              <Menu name="bars" className="inline-block mr-2" /> Категории
             </Link>
           </div>
         </div>
@@ -172,7 +172,7 @@ export default function Layout() {
               to="/collections"
               className="cursor-pointer text-text font-medium pl-5"
             >
-              Колекции
+              Категории
             </Link>
           </div>
         </div>
@@ -189,7 +189,7 @@ export default function Layout() {
           </h2>
           <p className="text-text max-w-2xl mx-auto mb-12 text-lg">
             Бъдете първите, които ще получат достъп до нашите ексклузивни
-            колекции. Получавайте персонализирани препоръки и VIP-ексклузивни
+            категории. Получавайте персонализирани препоръки и VIP-ексклузивни
             отстъпки.
           </p>
           <div className="max-w-md mx-auto bg-background p-1 rounded-full backdrop-blur-sm mb-8">

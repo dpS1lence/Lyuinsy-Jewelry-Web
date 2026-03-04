@@ -29,7 +29,7 @@ export default function SpringFunnel() {
                   to="/collection/all"
                   className="bg-black text-white border border-black px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 font-medium inline-block hover:bg-white hover:text-black transition-colors text-sm sm:text-base"
                 >
-                  Разгледай колекцията
+                  Разгледай категорията
                 </Link>
               </div>
             </div>
@@ -188,7 +188,7 @@ export default function SpringFunnel() {
               to="/collections"
               className="bg-white text-black border border-black px-8 py-4 font-medium inline-block hover:bg-black hover:text-white transition-colors"
             >
-              Разгледай всички колекции
+              Разгледай всички категории
             </Link>
           </div>
         </div>
@@ -297,7 +297,7 @@ export default function SpringFunnel() {
               to="/collections"
               className="bg-white text-black px-8 py-4 font-medium hover:bg-gray-200 transition-colors"
             >
-              Разгледай колекциите
+              Разгледай категориите
             </Link>
             <Link
               to="/collection/all"

@@ -74,6 +74,7 @@ export default function ItemPurchaseDirect() {
     mainItem: item,
     orderedItems: orderedItems,
   };
+  const BGN_RATE = 1.95583;
 
   const handleRemoveFromOrder = (itemToRemove) => {
     setOrderedItems((prevOrdered) =>
@@ -127,13 +128,21 @@ export default function ItemPurchaseDirect() {
             <ExpandableText text={item.description} />
             <p className="text-sm md:text-md text-text">{item.deliveryDate}</p>
 
-            {item.oldPrice && (
-              <p className="text-lg text-right line-through text-text mb-2">
-                {item.oldPrice.toFixed(2)} €
+            {item.oldPrice && item.oldPrice !== item.actualPrice && (
+              <p className="text-lg text-right line-through text-text mb-1">
+                {item.oldPrice.toFixed(2)} € /{" "}
+                {(item.oldPrice * BGN_RATE).toFixed(2)} лв.
               </p>
             )}
-            <p className="text-3xl text-right md:text-4xl font-thin text-discount">
-              {item.actualPrice.toFixed(2)} €
+            <p
+              className={`text-3xl text-right md:text-4xl font-thin ${
+                item.oldPrice && item.oldPrice !== item.actualPrice
+                  ? "text-discount"
+                  : "text-black"
+              }`}
+            >
+              {item.actualPrice.toFixed(2)} € /{" "}
+              {(item.actualPrice * BGN_RATE).toFixed(2)} лв.
             </p>
 
             <p
@@ -204,13 +213,23 @@ export default function ItemPurchaseDirect() {
                   </div>
                   <div className="flex flex-col">
                     <div className="flex flex-col items-end text-right pr-4">
-                      {orderedItem.oldPrice && (
-                        <p className="text-lg line-through text-text mb-2">
-                          {orderedItem.oldPrice.toFixed(2)} €
-                        </p>
-                      )}
-                      <p className="text-3xl font-thin text-discount">
-                        {orderedItem.actualPrice.toFixed(2)} €
+                      {orderedItem.oldPrice &&
+                        orderedItem.oldPrice !== orderedItem.actualPrice && (
+                          <p className="text-lg line-through text-text mb-1">
+                            {orderedItem.oldPrice.toFixed(2)} € /{" "}
+                            {(orderedItem.oldPrice * BGN_RATE).toFixed(2)} лв.
+                          </p>
+                        )}
+                      <p
+                        className={`text-3xl font-thin ${
+                          orderedItem.oldPrice &&
+                          orderedItem.oldPrice !== orderedItem.actualPrice
+                            ? "text-discount"
+                            : "text-black"
+                        }`}
+                      >
+                        {orderedItem.actualPrice.toFixed(2)} € /{" "}
+                        {(orderedItem.actualPrice * BGN_RATE).toFixed(2)} лв.
                       </p>
                       <p className="text-md text-text mt-2">
                         Специално намаление!
@@ -270,14 +289,24 @@ export default function ItemPurchaseDirect() {
                       <h4 className="text-2xl font-serif text-text mb-4">
                         {upsell.name}
                       </h4>
-                      <div className="flex items-end gap-3 mb-4">
-                        {upsell.oldPrice && (
-                          <p className="text-lg text-text line-through">
-                            {upsell.oldPrice.toFixed(2)} €
-                          </p>
-                        )}
-                        <p className="text-2xl font-thin text-discount">
-                          {upsell.actualPrice.toFixed(2)} €
+                      <div className="flex flex-col items-end gap-1 mb-4">
+                        {upsell.oldPrice &&
+                          upsell.oldPrice !== upsell.actualPrice && (
+                            <p className="text-lg text-text line-through">
+                              {upsell.oldPrice.toFixed(2)} € /{" "}
+                              {(upsell.oldPrice * BGN_RATE).toFixed(2)} лв.
+                            </p>
+                          )}
+                        <p
+                          className={`text-2xl font-thin ${
+                            upsell.oldPrice &&
+                            upsell.oldPrice !== upsell.actualPrice
+                              ? "text-discount"
+                              : "text-black"
+                          }`}
+                        >
+                          {upsell.actualPrice.toFixed(2)} € /{" "}
+                          {(upsell.actualPrice * BGN_RATE).toFixed(2)} лв.
                         </p>
                       </div>
                       <div className="bg-accentbackground rounded-lg p-4 mb-6">

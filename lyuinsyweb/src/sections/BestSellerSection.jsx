@@ -12,6 +12,7 @@ export default function BestSellerSection() {
   const [items, setItems] = useState([]);
   const databases = new Databases();
   const videoRef = useRef(null);
+  const BGN_RATE = 1.95583;
 
   useEffect(() => {
     // Fetch items from Appwrite
@@ -110,11 +111,23 @@ export default function BestSellerSection() {
                     <div className="space-y-6">
                       <div className="flex flex-col lg:flex-row justify-between items-center">
                         <div className="flex items-center gap-3">
-                          <span className="text-4xl font-light line-through text-gray-400">
-                            {item.oldPrice.toFixed(2)}€
-                          </span>
-                          <span className="text-4xl font-bold text-main">
-                            {item.actualPrice.toFixed(2)}€
+                          {item.oldPrice &&
+                            item.oldPrice !== item.actualPrice && (
+                              <span className="text-2xl font-light line-through text-gray-400">
+                                {item.oldPrice.toFixed(2)}€ /{" "}
+                                {(item.oldPrice * BGN_RATE).toFixed(2)} лв.
+                              </span>
+                            )}
+                          <span
+                            className={`text-2xl font-bold ${
+                              item.oldPrice &&
+                              item.oldPrice !== item.actualPrice
+                                ? "text-main"
+                                : "text-black"
+                            }`}
+                          >
+                            {item.actualPrice.toFixed(2)}€ /{" "}
+                            {(item.actualPrice * BGN_RATE).toFixed(2)} лв.
                           </span>
                         </div>
                         <span className="text-main">{`★★★★★`}</span>

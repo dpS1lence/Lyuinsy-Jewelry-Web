@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { getAllCollections } from "../lib/appwrite";
 import { Databases } from "appwrite";
 import OptimizedImage from "../components/OptimizedImage";
-import allofit from "../assets/images/allofit.png";
-import march8collection from "../assets/images/march8collection.png";
 
 export default function CollectionsSection() {
   const [collections, setItems] = useState([]);
@@ -29,29 +27,11 @@ export default function CollectionsSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-14">
           <h2 className="text-5xl font-serif mb-4 text-text">
-            Нашите Колекции
+            Нашите категории
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Link
-            key="all"
-            to={`/collection/all`}
-            className={`group cursor-pointer bg-background overflow-hidden transition-all duration-300`}
-          >
-            <div className="aspect-w-16 aspect-h-9 relative">
-              <OptimizedImage
-                src={allofit}
-                alt="all"
-                className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <div className="p-6 bg-[#ffffff]">
-              <h3 className="text-2xl font-serif mb-2 transition-colors">
-                All of it
-              </h3>
-            </div>
-          </Link>
           {collections.map((collection) => (
             <Link
               key={collection.$id}
